@@ -74,11 +74,21 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DGE.cs" />
+    <Compile Include="Engine\Define\EngineClassName.cs" />
+    <Compile Include="Engine\Define\EngineConst.cs" />
+    <Compile Include="Engine\Define\EngineErrorName.cs" />
     <Compile Include="Engine\Define\GameConst.cs" />
     <Compile Include="Engine\Define\GameWindow.cs" />
     <Compile Include="Engine\EngineObject.cs" />
     <Compile Include="Engine\Manager\AudioManager.cs" />
+    <Compile Include="Engine\Manager\DebugManager.cs" />
+    <Compile Include="Engine\Manager\EngineManager.cs" />
+    <Compile Include="Engine\Manager\GraphicsManager.cs" />
+    <Compile Include="Engine\Manager\InputManager.cs" />
+    <Compile Include="Engine\Manager\SceneManager.cs" />
     <Compile Include="Engine\Others\GameTool.cs" />
+    <Compile Include="Engine\Resource\Resource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="GameDawn.cs" />

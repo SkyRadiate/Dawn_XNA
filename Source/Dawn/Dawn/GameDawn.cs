@@ -21,7 +21,6 @@ namespace Dawn
         
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Engine.Manager.AudioManager Audio = new Engine.Manager.AudioManager();
         public GameDawn()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -30,8 +29,7 @@ namespace Dawn
             graphics.PreferredBackBufferHeight = Engine.Define.GameWindow.Height();
             graphics.PreferredBackBufferWidth = Engine.Define.GameWindow.Width();
 
-            Audio.Initialize();
-
+            DGE.Initialize();
         }
 
         /// <summary>
@@ -81,10 +79,11 @@ namespace Dawn
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
+            /*
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
-
+                this.Exit();*/
             // TODO: Add your update logic here
+            DGE.Update();
 
             base.Update(gameTime);
         }
