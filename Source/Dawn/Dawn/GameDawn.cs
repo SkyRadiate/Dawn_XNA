@@ -30,6 +30,15 @@ namespace Dawn
             graphics.PreferredBackBufferWidth = Engine.Define.GameWindow.Width();
 
             DGE.Initialize();
+
+            Engine.Resource.AudioStream audios = new Engine.Resource.AudioStream("../../Data/Audio/tmp.mp3");
+
+            Engine.Resource.Audio audio = new Engine.Resource.Audio("../../Data/Audio/3711.mp3");
+            audio.Load();
+            audios.Load();
+            DGE.Audio.PlayBGS(audio);
+            DGE.Audio.PlayBGM(audios);
+            //DGE.Audio.StopUnknown();
         }
 
         /// <summary>

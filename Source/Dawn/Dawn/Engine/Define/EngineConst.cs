@@ -12,7 +12,8 @@ namespace Dawn.Engine.Define
 
         public enum AudioManager_ChannelType
         {
-            Unknown = 0,
+            UnknownMusic = 0,
+            UnknownEffect,
             Empty,
             BGM, BGS, BGE,
             ME, SE

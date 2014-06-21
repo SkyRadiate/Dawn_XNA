@@ -36,7 +36,7 @@ namespace Dawn.Engine.Manager
 
         public void Update()
         {
-
+            Audio.Update();
         }
     }
 }

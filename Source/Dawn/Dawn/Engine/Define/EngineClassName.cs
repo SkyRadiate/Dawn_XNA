@@ -25,6 +25,8 @@ namespace Dawn.Engine.Define
         public static string CacheManager() { return "CacheManager"; }
         public static string InputManager() { return "InputManager"; }
         public static string SceneManager() { return "SceneManager"; }
-
+        public static string Resource() { return "Resource"; }
+        public static string AudioResource() { return "AudioResource"; }
+        public static string AudioStreamResource() { return "AudioStreamResource"; }
     }
 }

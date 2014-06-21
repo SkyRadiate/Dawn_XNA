@@ -7,13 +7,22 @@ namespace Dawn.Engine.Resource
 {
     class Resource : EngineObject
     {
-        private bool _isLoad;
+        public override string ObjectClassName() { return Define.EngineClassName.Resource(); }
+        protected string _filename;
+        protected bool _isLoad;
         public Resource()
         {
             _isLoad = false;
+            _filename = "";
         }
 
-        public void Dispose()
+        public Resource(string filename)
+            : this()
+        {
+            _filename = filename;
+        }
+
+        protected void Dispose()
         {
             if(isLoad())
             {
@@ -26,13 +35,21 @@ namespace Dawn.Engine.Resource
             Dispose();
         }
 
-        public void Load()
+        public virtual void Load()
         {
+            if(isLoad())
+            {
+                DGE.Debug.Error(this, Define.EngineErrorName.Resource_CannotLoad(), GetErrorDetail());
+            }
             _isLoad = true;
         }
 
-        public void Unload()
+        public virtual void Unload()
         {
+            if (!isLoad())
+            {
+                DGE.Debug.Error(this, Define.EngineErrorName.Resource_CannotUnload(), GetErrorDetail());
+            }
             _isLoad = false;
         }
 
@@ -41,7 +58,7 @@ namespace Dawn.Engine.Resource
             return _isLoad;
         }
 
-        public bool GetResource()
+        public virtual bool GetResource()
         {
             if (isLoad())
             {
@@ -49,9 +66,43 @@ namespace Dawn.Engine.Resource
             }
             else
             {
-
+                DGE.Debug.Error(this, Define.EngineErrorName.Resource_CannotGetResource(), GetErrorDetail());
                 return false;
             }
+        }
+
+        public void Reload()
+        {
+            if(isLoad())
+            {
+                Unload();
+                Load();
+            }
+            else
+            {
+                DGE.Debug.Error(this, Define.EngineErrorName.Resource_CannotReload(), GetErrorDetail());
+            }
+        }
+
+        public string filename 
+        { 
+            get { return _filename; } 
+            set 
+            {
+                if (!isLoad())
+                {
+                    _filename = filename;
+                }
+                else
+                {
+                    DGE.Debug.Error(this, Define.EngineErrorName.Resource_CannotChangeFilename(), GetErrorDetail());
+                }
+            } 
+        }
+
+        protected string GetErrorDetail()
+        {
+            return Define.EngineErrorDetail.Filename() + Define.EngineErrorDetail.Separator() + _filename;
         }
     }
 }

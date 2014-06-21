@@ -59,6 +59,9 @@
     <PlatformTarget>x86</PlatformTarget>
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
@@ -77,6 +80,7 @@
     <Compile Include="DGE.cs" />
     <Compile Include="Engine\Define\EngineClassName.cs" />
     <Compile Include="Engine\Define\EngineConst.cs" />
+    <Compile Include="Engine\Define\EngineErrorDetail.cs" />
     <Compile Include="Engine\Define\EngineErrorName.cs" />
     <Compile Include="Engine\Define\GameConst.cs" />
     <Compile Include="Engine\Define\GameWindow.cs" />
@@ -88,6 +92,8 @@
     <Compile Include="Engine\Manager\InputManager.cs" />
     <Compile Include="Engine\Manager\SceneManager.cs" />
     <Compile Include="Engine\Others\GameTool.cs" />
+    <Compile Include="Engine\Resource\Audio.cs" />
+    <Compile Include="Engine\Resource\AudioStream.cs" />
     <Compile Include="Engine\Resource\Resource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
