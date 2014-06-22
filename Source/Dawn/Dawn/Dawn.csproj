@@ -99,6 +99,7 @@
     <Compile Include="Engine\Resource\Audio.cs" />
     <Compile Include="Engine\Resource\AudioStream.cs" />
     <Compile Include="Engine\Resource\Resource.cs" />
+    <Compile Include="Engine\Resource\Texture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="GameDawn.cs" />

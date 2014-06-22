@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Microsoft.Xna.Framework.Graphics;
+using Dawn.Engine.Resource;
 
 namespace Dawn.Engine.Manager
 {
@@ -16,10 +16,10 @@ namespace Dawn.Engine.Manager
 
 		}
 
-		public Texture2D Graphics(string filename)
+		public Texture Graphics(string filename)
 		{
-			Texture2D tex;
-			tex = DGE.Data.Content.Load<Texture2D>(DGE.Data.Graphics(filename));
+			Texture tex = new Texture(DGE.Data.Graphics(filename));
+			tex.Load();
 			return tex;
 		}
 	}

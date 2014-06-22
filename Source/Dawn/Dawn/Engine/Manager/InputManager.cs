@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Dawn.Engine.Resource;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Dawn.Engine.Manager
 {
     class InputManager : EngineObject
     {
-		private Texture2D mouseTexture;
+		private Texture mouseTexture;
         public override string ObjectClassName() { return Define.EngineClassName.InputManager(); }
         public InputManager()
         {
@@ -29,7 +29,7 @@ namespace Dawn.Engine.Manager
 
 		private void RenderMouse(object sender,EventArgs e)
 		{
-			DGE.Graphics.Canvas.Draw(mouseTexture, new Vector2(DGE.Game._MouseInputState.X, DGE.Game._MouseInputState.Y), Color.White);
+			DGE.Graphics.Draw(mouseTexture, new Vector2(DGE.Game._MouseInputState.X, DGE.Game._MouseInputState.Y), Color.White);
 		}
     }
 }

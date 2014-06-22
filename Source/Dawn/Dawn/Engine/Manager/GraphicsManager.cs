@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Dawn.Engine.Resource;
 
 namespace Dawn.Engine.Manager
 {
@@ -71,6 +73,34 @@ namespace Dawn.Engine.Manager
 			OnPostRender();
 			Canvas.End();
 			OnEndUpdate();
+		}
+		public void Draw(Texture texture, Rectangle destinationRectangle, Color color)
+		{
+			Canvas.Draw(texture.GetTexture(), destinationRectangle, color);
+		}
+		public void Draw(Texture texture, Vector2 position, Color color)
+		{
+			Canvas.Draw(texture.GetTexture(), position, color);
+		}
+		public void Draw(Texture texture, Rectangle destinationRectangle, Rectangle? sourceRectangle, Color color)
+		{
+			Canvas.Draw(texture.GetTexture(), destinationRectangle, sourceRectangle, color);
+		}
+		public void Draw(Texture texture, Vector2 position, Rectangle? sourceRectangle, Color color)
+		{
+			Canvas.Draw(texture.GetTexture(), position, sourceRectangle, color);
+		}
+		public void Draw(Texture texture, Rectangle destinationRectangle, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, Microsoft.Xna.Framework.Graphics.SpriteEffects effects, float layerDepth)
+		{
+			Canvas.Draw(texture.GetTexture(), destinationRectangle, sourceRectangle, color, rotation, origin, effects, layerDepth);
+		}
+		public void Draw(Texture texture, Vector2 position, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, float scale, Microsoft.Xna.Framework.Graphics.SpriteEffects effects, float layerDepth)
+		{
+			Canvas.Draw(texture.GetTexture(), position, sourceRectangle, color, rotation, origin, scale, effects, layerDepth);
+		}
+		public void Draw(Texture texture, Vector2 position, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, Vector2 scale, Microsoft.Xna.Framework.Graphics.SpriteEffects effects, float layerDepth)
+		{
+			Canvas.Draw(texture.GetTexture(), position, sourceRectangle, color, rotation, origin, scale, effects, layerDepth);
 		}
     }
 }
