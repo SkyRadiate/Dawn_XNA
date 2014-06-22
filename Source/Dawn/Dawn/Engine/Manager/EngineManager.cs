@@ -13,7 +13,6 @@ namespace Dawn.Engine.Manager
         private GraphicsManager _Graphics;
         private InputManager _Input;
         private DataManager _Data;
-
         public AudioManager Audio { get { return _Audio;} }
         public DebugManager Debug { get { return _Debug; } }
         public GraphicsManager Graphics { get { return _Graphics; } }
@@ -58,9 +57,10 @@ namespace Dawn.Engine.Manager
 
 			OnStart();
         }
-
         public void Update()
         {
+
+
             Audio.Update();
 			Graphics.Update();
         }

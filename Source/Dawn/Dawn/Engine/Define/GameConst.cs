@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Dawn.Engine.Define
 {
+	
 	static class GameConst
 	{
 		public static string GameName() { return "TRUE"; }
@@ -29,5 +30,7 @@ namespace Dawn.Engine.Define
 		}
 
 		public static bool ShowCursor() { return false; }
+
+		public static int FramePerSecond() { return 60; }
 	}
 }

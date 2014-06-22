@@ -70,6 +70,8 @@ namespace Dawn.Engine.Manager
 			Canvas.Begin();
 			OnPreRender();
 
+			Scenes.Update();
+
 			OnPostRender();
 			Canvas.End();
 			OnEndUpdate();

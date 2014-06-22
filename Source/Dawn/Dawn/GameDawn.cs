@@ -29,12 +29,19 @@ namespace Dawn
 
 			Content.RootDirectory = Dawn.Engine.Manager.DataManager.ContentPath();
 
-            
+			this.IsMouseVisible = Engine.Define.GameConst.ShowCursor();
+			this.IsFixedTimeStep = true;
+			this.TargetElapsedTime = new TimeSpan(10000000 / Dawn.Engine.Define.GameConst.FramePerSecond());
         }
+
+		~GameDawn()
+		{
+			DGEProcess.End();
+		}
         protected override void Initialize()
         {
 			Window.Title = Engine.Define.GameConst.GameTitleName();
-			this.IsMouseVisible = Engine.Define.GameConst.ShowCursor();
+			
             Engine.Others.GameTool.SetWindowPosition(Window, Engine.Define.GameWindow.StartPositionX(Window), Engine.Define.GameWindow.StartPositionY(Window));
 
             base.Initialize();
@@ -45,7 +52,6 @@ namespace Dawn
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            fontDefault = this.Content.Load<SpriteFont>(@"Fonts\Default");
         }
         protected override void UnloadContent()
         {
@@ -55,19 +61,17 @@ namespace Dawn
         {
 			base.Update(gameTime);
         }
-
-        SpriteFont fontDefault;
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Engine.Define.GameWindow.BackgroundColor());
             DGE.Update();
-
             base.Draw(gameTime);
         }
 
 		public ContentManager _ContentManager { get { return Content; } }
 		public SpriteBatch _SpriteBatch { get { return spriteBatch; } }
 		public MouseState _MouseInputState { get { return Mouse.GetState(); } }
+
 		public void _SetMousePosition(int x,int y)
 		{
 			Mouse.SetPosition(x, y);
