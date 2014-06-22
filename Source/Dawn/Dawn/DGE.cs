@@ -8,6 +8,7 @@ namespace Dawn
 {    
     static class DGE
     {
+		
         private static Engine.Manager.EngineManager engine;
         public static void Initialize()
         {
@@ -19,6 +20,11 @@ namespace Dawn
         public static GraphicsManager Graphics { get { return engine.Graphics; } }
         public static InputManager Input { get { return engine.Input; } }
         public static SceneManager Scenes { get { return engine.Scenes; } }
+        public static DataManager Data { get { return engine.Data; } }
+		public static EngineManager Engine { get { return engine; } }
+		public static CacheManager Cache { get { return engine.Cache; } }
+
+		public static GameDawn Game { get { return engine.Game; } }
         public static void Update() { engine.Update(); }
     }
 

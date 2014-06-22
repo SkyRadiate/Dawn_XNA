@@ -22,6 +22,7 @@ namespace Dawn.Engine.Define
         public static string EngineManager() { return "EngineManager"; }
         public static string GraphicsManager() { return "GraphicsManager"; }
         public static string DataManager() { return "DataManager"; }
+		public static string EventManager() { return "EventManager"; }
         public static string CacheManager() { return "CacheManager"; }
         public static string InputManager() { return "InputManager"; }
         public static string SceneManager() { return "SceneManager"; }

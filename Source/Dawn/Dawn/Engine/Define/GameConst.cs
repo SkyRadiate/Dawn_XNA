@@ -5,27 +5,29 @@ using System.Text;
 
 namespace Dawn.Engine.Define
 {
-    static class GameConst
-    {
-        public static string GameName() { return "TRUE"; }
+	static class GameConst
+	{
+		public static string GameName() { return "TRUE"; }
 
-        public static string GameTitleName()
-        {
-            string Temp = "";
+		public static string GameTitleName()
+		{
+			string Temp = "";
 #if DEBUG
-            Temp += "[";
+   Temp += "[";
 
-            Temp += "Debug";
+   Temp += "Debug";
 
 #if WIN64
-            Temp += " x64";
+   Temp += " x64";
 #else
-            Temp += " x86";
+   Temp += " x86";
 #endif
-            Temp += "]";
+   Temp += "]";
 #endif
 
-            return GameName() + " " + Temp;
-        }
-    }
+			return GameName() + " " + Temp;
+		}
+
+		public static bool ShowCursor() { return false; }
+	}
 }

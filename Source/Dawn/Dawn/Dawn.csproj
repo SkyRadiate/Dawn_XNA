@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DGE.cs" />
+    <Compile Include="DGEProcess.cs" />
     <Compile Include="Engine\Define\EngineClassName.cs" />
     <Compile Include="Engine\Define\EngineConst.cs" />
     <Compile Include="Engine\Define\EngineErrorDetail.cs" />
@@ -86,8 +87,11 @@
     <Compile Include="Engine\Define\GameWindow.cs" />
     <Compile Include="Engine\EngineObject.cs" />
     <Compile Include="Engine\Manager\AudioManager.cs" />
+    <Compile Include="Engine\Manager\CacheManager.cs" />
+    <Compile Include="Engine\Manager\DataManager.cs" />
     <Compile Include="Engine\Manager\DebugManager.cs" />
     <Compile Include="Engine\Manager\EngineManager.cs" />
+    <Compile Include="Engine\Manager\EventManager.cs" />
     <Compile Include="Engine\Manager\GraphicsManager.cs" />
     <Compile Include="Engine\Manager\InputManager.cs" />
     <Compile Include="Engine\Manager\SceneManager.cs" />
