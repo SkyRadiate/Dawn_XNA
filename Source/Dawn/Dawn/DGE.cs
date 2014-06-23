@@ -23,7 +23,7 @@ namespace Dawn
         public static DataManager Data { get { return engine.Data; } }
 		public static EngineManager Engine { get { return engine; } }
 		public static CacheManager Cache { get { return engine.Cache; } }
-
+		public static ThreadManager Threads { get { return engine.Threads; } }
 		public static GameDawn Game { get { return engine.Game; } }
         public static void Update() { engine.Update(); }
     }

@@ -15,14 +15,17 @@ namespace Dawn.Engine.Manager
         private FMOD.System system ;
         private FMOD.Channel[] channel;
         private Define.EngineConst.AudioManager_ChannelType []channelType;
+		private Processor.AudioManager.AudioProcessor[] Processor;
         public AudioManager()
         {
             channel = new FMOD.Channel[Define.EngineConst.AudioManager_MaxChannels()];
             channelType = new Define.EngineConst.AudioManager_ChannelType[Define.EngineConst.AudioManager_MaxChannels()];
-            for (int i = 0; i < Define.EngineConst.AudioManager_MaxChannels(); i++)
+			Processor = new Processor.AudioManager.AudioProcessor[Define.EngineConst.AudioManager_MaxChannels()];			
+			for (int i = 0; i < Define.EngineConst.AudioManager_MaxChannels(); i++)
             {
                 channelType[i] = Define.EngineConst.AudioManager_ChannelType.Empty;
-                channel[i] = null;
+				channel[i] = new FMOD.Channel();
+				Processor[i] = null;
             }
         }
 
@@ -67,7 +70,9 @@ namespace Dawn.Engine.Manager
 
         protected void __Play(int channelID, Resource.Audio audio)
         {
-            FMODRun(system.playSound(CHANNELINDEX.REUSE, audio.GetSound(), false, ref ChannelID()[channelID]));
+            //FMODRun(system.playSound(CHANNELINDEX.REUSE, audio.GetSound(), false, ref ChannelID()[channelID]));
+			FMOD.Channel tmpChannel = _ChannelID(channelID);
+			FMODRun(system.playSound(CHANNELINDEX.REUSE, audio.GetSound(), false, ref tmpChannel));
         }
 
         protected int FindChannel(Define.EngineConst.AudioManager_ChannelType type)
@@ -93,10 +98,15 @@ namespace Dawn.Engine.Manager
             Channel = channel[id];
         }
          * */
+		protected FMOD.Channel _ChannelID(int id)
+		{
+			return channel[id];
+		}
+		/*
         protected FMOD.Channel[] ChannelID()
         {
             return channel;
-        }
+        }*/
 
         protected void _Play(Engine.Define.EngineConst.AudioManager_ChannelType type, Resource.Audio audio)
         {
@@ -115,7 +125,8 @@ namespace Dawn.Engine.Manager
             int channelID = FindChannel(type);
             while (channelID != -1)
             {
-                ChannelID()[channelID].stop();
+				FMOD.Channel tmpChannel = _ChannelID(channelID);
+				tmpChannel.stop();
                 channelType[channelID] = Define.EngineConst.AudioManager_ChannelType.Empty;
                 channelID = FindChannel(type);
             }
@@ -197,12 +208,77 @@ namespace Dawn.Engine.Manager
                     bool tmp = false;
                     
                     channel[i].isPlaying(ref tmp);
-                    if (tmp == false)
+                    if (tmp == false || channel[i]==null)
                     {
                         channelType[i] = Define.EngineConst.AudioManager_ChannelType.Empty;
                     }
                 }
             }
+
+			UpdateProcessor();
         }
+
+		private void UpdateProcessor()
+		{
+
+			for (int i = 0; i < Define.EngineConst.AudioManager_MaxChannels(); i++)
+			{
+				if (channelType[i] != Define.EngineConst.AudioManager_ChannelType.Empty)
+				{
+					if (Processor[i] != null)
+					{
+						if(Processor[i].isEnd())
+						{
+							Processor[i] = null;
+						}
+						else
+						{
+							Processor[i].Update();
+						}
+					}
+				}
+				else
+				{
+					if(Processor[i]!=null)
+					{
+						Processor[i] = null;
+					}
+				}
+			}
+		}
+
+		public void FadeInPlay(Engine.Define.EngineConst.AudioManager_ChannelType type, Resource.Audio audio)
+		{
+			_FadeInPlay(type, audio);
+		}
+
+		protected void _FadeInPlay(Engine.Define.EngineConst.AudioManager_ChannelType type, Resource.Audio audio)
+		{
+			int channelID = FindChannel(type);
+			if (channelID == -1) channelID = FindFreeChannel();
+			if (channelID == -1)
+			{
+				DGE.Debug.Error(this, Define.EngineErrorName.AudioManager_ChannelNotEnough(), Define.EngineErrorDetail.Empty());
+			}
+
+			channelType[channelID] = type;
+			__Play(channelID, audio);
+
+			FMOD.Channel tmpChannel= _ChannelID(channelID);
+			FMODRun(tmpChannel.setVolume(0.0f));
+			Processor[channelID] = new Manager.Processor.AudioManager.AudioProcessor_FadeIn(ref tmpChannel);
+		}
+
+		public void FadeOutStop(Engine.Define.EngineConst.AudioManager_ChannelType type)
+		{
+			int channelID = FindChannel(type);
+			//while (channelID != -1)
+			{
+				FMOD.Channel tmpChannel = _ChannelID(channelID);
+
+				Processor[channelID] = new Manager.Processor.AudioManager.AudioProcessor_FadeOut(ref tmpChannel);
+				//channelID = FindChannel(type);
+			}
+		}
     }
 }

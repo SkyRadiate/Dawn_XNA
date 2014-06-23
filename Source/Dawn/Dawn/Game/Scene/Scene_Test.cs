@@ -21,7 +21,10 @@ namespace Dawn.Game.Scene
             audio.Load();
             audios.Load();
             DGE.Audio.PlayBGS(audio);
-            DGE.Audio.PlayBGM(audios);
+            //DGE.Audio.PlayBGM(audios);
+			DGE.Audio.Play(Engine.Define.EngineConst.AudioManager_ChannelType.BGM, audios);
+
+			DGE.Audio.FadeOutStop(Engine.Define.EngineConst.AudioManager_ChannelType.BGM);
 		}
 
 		public override void Update()

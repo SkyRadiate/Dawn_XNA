@@ -104,5 +104,15 @@ namespace Dawn.Engine.Manager
 		{
 			Canvas.Draw(texture.GetTexture(), position, sourceRectangle, color, rotation, origin, scale, effects, layerDepth);
 		}
+
+		public int Width()
+		{
+			return Dawn.Engine.Define.GameWindow.Width();
+		}
+
+		public int Height()
+		{
+			return Dawn.Engine.Define.GameWindow.Height();
+		}
     }
 }
