@@ -103,6 +103,7 @@
     <Compile Include="Engine\Others\GameTool.cs" />
     <Compile Include="Engine\Resource\Audio.cs" />
     <Compile Include="Engine\Resource\AudioStream.cs" />
+    <Compile Include="Engine\Resource\Font.cs" />
     <Compile Include="Engine\Resource\Resource.cs" />
     <Compile Include="Engine\Resource\Texture.cs" />
     <Compile Include="Game\Scene\Scene_Test.cs" />
