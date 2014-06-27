@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dawn.Engine.Resource
 {
-    class Resource : EngineObject
+    public class Resource : EngineObject
     {
         public override string ObjectClassName() { return Define.EngineClassName.Resource(); }
         protected string _filename;

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Dawn.Engine
 {
-    class EngineObject : Object
+    public class EngineObject : Object
     {
         public virtual string ObjectClassName() { return Define.EngineClassName.Empty(); }
     }

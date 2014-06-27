@@ -7,40 +7,34 @@ namespace Dawn.Engine.Resource
 {
 	public class Font : Resource
 	{
+		public override string ObjectClassName() { return Define.EngineClassName.FontResource(); }
+
 		public static byte MaxFontSize = 72;
 		public static byte DefaultFontSize = 16;
 		private System.Drawing.Font _font;
+
+		protected Data.FontData _fontData;
 		public Font()
             : base()
         {
+			_fontData = null;
         }
         public Font(string filename)
             : base(filename)
         {
+			_fontData = new Data.FontData(filename);
         }
+
+		public Font(Data.FontData fontData)
+			: base()
+		{
+			_fontData = fontData;
+		}
 		~Font()
         {
             Dispose();
         }
-		public string name
-		{
-			get { return _font.Name; }
-		}
-		public int size
-		{
-			get { return (int)_font.Size; }
-		}
-		public bool isBlod
-		{
-			get { return _font.Bold; }
-		}
-		public bool isItalic
-		{
-			get { return _font.Italic; }
-		}
-		public bool isUnderline
-		{
-			get { return _font.Underline; }
-		}
+
+		public Data.FontData font { get { return _fontData; } }
 	}
 }
