@@ -31,7 +31,7 @@ namespace Dawn.Engine.Manager
 
         public static string ContentPath()
         {
-            return System.IO.Path.GetFullPath(WorkingPath() + @"..\..\..\Data");
+            return System.IO.Path.GetFullPath(WorkingPath() + @"..\..\..\Res");
         }
 
         public string Data(string filename)

@@ -20,7 +20,7 @@ build/
 # ---Edit Start
 [Bb]in_x64/
 [Bb]in_x86/
-[Dd]ata/
+[Rr]es/
 # ---Edit End
 # Enable "build/" folder in the NuGet Packages folder since NuGet packages use it for MSBuild targets
 !packages/*/build/
