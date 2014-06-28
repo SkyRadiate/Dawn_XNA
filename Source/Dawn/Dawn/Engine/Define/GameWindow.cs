@@ -51,7 +51,7 @@ namespace Dawn.Engine.Define
 		public static bool StartAtSecondScreen()
 		{
 #if DEBUG
-   return true;
+			return true;
 #else
 			return false;
 #endif
@@ -59,7 +59,7 @@ namespace Dawn.Engine.Define
 
 		public static int ScreenID()
 		{
-			if (StartAtSecondScreen())
+			if (StartAtSecondScreen() && Screen.AllScreens.Length > 1)
 			{
 				return 1;
 			}
