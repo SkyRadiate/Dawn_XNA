@@ -10,8 +10,6 @@ namespace Dawn
 
         static void Main(string[] args)
         {
-
-
             using (GameDawn game = new GameDawn())
             {
 				_Game = game;

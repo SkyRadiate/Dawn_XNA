@@ -15,16 +15,20 @@ namespace Dawn.Game.Scene
 		public override void Start()
 		{
 			base.Start();
-            Engine.Resource.AudioStream audios = new Engine.Resource.AudioStream(DGE.Data.Audio("tmp.mp3"));
+            Engine.Resource.Audio audios = new Engine.Resource.Audio(DGE.Data.Audio("tmp.mp3"));
 
             Engine.Resource.Audio audio = new Engine.Resource.Audio(DGE.Data.Audio("3711.mp3"));
             audio.Load();
-            audios.Load();
             DGE.Audio.PlayBGS(audio);
-            //DGE.Audio.PlayBGM(audios);
-			DGE.Audio.Play(Engine.Define.EngineConst.AudioManager_ChannelType.BGM, audios);
-
-			DGE.Audio.FadeOutStop(Engine.Define.EngineConst.AudioManager_ChannelType.BGM);
+			Dawn.Engine.Basic.ThreadProcessor.ResourceLoadProcessor processor = new Dawn.Engine.Basic.ThreadProcessor.ResourceLoadProcessor(audios);
+			System.Threading.Thread threadRes = new System.Threading.Thread(new System.Threading.ThreadStart(processor.Process));
+			threadRes.IsBackground = true;
+			
+			threadRes.Start();
+			while (threadRes.ThreadState != System.Threading.ThreadState.Stopped) ;
+			//DGE.Audio.PlayBGM((Engine.Resource.Audio)processor.Res);
+			DGE.Audio.FadeInPlay(Engine.Define.EngineConst.AudioManager_ChannelType.BGM, audios);
+			//DGE.Audio.FadeOutStop(Engine.Define.EngineConst.AudioManager_ChannelType.BGM);
 		}
 
 		public override void Update()
