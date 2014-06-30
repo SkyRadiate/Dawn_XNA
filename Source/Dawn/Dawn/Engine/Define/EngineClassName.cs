@@ -36,7 +36,8 @@ namespace Dawn.Engine.Define
 		public static string AudioProcessor() { return "AudioProcessor"; }
 		public static string Scene() { return "Scene"; }
 		public static string FontManager() { return "FontManager"; }
-
+		public static string FontHelper() { return "FontHelper"; }
+		public static string FontPosition() { return "FontPosition"; }
 		public static string ThreadProcessor() { return "ThreadProcessor"; }
     }
 }

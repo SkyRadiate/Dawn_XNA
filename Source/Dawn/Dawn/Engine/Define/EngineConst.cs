@@ -18,5 +18,10 @@ namespace Dawn.Engine.Define
             BGM, BGS, BGE,
             ME, SE
         };
+
+		public static int FontHelper_TextureWidth() { return 1024; }
+		public static int FontHelper_TextureHeight() { return 1024; }
+		public static int FontHelper_TextureNum() { return 5; }
+
     }
 }

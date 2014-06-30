@@ -76,5 +76,7 @@ namespace Dawn
 		{
 			Mouse.SetPosition(x, y);
 		}
+
+		public GraphicsDevice _GraphicsDevice { get { return graphics.GraphicsDevice; } }
     }
 }

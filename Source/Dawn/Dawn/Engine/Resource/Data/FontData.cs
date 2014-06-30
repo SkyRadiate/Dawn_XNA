@@ -27,5 +27,7 @@ namespace Dawn.Engine.Resource.Data
 		public bool isBlod { get; set; }
 		public bool isItalic { get; set; }
 		public bool isUnderline { get; set; }
+
+
 	}
 }

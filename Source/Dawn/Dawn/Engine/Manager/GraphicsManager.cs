@@ -19,6 +19,8 @@ namespace Dawn.Engine.Manager
 		public event SimpleEventHandler PostRender;
 		public event SimpleEventHandler EndUpdate;
 
+
+		public Microsoft.Xna.Framework.Graphics.GraphicsDevice Device { get { return DGE.Game._GraphicsDevice; } }
 		public Microsoft.Xna.Framework.Graphics.SpriteBatch Canvas { get { return DGE.Game._SpriteBatch; } }
         public SceneManager Scenes { get { return _Scenes; } }
         public GraphicsManager()

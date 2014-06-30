@@ -101,6 +101,8 @@
     <Compile Include="Engine\Manager\Processor\AudioManager\AudioProcessor.cs" />
     <Compile Include="Engine\Manager\Processor\AudioManager\AudioProcessor_FadeIn.cs" />
     <Compile Include="Engine\Manager\Processor\AudioManager\AudioProcessor_FadeOut.cs" />
+    <Compile Include="Engine\Manager\Processor\FontManager\FontHelper.cs" />
+    <Compile Include="Engine\Manager\Processor\FontManager\Helper\FontPosition.cs" />
     <Compile Include="Engine\Manager\SceneManager.cs" />
     <Compile Include="Engine\Manager\ThreadManager.cs" />
     <Compile Include="Engine\Others\GameTool.cs" />

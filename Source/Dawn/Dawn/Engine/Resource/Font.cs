@@ -36,5 +36,25 @@ namespace Dawn.Engine.Resource
         }
 
 		public Data.FontData font { get { return _fontData; } }
+
+		public int MaxCharacterWidth()
+		{
+			return 1;
+		}
+
+		public int MaxCharacterHeight()
+		{
+			return 1;
+		}
+
+		public int CharacterWidth(string character)
+		{
+			return 1;
+		}
+
+		public int CharacterHeight(string character)
+		{
+			return 1;
+		}
 	}
 }
