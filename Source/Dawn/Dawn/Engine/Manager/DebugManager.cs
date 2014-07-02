@@ -28,5 +28,9 @@ namespace Dawn.Engine.Manager
         {
             string err = obj.ObjectClassName() + Environment.NewLine + ErrorName + Environment.NewLine + ErrorDetail;
         }
+
+		public void Debug(EngineObject obj, string DebugDetail)
+		{
+		}
     }
 }

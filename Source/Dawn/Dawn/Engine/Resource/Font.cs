@@ -12,8 +12,9 @@ namespace Dawn.Engine.Resource
 		public static byte MaxFontSize = 72;
 		public static byte DefaultFontSize = 16;
 		private System.Drawing.Font _font;
+		private System.Drawing.Graphics graphics;
 
-		protected Data.FontData _fontData;
+		protected Data.FontFamilyData _fontData;
 		public Font()
             : base()
         {
@@ -22,10 +23,10 @@ namespace Dawn.Engine.Resource
         public Font(string filename)
             : base(filename)
         {
-			_fontData = new Data.FontData(filename);
+			_fontData = new Data.FontFamilyData(filename);
         }
 
-		public Font(Data.FontData fontData)
+		public Font(Data.FontFamilyData fontData)
 			: base()
 		{
 			_fontData = fontData;
@@ -35,26 +36,59 @@ namespace Dawn.Engine.Resource
             Dispose();
         }
 
-		public Data.FontData font { get { return _fontData; } }
-
-		public int MaxCharacterWidth()
+		public Data.FontFamilyData font { get { return _fontData; } }
+		public override void Load()
 		{
-			return 1;
+			base.Load();
+			graphics = System.Drawing.Graphics.FromImage(new System.Drawing.Bitmap(1, 1));
+			graphics.PageUnit = System.Drawing.GraphicsUnit.Pixel;
+
+			System.Drawing.FontStyle style = System.Drawing.FontStyle.Regular;
+			if(_fontData.isBlod)
+			{
+				style |= System.Drawing.FontStyle.Bold;
+			}
+			if(_fontData.isItalic)
+			{
+				style |= System.Drawing.FontStyle.Italic;
+			}
+			if(_fontData.isUnderline)
+			{
+				style |= System.Drawing.FontStyle.Underline;
+			}
+			_font = new System.Drawing.Font(_fontData.Family, _fontData.Size, style, System.Drawing.GraphicsUnit.Pixel);
+
+			
+			//_font.
+		}
+		public float GetPixelConvert()
+		{
+			return _fontData.Size / _fontData.Family.GetEmHeight(_font.Style);
+		}
+		public override void Unload()
+		{
+			_font = null;
+			graphics = null;
+			base.Unload();
+		}
+		public float MaxCharacterWidth()
+		{
+			return _fontData.Size;
 		}
 
-		public int MaxCharacterHeight()
+		public float MaxCharacterHeight()
 		{
-			return 1;
+			return (_fontData.Family.GetCellAscent(_font.Style) + _fontData.Family.GetCellDescent(_font.Style)) * GetPixelConvert();
 		}
 
-		public int CharacterWidth(string character)
+		public float CharacterWidth(string character)
 		{
-			return 1;
+			return graphics.MeasureString(character, _font).Width;
 		}
 
-		public int CharacterHeight(string character)
+		public float CharacterHeight(string character)
 		{
-			return 1;
+			return graphics.MeasureString(character, _font).Height;
 		}
 	}
 }

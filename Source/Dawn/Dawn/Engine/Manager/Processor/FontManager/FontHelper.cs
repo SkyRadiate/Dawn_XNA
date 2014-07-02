@@ -127,7 +127,7 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 
 		public Texture2D DrawStringToTexture(string str)
 		{
-			Texture2D tex = new Texture2D(DGE.Graphics.Device);
+			Texture2D tex = new Texture2D(DGE.Graphics.Device, 0, 0);
 			return tex;
 		}
 	}
