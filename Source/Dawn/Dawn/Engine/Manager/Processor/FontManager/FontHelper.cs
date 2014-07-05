@@ -26,8 +26,8 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 		{
 			_font = font;
 
-			texRow = EngineConst.FontHelper_TextureWidth() / _font.MaxCharacterWidth();
-			texCol = EngineConst.FontHelper_TextureHeight() / _font.MaxCharacterHeight();
+			texRow = (int)(EngineConst.FontHelper_TextureWidth() / _font.MaxCharacterWidth());
+			texCol = (int)(EngineConst.FontHelper_TextureHeight() / _font.MaxCharacterHeight());
 			texUsed = new bool[EngineConst.FontHelper_TextureNum()];
 			used = new string[EngineConst.FontHelper_TextureNum(), texRow, texCol];
 

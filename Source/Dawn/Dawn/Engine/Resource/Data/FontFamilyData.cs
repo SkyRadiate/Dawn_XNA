@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dawn.Engine.Resource.Data
 {
-	public class FontFamilyData
+	public class FontFamilyData : EngineObject
 	{
 
 		public override string ObjectClassName() { return Define.EngineClassName.FontFamilyData(); }
