@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace Dawn.Engine.Manager
 {
-    class InputManager : EngineObject
+	public class InputManager : EngineObject
     {
 		private Texture mouseTexture;
 		private Texture mouseBusyTexture;

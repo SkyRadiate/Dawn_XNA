@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dawn.Engine.Define
 {
-    static class EngineClassName
+	static public class EngineClassName
     {
         public static string Empty()
         {

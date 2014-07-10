@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dawn.Engine.Manager
 {
-	class FontManager : EngineObject
+	public class FontManager : EngineObject
 	{
 		public override string ObjectClassName() { return Define.EngineClassName.FontManager(); }
 

@@ -6,8 +6,7 @@ using Dawn.Engine;
 
 namespace Dawn.Engine.Manager
 {
-	using GameConst_StartScene = Dawn.Game.Scene.Scene_Test;
-    class SceneManager : EngineObject
+    public class SceneManager : EngineObject
     {
 		List<Basic.Scene> SceneStack;
 		
@@ -19,21 +18,14 @@ namespace Dawn.Engine.Manager
 
         public void Initialize()
         {
-			SceneStack.Add(new GameConst_StartScene());
-			ProcessStart();
         }
 
-		public void Initialize(Basic.Scene scene)
-		{
-			SceneStack.Add(scene);
-			ProcessStart();
-		}
-
-		public void Goto(Basic.Scene scene)
+		public void Goto<SceneClass>()
+			where SceneClass : Basic.Scene, new()
 		{
 			ProcessEnd();
 			SceneStack.Clear();
-			SceneStack.Add(scene);
+			SceneStack.Add(new SceneClass());
 			ProcessStart();
 		}
 
@@ -43,10 +35,11 @@ namespace Dawn.Engine.Manager
 			SceneStack.RemoveAt(SceneStack.Count - 1);
 			ProcessStart();
 		}
-		public void Push(Basic.Scene scene)
+		public void Push<SceneClass>()
+			where SceneClass : Basic.Scene, new()
 		{
 			ProcessEnd();
-			SceneStack.Add(scene);
+			SceneStack.Add(new SceneClass());
 			ProcessStart();
 		}
 
@@ -64,7 +57,7 @@ namespace Dawn.Engine.Manager
 
 		private void ProcessStart()
 		{
-			SceneStack.ElementAt(SceneStack.Count - 1).Initialize(this);
+			SceneStack.ElementAt(SceneStack.Count - 1).Manager = this;
 			if (SceneStack.Count > 0)
 			{
 				SceneStack.ElementAt(SceneStack.Count - 1).Start();

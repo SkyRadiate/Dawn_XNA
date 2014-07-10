@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dawn.Engine.Define
 {
-    static class EngineErrorName
+	static public class EngineErrorName
     {
         public static string AudioManager_FMODError() { return "FMOD Error"; }
 

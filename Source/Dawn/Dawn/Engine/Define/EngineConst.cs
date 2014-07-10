@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dawn.Engine.Define
 {
-    static class EngineConst
+	static public class EngineConst
     {
         public static int Version() { return 0;}
         public static int AudioManager_MaxChannels() { return 20; }

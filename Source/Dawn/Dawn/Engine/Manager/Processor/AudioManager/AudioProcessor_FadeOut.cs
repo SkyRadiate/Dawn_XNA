@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dawn.Engine.Manager.Processor.AudioManager
 {
-	class AudioProcessor_FadeOut : AudioProcessor
+	public class AudioProcessor_FadeOut : AudioProcessor
 	{
 		protected float nowVolume;
 		public AudioProcessor_FadeOut(ref FMOD.Channel channel)

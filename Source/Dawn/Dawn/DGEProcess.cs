@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dawn
 {
-    static class DGEProcess
+	static public class DGEProcess
     {
         public static void Start()
 		{

@@ -4,21 +4,21 @@ using System.Linq;
 using System.Text;
 
 using Dawn.Engine.Manager;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("Dawn.Engine.Manager.SceneManager")]
 namespace Dawn.Engine.Basic
 {
-	class Scene : EngineObject
+	public class Scene : EngineObject
 	{
 		public override string ObjectClassName() { return Define.EngineClassName.Scene(); }
-		protected SceneManager Manager;
+
+		internal SceneManager Manager;
+		
+		
 		public Scene()
 		{
 			
-		}
-
-		public void Initialize(SceneManager _Manager)
-		{
-			Manager = _Manager;
 		}
 		public virtual void Start()
 		{

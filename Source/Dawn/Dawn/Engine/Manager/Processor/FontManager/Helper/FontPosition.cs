@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dawn.Engine.Manager.Processor.FontManager.Helper
 {
-	class FontPosition : EngineObject
+	public class FontPosition : EngineObject
 	{
 		public override string ObjectClassName() { return Define.EngineClassName.FontPosition(); }
 

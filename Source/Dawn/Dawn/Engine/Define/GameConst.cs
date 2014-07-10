@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Dawn.Engine.Define
 {
-	
-	static class GameConst
+
+	static public class GameConst
 	{
 		public static string GameName() { return "TRUE"; }
 

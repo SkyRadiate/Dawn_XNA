@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Dawn.Engine.Manager;
+using Dawn;
+using Dawn.Engine;
 
-namespace Dawn.Game.Scene
+namespace DawnGame.Game.Scene
 {
 	class Scene_Test : Dawn.Engine.Basic.Scene
 	{
@@ -15,9 +17,9 @@ namespace Dawn.Game.Scene
 		public override void Start()
 		{
 			base.Start();
-            Engine.Resource.Audio audios = new Engine.Resource.Audio(DGE.Data.Audio("tmp.mp3"));
+			Dawn.Engine.Resource.Audio audios = new Dawn.Engine.Resource.Audio(DGE.Data.Audio("tmp.mp3"));
 
-            Engine.Resource.Audio audio = new Engine.Resource.Audio(DGE.Data.Audio("3711.mp3"));
+			Dawn.Engine.Resource.Audio audio = new Dawn.Engine.Resource.Audio(DGE.Data.Audio("3711.mp3"));
             audio.Load();
             DGE.Audio.PlayBGS(audio);
 			Dawn.Engine.Basic.ThreadProcessor.ResourceLoadProcessor processor = new Dawn.Engine.Basic.ThreadProcessor.ResourceLoadProcessor(audios);
@@ -27,7 +29,7 @@ namespace Dawn.Game.Scene
 			threadRes.Start();
 			while (threadRes.ThreadState != System.Threading.ThreadState.Stopped) ;
 			//DGE.Audio.PlayBGM((Engine.Resource.Audio)processor.Res);
-			DGE.Audio.FadeInPlay(Engine.Define.EngineConst.AudioManager_ChannelType.BGM, audios);
+			DGE.Audio.FadeInPlay(Dawn.Engine.Define.EngineConst.AudioManager_ChannelType.BGM, audios);
 			//DGE.Audio.FadeOutStop(Engine.Define.EngineConst.AudioManager_ChannelType.BGM);
 		}
 

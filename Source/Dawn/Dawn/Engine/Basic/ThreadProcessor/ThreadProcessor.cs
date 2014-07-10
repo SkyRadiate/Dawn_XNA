@@ -7,7 +7,7 @@ using Dawn.Engine.Manager;
 
 namespace Dawn.Engine.Basic.ThreadProcessor
 {
-	class ThreadProcessor : EngineObject
+	public class ThreadProcessor : EngineObject
 	{
 		public override string ObjectClassName() { return Define.EngineClassName.ThreadProcessor(); }
 

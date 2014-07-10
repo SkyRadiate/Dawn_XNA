@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dawn.Engine.Manager
 {
-    class EngineManager : EngineObject
+    public class EngineManager : EngineObject
     {
         public override string ObjectClassName() { return Define.EngineClassName.EngineManager(); }
         private AudioManager _Audio;
@@ -14,6 +14,7 @@ namespace Dawn.Engine.Manager
         private InputManager _Input;
         private DataManager _Data;
 		private ThreadManager _Threads;
+		public Dawn.Engine.Basic.Game GameObject { get { return Program.DawnGameObject; } }
         public AudioManager Audio { get { return _Audio;} }
         public DebugManager Debug { get { return _Debug; } }
         public GraphicsManager Graphics { get { return _Graphics; } }
@@ -36,6 +37,7 @@ namespace Dawn.Engine.Manager
 
 		protected void OnStart()
 		{
+			GameObject.Main();
 			if (Start != null)
 			{
 				EventArgs e=new EventArgs();
@@ -60,8 +62,6 @@ namespace Dawn.Engine.Manager
         }
         public void Update()
         {
-
-
             Audio.Update();
 			Graphics.Update();
         }

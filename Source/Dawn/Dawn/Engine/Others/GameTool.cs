@@ -7,7 +7,7 @@ using Dawn.Engine;
 
 namespace Dawn.Engine.Others
 {
-	static class GameTool
+	static public class GameTool
 	{
 		public static void SetWindowPosition(GameWindow window, int x, int y)
 		{

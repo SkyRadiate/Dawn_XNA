@@ -9,7 +9,7 @@ using Dawn.Engine;
 
 namespace Dawn.Engine.Manager.Processor.FontManager
 {
-	class FontHelper : EngineObject
+	public class FontHelper : EngineObject
 	{
 		public override string ObjectClassName() { return Define.EngineClassName.FontHelper(); }
 

@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Dawn.Engine.Define
 {
-	static class GameWindow
+	static public class GameWindow
 	{
 		public static int Width() { return 1024; }
 		public static int Height() { return 768; }

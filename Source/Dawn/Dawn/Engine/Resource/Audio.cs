@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dawn.Engine.Resource
 {
-    class Audio : Resource
+    public class Audio : Resource
     {
         public override string ObjectClassName() { return Define.EngineClassName.AudioResource(); }
 

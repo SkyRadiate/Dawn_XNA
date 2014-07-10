@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dawn.Engine.Manager
 {
-    class DebugManager : EngineObject
+    public class DebugManager : EngineObject
     {
         public override string ObjectClassName() { return Define.EngineClassName.DebugManager(); }
         public DebugManager()

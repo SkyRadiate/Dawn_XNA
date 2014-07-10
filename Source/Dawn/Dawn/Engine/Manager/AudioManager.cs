@@ -8,7 +8,7 @@ using Dawn.Engine;
 
 namespace Dawn.Engine.Manager
 {
-    class AudioManager : EngineObject
+    public class AudioManager : EngineObject
     {
         public override string ObjectClassName() { return Define.EngineClassName.AudioManager(); }
 

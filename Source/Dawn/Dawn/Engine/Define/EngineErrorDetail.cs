@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dawn.Engine.Define
 {
-    static class EngineErrorDetail
+	static public class EngineErrorDetail
     {
         public static string Empty() { return ""; }
 

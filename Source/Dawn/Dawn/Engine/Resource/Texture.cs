@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Dawn.Engine.Resource
 {
-	class Texture : Resource
+	public class Texture : Resource
 	{
         public override string ObjectClassName() { return Define.EngineClassName.TextureResource(); }
 

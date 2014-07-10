@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dawn.Engine.Manager.Processor.AudioManager
 {
-	class AudioProcessor : EngineObject
+	public class AudioProcessor : EngineObject
 	{
 		public override string ObjectClassName() { return Define.EngineClassName.AudioProcessor(); }
 

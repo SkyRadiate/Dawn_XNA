@@ -7,7 +7,7 @@ using Dawn.Engine.Resource;
 
 namespace Dawn.Engine.Manager
 {
-	class CacheManager : EngineObject
+	public class CacheManager : EngineObject
 	{
 		public override string ObjectClassName() { return Define.EngineClassName.CacheManager(); }
 

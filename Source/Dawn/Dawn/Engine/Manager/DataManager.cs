@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Dawn.Engine.Manager
 {
-    class DataManager : EngineObject
+	public class DataManager : EngineObject
     {
 		private CacheManager _Cache;
 		public CacheManager Cache { get { return _Cache; } }

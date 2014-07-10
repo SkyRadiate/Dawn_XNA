@@ -6,7 +6,7 @@ using Dawn.Engine.Manager;
 
 namespace Dawn
 {    
-    static class DGE
+    static public class DGE
     {
 		
         private static Engine.Manager.EngineManager engine;
@@ -26,6 +26,11 @@ namespace Dawn
 		public static ThreadManager Threads { get { return engine.Threads; } }
 		public static GameDawn Game { get { return engine.Game; } }
         public static void Update() { engine.Update(); }
+		
+		public static void Run(Engine.Basic.Game GameObject)
+		{
+			Program.Run(GameObject);
+		}
     }
 
     

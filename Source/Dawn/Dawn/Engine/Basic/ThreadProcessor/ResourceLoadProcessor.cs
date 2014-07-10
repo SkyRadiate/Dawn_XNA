@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dawn.Engine.Basic.ThreadProcessor
 {
-	class ResourceLoadProcessor : ThreadProcessor
+	public class ResourceLoadProcessor : ThreadProcessor
 	{
 		protected Resource.Resource res;
 

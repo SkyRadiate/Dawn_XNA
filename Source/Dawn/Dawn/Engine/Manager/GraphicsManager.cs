@@ -7,7 +7,7 @@ using Dawn.Engine.Resource;
 
 namespace Dawn.Engine.Manager
 {
-    class GraphicsManager : EngineObject
+    public class GraphicsManager : EngineObject
     {
         public override string ObjectClassName() { return Define.EngineClassName.GraphicsManager(); }
 
