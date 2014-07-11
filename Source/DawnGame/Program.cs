@@ -10,8 +10,13 @@ namespace DawnGame
 	{
 		static void Main(string[] args)
 		{
+#if DEBUG
+			DawnConsole.CreateConsole();
+			Console.Title = Dawn.Engine.Define.GameConst.GameTitleName() + " Console";
+#endif
 			Dawn.Engine.Basic.Game game = new DawnGame();
 			Dawn.DGE.Run(game);
+
 		}
 	}
 }

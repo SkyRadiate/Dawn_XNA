@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{FF06D673-6CFD-4ECB-9FE8-74857E882704}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DawnGame</RootNamespace>
     <AssemblyName>DawnGame</AssemblyName>
@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DawnConsole.cs" />
     <Compile Include="DawnGame.cs" />
     <Compile Include="Game\Scene\Scene_Test.cs" />
     <Compile Include="Program.cs" />
