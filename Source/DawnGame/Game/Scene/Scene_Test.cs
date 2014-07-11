@@ -30,7 +30,11 @@ namespace DawnGame.Game.Scene
 			while (threadRes.ThreadState != System.Threading.ThreadState.Stopped) ;
 			//DGE.Audio.PlayBGM((Engine.Resource.Audio)processor.Res);
 			DGE.Audio.FadeInPlay(Dawn.Engine.Define.EngineConst.AudioManager_ChannelType.BGM, audios);
-			//DGE.Audio.FadeOutStop(Engine.Define.EngineConst.AudioManager_ChannelType.BGM);
+			//DGE.Audio.FadeOutStop(Engine.Define.EngineConst.AudioManager_ChannelType.BGM)
+
+			Dawn.Engine.Resource.Font font = new Dawn.Engine.Resource.Font(new Dawn.Engine.Resource.Data.FontFamilyData(new System.Drawing.FontFamily("微软雅黑"), 28, false, false, false));
+			font.Load();
+			Dawn.Engine.Manager.Processor.FontManager.FontHelper helper = new Dawn.Engine.Manager.Processor.FontManager.FontHelper(font);
 		}
 
 		public override void Update()

@@ -57,9 +57,6 @@ namespace Dawn.Engine.Resource
 				style |= System.Drawing.FontStyle.Underline;
 			}
 			_font = new System.Drawing.Font(_fontData.Family, _fontData.Size, style, System.Drawing.GraphicsUnit.Pixel);
-
-			
-			//_font.
 		}
 		public float GetPixelConvert()
 		{

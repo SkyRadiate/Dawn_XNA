@@ -44,9 +44,8 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 			}
 		}
 
-		protected virtual Helper.FontPosition _NewCharacter(string character)
+		protected virtual void _NewCharacter(string character, Helper.FontPosition position)
 		{
-			return new Helper.FontPosition { TexID = 0, Row = 0, Col = 0 };
 		}
 
 		protected Helper.FontPosition NewCharacter(string character)
@@ -64,7 +63,8 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 							if (used[i, x, y] == "")
 							{
 								_pos = new Helper.FontPosition { TexID = i, Row = x, Col = y };
-								_NewCharacter(character);
+								used[i, x, y] = character;
+								_NewCharacter(character, _pos);
 								return _pos;
 							}
 						}
@@ -85,7 +85,8 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 							if (used[i, x, y] == "")
 							{
 								_pos = new Helper.FontPosition { TexID = i, Row = x, Col = y };
-								_NewCharacter(character);
+								used[i, x, y] = character;
+								_NewCharacter(character, _pos);
 								return _pos;
 							}
 						}
@@ -124,7 +125,10 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 			//Not Found
 			return NewCharacter(character);
 		}
-
+		public Helper.FontPosition GetCharacter(string character)
+		{
+			return _GetCharacter(character);
+		}
 		public Texture2D DrawStringToTexture(string str)
 		{
 			Texture2D tex = new Texture2D(DGE.Graphics.Device, 0, 0);
