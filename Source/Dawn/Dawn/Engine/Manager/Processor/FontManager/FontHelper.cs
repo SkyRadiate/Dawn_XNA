@@ -57,12 +57,12 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 			bitmap = new System.Drawing.Bitmap(EngineConst.FontHelper_TextureWidth(), EngineConst.FontHelper_TextureHeight());
 			graphics = System.Drawing.Graphics.FromImage(bitmap);
 			//graphics.PageUnit = System.Drawing.GraphicsUnit.Pixel;
-			graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
-			graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
+			graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+			graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 			brush = new System.Drawing.SolidBrush(_font.font.Color);
 		}
 
-		protected void FillTexture(ref SpriteBatch canvas, ref System.Drawing.Bitmap bitmap)
+		protected Texture2D FillTexture(ref System.Drawing.Bitmap bitmap)
 		{
 			Texture2D tmpTex = new Texture2D(DGE.Graphics.Device, (int)bitmap.Width, (int)bitmap.Height);
 			Color[] colorMap = new Color[tmpTex.Width * tmpTex.Height];
@@ -76,14 +76,25 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 				}
 			}
 			tmpTex.SetData<Color>(colorMap);
-			canvas.Draw(tmpTex, new Vector2(0, 0), Color.White);
+			return tmpTex;
 		}
-		protected virtual void _DrawCharacter(string character,ref SpriteBatch canvas,Vector2 position)
+
+		protected void setGraphics(ref System.Drawing.Bitmap bitmap)
 		{
+			graphics = System.Drawing.Graphics.FromImage(bitmap);
+			//graphics.PageUnit = System.Drawing.GraphicsUnit.Pixel;
+			graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+			graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+		}
+		protected virtual Texture2D _DrawCharacter(string character)
+		{
+			System.Drawing.Bitmap tmpBitmap = new System.Drawing.Bitmap((int)_font.CharacterWidth(character), (int)_font.CharacterHeight(character));
+			setGraphics(ref tmpBitmap);
 			graphics.Clear(System.Drawing.Color.Transparent);
 			//graphics.DrawString(character, _font.GetFont(), brush, (float)position.X, (float)position.Y);
-			System.Windows.Forms.TextRenderer.DrawText(graphics, character, _font.GetFont(), new System.Drawing.Point((int)position.X, (int)position.Y), _font.font.Color, System.Windows.Forms.TextFormatFlags.NoPadding);
-			FillTexture(ref canvas, ref bitmap);
+			System.Windows.Forms.TextRenderer.DrawText(graphics, character, _font.GetFont(), new System.Drawing.Point(0, 0), _font.font.Color, System.Windows.Forms.TextFormatFlags.NoPadding);
+
+			return FillTexture(ref tmpBitmap);
 		}
 		protected void _NewCharacter(string character, Helper.FontPosition position)
 		{
@@ -100,7 +111,7 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 			spriteBatch.Begin();
 
 			spriteBatch.Draw(tex[position.TexID], new Vector2(0, 0), Color.White);
-			_DrawCharacter(character, ref spriteBatch, new Vector2(position.Col * texColPixels, position.Row * texRowPixels));
+			spriteBatch.Draw(_DrawCharacter(character), new Vector2(position.Col * texColPixels, position.Row * texRowPixels), Color.White);
 
 			spriteBatch.End();
 			spriteBatch.Dispose();
@@ -211,6 +222,7 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 		}
 		public Texture2D DrawStringToTexture(string str)
 		{
+			System.Diagnostics.Trace.WriteLine("Dawn> Render String...Setting Target");
 			float[] strWidth = MeasureString(str);
 			
 			GraphicsDevice graphicsDevice = DGE.Graphics.Device;
@@ -221,13 +233,14 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 			graphicsDevice.SetRenderTarget(rt);
 			
 			graphicsDevice.Clear(ClearOptions.Target, Color.Transparent, 0, 0);
-			
+			System.Diagnostics.Trace.WriteLine("Dawn> Render String...Processing");
 			SpriteBatch spriteBatch = new SpriteBatch(graphicsDevice);
 			spriteBatch.Begin();
 
 			float x = 0;
 			for (int i = 0; i < str.Length; i++)
 			{
+				System.Diagnostics.Trace.WriteLine("Dawn> Render String...Character #" + i.ToString());
 				DrawCharacterToTexture((int)x, 0, str.Substring(i, 1), ref spriteBatch);
 				x += strWidth[i];
 			}

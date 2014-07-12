@@ -5,6 +5,7 @@ using System.Text;
 using Dawn.Engine.Manager;
 using Dawn;
 using Dawn.Engine;
+using System.Diagnostics;
 
 namespace DawnGame.Game.Scene
 {
@@ -41,8 +42,9 @@ namespace DawnGame.Game.Scene
 		public override void Update()
 		{
 			DGE.Input.SetBusy(true);
-			//Microsoft.Xna.Framework.Graphics.Texture2D tex = helper.DrawStringToTexture("潘丰ab。是傻逼");
-			//DGE.Game._SpriteBatch.Draw(tex, new Microsoft.Xna.Framework.Vector2(0, 0), Microsoft.Xna.Framework.Color.White);
+			Trace.WriteLine("Dawn> Render String...");
+			Microsoft.Xna.Framework.Graphics.Texture2D tex = helper.DrawStringToTexture("哇咔咔Dawn Game Engine~!!!");
+			DGE.Game._SpriteBatch.Draw(tex, new Microsoft.Xna.Framework.Vector2(0, 0), Microsoft.Xna.Framework.Color.White);
 			base.Update();
 		}
 
