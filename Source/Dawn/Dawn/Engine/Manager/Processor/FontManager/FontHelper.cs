@@ -64,14 +64,24 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 		protected void FillTexture(ref SpriteBatch canvas, ref System.Drawing.Bitmap bitmap)
 		{
 			Texture2D tmpTex = new Texture2D(DGE.Graphics.Device, (int)bitmap.Width, (int)bitmap.Height);
-			tmpTex.GetData<
-
+			Color[] colorMap = new Color[tmpTex.Width * tmpTex.Height];
+			tmpTex.GetData<Color>(colorMap);
+			for (int i = 0; i < bitmap.Height; i++)
+			{
+				for (int j = 0; j < bitmap.Width; j++)
+				{
+					System.Drawing.Color color = bitmap.GetPixel(j, i);
+					colorMap[i * tmpTex.Width + j] = new Color(color.R, color.G, color.B, color.A);
+				}
+			}
+			tmpTex.SetData<Color>(colorMap);
+			canvas.Draw(tmpTex, new Vector2(0, 0), Color.White);
 		}
 		protected virtual void _DrawCharacter(string character,ref SpriteBatch canvas,Vector2 position)
 		{
 			graphics.Clear(System.Drawing.Color.Transparent);
 			graphics.DrawString(character, _font.GetFont(), brush, (float)position.X, (float)position.Y);
-			
+			FillTexture(ref canvas, ref bitmap);
 		}
 		protected void _NewCharacter(string character, Helper.FontPosition position)
 		{
