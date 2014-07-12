@@ -290,8 +290,10 @@ to attach them to the start of each source file to most effectively
 convey the exclusion of warranty; and each file should have at least
 the "copyright" line and a pointer to where the full notice is found.
 
-    {description}
-    Copyright (C) 2014  SkyZH
+    1. You can use Dawn Game Engine to produce a game or an application,
+	and you haven't to show that your APP is made with DGE.
+	2. You can edit the source anyway, and help us improve!
+    Copyright (C) 2014  SkyRadiate
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
