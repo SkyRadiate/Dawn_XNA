@@ -62,6 +62,10 @@ namespace Dawn.Engine.Resource
 		{
 			return _fontData.Size / _fontData.Family.GetEmHeight(_font.Style);
 		}
+		public System.Drawing.Font GetFont()
+		{
+			return _font;
+		}
 		public override void Unload()
 		{
 			_font = null;

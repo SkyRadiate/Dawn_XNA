@@ -24,6 +24,11 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 		protected int texCol;
 
 		protected float texRowPixels, texColPixels;
+
+		protected System.Drawing.Graphics graphics;
+		protected System.Drawing.Brush brush;
+		protected System.Drawing.Bitmap bitmap;
+
 		public FontHelper(Resource.Font font)
 		{
 			_font = font;
@@ -48,11 +53,25 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 					}
 				}
 			}
+			bitmap = new System.Drawing.Bitmap(EngineConst.FontHelper_TextureWidth(), EngineConst.FontHelper_TextureHeight());
+			graphics = System.Drawing.Graphics.FromImage(bitmap);
+			graphics.PageUnit = System.Drawing.GraphicsUnit.Pixel;
+			graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+			graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+			brush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
 		}
 
+		protected void FillTexture(ref SpriteBatch canvas, ref System.Drawing.Bitmap bitmap)
+		{
+			Texture2D tmpTex = new Texture2D(DGE.Graphics.Device, (int)bitmap.Width, (int)bitmap.Height);
+			tmpTex.GetData<
+
+		}
 		protected virtual void _DrawCharacter(string character,ref SpriteBatch canvas,Vector2 position)
 		{
-			canvas.Draw(DGE.Input.mouseTexture.GetTexture(), position, Color.White);
+			graphics.Clear(System.Drawing.Color.Transparent);
+			graphics.DrawString(character, _font.GetFont(), brush, (float)position.X, (float)position.Y);
+			
 		}
 		protected void _NewCharacter(string character, Helper.FontPosition position)
 		{
