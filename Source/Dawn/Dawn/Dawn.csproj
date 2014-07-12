@@ -86,6 +86,7 @@
     <Compile Include="Engine\Basic\Scene.cs" />
     <Compile Include="Engine\Basic\ThreadProcessor\ResourceLoadProcessor.cs" />
     <Compile Include="Engine\Basic\ThreadProcessor\ThreadProcessor.cs" />
+    <Compile Include="Engine\Basic\ThreadProcessor\FPSProcessor.cs" />
     <Compile Include="Engine\Define\EngineClassName.cs" />
     <Compile Include="Engine\Define\EngineConst.cs" />
     <Compile Include="Engine\Define\EngineErrorDetail.cs" />

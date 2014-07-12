@@ -10,6 +10,7 @@ namespace DawnGame.Game.Scene
 {
 	class Scene_Test : Dawn.Engine.Basic.Scene
 	{
+		Dawn.Engine.Manager.Processor.FontManager.FontHelper helper;
 		public Scene_Test()
 		{
 		}
@@ -34,12 +35,14 @@ namespace DawnGame.Game.Scene
 
 			Dawn.Engine.Resource.Font font = new Dawn.Engine.Resource.Font(new Dawn.Engine.Resource.Data.FontFamilyData(new System.Drawing.FontFamily("微软雅黑"), 28, false, false, false));
 			font.Load();
-			Dawn.Engine.Manager.Processor.FontManager.FontHelper helper = new Dawn.Engine.Manager.Processor.FontManager.FontHelper(font);
+			helper = new Dawn.Engine.Manager.Processor.FontManager.FontHelper(font);
 		}
 
 		public override void Update()
 		{
 			DGE.Input.SetBusy(true);
+			Microsoft.Xna.Framework.Graphics.Texture2D tex = helper.DrawStringToTexture("我a哇咔咔哇咔咔");
+			DGE.Game._SpriteBatch.Draw(tex, new Microsoft.Xna.Framework.Vector2(0, 0), Microsoft.Xna.Framework.Color.White);
 			base.Update();
 		}
 

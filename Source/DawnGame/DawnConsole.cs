@@ -59,7 +59,7 @@ namespace DawnGame
 		static extern bool SetConsoleTitle(string lpConsoleTitle);
 		[DllImport("kernel32")]
 		static extern bool GetConsoleTitle(StringBuilder text, int size);
-
+		
 		#endregion
 	}
 }

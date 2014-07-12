@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("DawnGame")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Dawn")]
+[assembly: AssemblyDescription("Dawn:黎明")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DawnGame")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCompany("SkyRadiate")]
+[assembly: AssemblyProduct("Dawn:黎明")]
+[assembly: AssemblyCopyright("Copyright SkyRadiate©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

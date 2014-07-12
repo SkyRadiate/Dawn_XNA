@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Dawn")]
-[assembly: AssemblyProduct("Dawn")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Dawn Game Engine Runtime")]
+[assembly: AssemblyProduct("Dawn Game Engine")]
+[assembly: AssemblyDescription("Dawn Game Engine Runtime")]
 [assembly: AssemblyCompany("SkyRadiate")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCopyright("Copyright SkyRadiate©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,3 +32,4 @@ using System.Runtime.InteropServices;
 //   Revision
 //
 [assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersionAttribute("1.0.0.0")]

@@ -68,7 +68,7 @@ namespace Dawn.Engine.Manager
 		public void Update()
 		{
 			OnStartUpdate();
-
+			Device.Clear(Engine.Define.GameWindow.BackgroundColor());
 			Canvas.Begin();
 			OnPreRender();
 

@@ -63,7 +63,7 @@ namespace Dawn
         }
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Engine.Define.GameWindow.BackgroundColor());
+
             DGE.Update();
             base.Draw(gameTime);
         }

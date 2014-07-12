@@ -88,4 +88,5 @@ namespace Dawn.Engine.Resource
 			return graphics.MeasureString(character, _font).Height;
 		}
 	}
+
 }
