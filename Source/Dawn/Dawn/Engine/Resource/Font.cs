@@ -84,12 +84,12 @@ namespace Dawn.Engine.Resource
 
 		public float CharacterWidth(string character)
 		{
-			return graphics.MeasureString(character, _font).Width;
+			return graphics.MeasureString(character, _font, (int)MaxCharacterWidth()).Width;
 		}
 
 		public float CharacterHeight(string character)
 		{
-			return graphics.MeasureString(character, _font).Height;
+			return graphics.MeasureString(character, _font, (int)MaxCharacterHeight()).Height;
 		}
 	}
 

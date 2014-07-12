@@ -33,7 +33,7 @@ namespace DawnGame.Game.Scene
 			DGE.Audio.FadeInPlay(Dawn.Engine.Define.EngineConst.AudioManager_ChannelType.BGM, audios);
 			//DGE.Audio.FadeOutStop(Engine.Define.EngineConst.AudioManager_ChannelType.BGM)
 
-			Dawn.Engine.Resource.Font font = new Dawn.Engine.Resource.Font(new Dawn.Engine.Resource.Data.FontFamilyData(new System.Drawing.FontFamily("微软雅黑"), 28, false, false, false));
+			Dawn.Engine.Resource.Font font = new Dawn.Engine.Resource.Font(new Dawn.Engine.Resource.Data.FontFamilyData(new System.Drawing.FontFamily("微软雅黑"), 22, System.Drawing.Color.White, false, false, false));
 			font.Load();
 			helper = new Dawn.Engine.Manager.Processor.FontManager.FontHelper(font);
 		}
@@ -41,8 +41,8 @@ namespace DawnGame.Game.Scene
 		public override void Update()
 		{
 			DGE.Input.SetBusy(true);
-			Microsoft.Xna.Framework.Graphics.Texture2D tex = helper.DrawStringToTexture("我a哇咔咔哇咔咔");
-			DGE.Game._SpriteBatch.Draw(tex, new Microsoft.Xna.Framework.Vector2(0, 0), Microsoft.Xna.Framework.Color.White);
+			//Microsoft.Xna.Framework.Graphics.Texture2D tex = helper.DrawStringToTexture("潘丰ab。是傻逼");
+			//DGE.Game._SpriteBatch.Draw(tex, new Microsoft.Xna.Framework.Vector2(0, 0), Microsoft.Xna.Framework.Color.White);
 			base.Update();
 		}
 

@@ -28,7 +28,8 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 		protected System.Drawing.Graphics graphics;
 		protected System.Drawing.Brush brush;
 		protected System.Drawing.Bitmap bitmap;
-
+		protected System.Windows.Forms.TextRenderer renderer;
+		protected System.Drawing.IDeviceContext hdc;
 		public FontHelper(Resource.Font font)
 		{
 			_font = font;
@@ -55,10 +56,10 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 			}
 			bitmap = new System.Drawing.Bitmap(EngineConst.FontHelper_TextureWidth(), EngineConst.FontHelper_TextureHeight());
 			graphics = System.Drawing.Graphics.FromImage(bitmap);
-			graphics.PageUnit = System.Drawing.GraphicsUnit.Pixel;
-			graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-			graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-			brush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
+			//graphics.PageUnit = System.Drawing.GraphicsUnit.Pixel;
+			graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
+			graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
+			brush = new System.Drawing.SolidBrush(_font.font.Color);
 		}
 
 		protected void FillTexture(ref SpriteBatch canvas, ref System.Drawing.Bitmap bitmap)
@@ -80,7 +81,8 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 		protected virtual void _DrawCharacter(string character,ref SpriteBatch canvas,Vector2 position)
 		{
 			graphics.Clear(System.Drawing.Color.Transparent);
-			graphics.DrawString(character, _font.GetFont(), brush, (float)position.X, (float)position.Y);
+			//graphics.DrawString(character, _font.GetFont(), brush, (float)position.X, (float)position.Y);
+			System.Windows.Forms.TextRenderer.DrawText(graphics, character, _font.GetFont(), new System.Drawing.Point((int)position.X, (int)position.Y), _font.font.Color, System.Windows.Forms.TextFormatFlags.NoPadding);
 			FillTexture(ref canvas, ref bitmap);
 		}
 		protected void _NewCharacter(string character, Helper.FontPosition position)
