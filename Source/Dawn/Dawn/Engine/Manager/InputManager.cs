@@ -10,7 +10,7 @@ namespace Dawn.Engine.Manager
 {
 	public class InputManager : EngineObject
     {
-		public Texture mouseTexture;
+		private Texture mouseTexture;
 		private Texture mouseBusyTexture;
 		private bool _Busy;
         public override string ObjectClassName() { return Define.EngineClassName.InputManager(); }

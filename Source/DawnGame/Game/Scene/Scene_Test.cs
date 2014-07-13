@@ -51,9 +51,7 @@ namespace DawnGame.Game.Scene
 
 		public override void Update()
 		{
-			DGE.Input.SetBusy(true);
-			
-			helper.DrawStringCommand("Dawn Game Engine支持显示中文字了!\n欢迎使用DGE!...\nあああああああ", 0, 0);
+			helper.DrawString("あああああああ", 0, 0);
 			helper.DrawString("FPS: " + DGE.Graphics.FPS, 0, 100);
 			base.Update();
 		}

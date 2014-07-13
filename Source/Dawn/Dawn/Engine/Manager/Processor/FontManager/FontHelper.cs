@@ -54,16 +54,12 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 		protected Texture2D FillTexture(ref System.Drawing.Bitmap bitmap)
 		{
 			Texture2D tmpTex = new Texture2D(DGE.Graphics.Device, (int)bitmap.Width, (int)bitmap.Height);
-			Color[] colorMap = new Color[tmpTex.Width * tmpTex.Height];
-			for (int i = 0; i < bitmap.Height; i++)
-			{
-				for (int j = 0; j < bitmap.Width; j++)
-				{
-					System.Drawing.Color color = bitmap.GetPixel(j, i);
-					colorMap[i * tmpTex.Width + j] = new Color(color.R, color.G, color.B, color.A);
-				}
-			}
-			tmpTex.SetData<Color>(colorMap);
+			System.Drawing.Imaging.BitmapData colorMapTex = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height), System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+			Byte[] colorMap = new Byte[tmpTex.Width * tmpTex.Height * 4];
+			int bound = Math.Abs(colorMapTex.Stride) * colorMapTex.Height;
+			IntPtr ptr = colorMapTex.Scan0;
+			System.Runtime.InteropServices.Marshal.Copy(ptr, colorMap, 0, bound);
+			tmpTex.SetData<Byte>(colorMap);
 			return tmpTex;
 		}
 

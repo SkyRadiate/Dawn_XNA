@@ -10,7 +10,7 @@ namespace Dawn.Engine.Manager
 	public class CacheManager : EngineObject
 	{
 		public override string ObjectClassName() { return Define.EngineClassName.CacheManager(); }
-
+		
 		private FontManager _fontManager;
 		public CacheManager()
 		{

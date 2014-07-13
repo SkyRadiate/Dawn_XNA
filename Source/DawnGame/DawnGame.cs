@@ -13,7 +13,6 @@ namespace DawnGame
 		public override void Main()
 		{
 			base.Main();
-			Trace.WriteLine("Dawn> Start");
 			DGE.Scenes.Push<Game.Scene.Scene_Test>();
 		}
 	}
