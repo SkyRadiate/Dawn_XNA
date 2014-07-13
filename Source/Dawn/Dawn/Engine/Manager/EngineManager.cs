@@ -33,6 +33,7 @@ namespace Dawn.Engine.Manager
             _Graphics = new GraphicsManager();
             _Input = new InputManager();
             _Data = new DataManager();
+			_Threads = new ThreadManager();
         }
 
 		protected void OnStart()
@@ -57,7 +58,7 @@ namespace Dawn.Engine.Manager
             _Graphics.Initialize();
             _Input.Initialize();
             _Data.Initialize();
-
+			_Threads.Initialize();
 			OnStart();
         }
         public void Update()

@@ -30,7 +30,9 @@ namespace DawnGame.Game.Scene
 			
 			
             audio.Load();
-			audios.Load();
+			//audios.Load();
+			Dawn.Engine.Basic.ThreadProcessor.ResourceLoadProcessor processor=new Dawn.Engine.Basic.ThreadProcessor.ResourceLoadProcessor(audios);
+			DGE.Threads.NewThread(processor);
 			font.Load();
 			helper = new Dawn.Engine.Manager.Processor.FontManager.FontHelper(font);
 			/*
@@ -42,12 +44,13 @@ namespace DawnGame.Game.Scene
 			while (threadRes.ThreadState != System.Threading.ThreadState.Stopped) ;
 			*/
 			//DGE.Audio.PlayBGM((Engine.Resource.Audio)processor.Res);
-			//DGE.Audio.FadeInPlay(Dawn.Engine.Define.EngineConst.AudioManager_ChannelType.BGM, audios);
+			
 			//DGE.Audio.FadeOutStop(Engine.Define.EngineConst.AudioManager_ChannelType.BGM)
 			//GC.Collect();
-
 			DGE.Audio.PlayBGS(audio);
-			DGE.Audio.PlayBGM(audios);
+			while (!DGE.Threads.isEnd(processor)) ;
+			DGE.Audio.FadeInPlay(Dawn.Engine.Define.EngineConst.AudioManager_ChannelType.BGM, audios);
+			//DGE.Audio.PlayBGM(audios);
 			InputString = "";
 		}
 
