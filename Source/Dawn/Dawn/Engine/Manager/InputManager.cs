@@ -13,6 +13,7 @@ namespace Dawn.Engine.Manager
 		private Texture mouseTexture;
 		private Texture mouseBusyTexture;
 		private bool _Busy;
+		
         public override string ObjectClassName() { return Define.EngineClassName.InputManager(); }
 
 		public void SetBusy(bool busy)
@@ -28,7 +29,7 @@ namespace Dawn.Engine.Manager
 			DGE.Engine.Start += new SimpleEventHandler(OnInit);
         }
 
-		private void OnInit(object s, EventArgs e)//声明一个符合事件委托签名的处理方法
+		private void OnInit(object s, EventArgs e)
 		{
 			mouseTexture = DGE.Cache.Graphics(@"Texture\System\Cursor");
 			mouseBusyTexture = DGE.Cache.Graphics(@"Texture\System\Cursor_Busy");
@@ -37,14 +38,30 @@ namespace Dawn.Engine.Manager
 
 		private void RenderMouse(object sender,EventArgs e)
 		{
+			int mouseX, mouseY;
+			mouseX = MouseState.X;
+			mouseY = MouseState.Y;
 			if (_Busy)
 			{
-				DGE.Graphics.Draw(mouseBusyTexture, new Vector2(DGE.Game._MouseInputState.X, DGE.Game._MouseInputState.Y), Color.White);
+				DGE.Graphics.Draw(mouseBusyTexture, new Vector2(mouseX, mouseY), Color.White);
 			}
 			else
 			{
-				DGE.Graphics.Draw(mouseTexture, new Vector2(DGE.Game._MouseInputState.X, DGE.Game._MouseInputState.Y), Color.White);
+				DGE.Graphics.Draw(mouseTexture, new Vector2(mouseX, mouseY), Color.White);
 			}
+		}
+
+		public Microsoft.Xna.Framework.Input.GamePadState State
+		{
+			get { return Microsoft.Xna.Framework.Input.GamePad.GetState(PlayerIndex.One); }
+		}
+		public Microsoft.Xna.Framework.Input.KeyboardState KeyBoardState
+		{
+			get { return Microsoft.Xna.Framework.Input.Keyboard.GetState(PlayerIndex.One); }
+		}
+		public Microsoft.Xna.Framework.Input.MouseState MouseState
+		{
+			get { return Microsoft.Xna.Framework.Input.Mouse.GetState(); }
 		}
     }
 }

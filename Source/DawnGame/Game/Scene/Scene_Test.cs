@@ -14,6 +14,8 @@ namespace DawnGame.Game.Scene
 		Dawn.Engine.Manager.Processor.FontManager.FontHelper helper;
 		Dawn.Engine.Resource.Audio audios;
 		Dawn.Engine.Resource.Audio audio;
+
+		string InputString;
 		public Scene_Test()
 		{
 		}
@@ -46,13 +48,22 @@ namespace DawnGame.Game.Scene
 
 			DGE.Audio.PlayBGS(audio);
 			DGE.Audio.PlayBGM(audios);
-			
+			InputString = "";
 		}
 
 		public override void Update()
 		{
 			helper.DrawString("あああああああ", 0, 0);
 			helper.DrawString("FPS: " + DGE.Graphics.FPS, 0, 100);
+
+			if(DGE.Input.MouseState.LeftButton==Microsoft.Xna.Framework.Input.ButtonState.Pressed)
+			{
+				DGE.Input.SetBusy(true);
+			}
+			else
+			{
+				DGE.Input.SetBusy(false);
+			}
 			base.Update();
 		}
 
