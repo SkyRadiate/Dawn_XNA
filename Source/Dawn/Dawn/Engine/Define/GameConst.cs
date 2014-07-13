@@ -32,5 +32,7 @@ namespace Dawn.Engine.Define
 		public static bool ShowCursor() { return false; }
 
 		public static int FramePerSecond() { return 60; }
+		public static bool LimitFPS() { return true; }
+		public static bool VSync() { return true; }
 	}
 }

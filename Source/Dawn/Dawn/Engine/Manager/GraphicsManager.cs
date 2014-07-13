@@ -19,10 +19,11 @@ namespace Dawn.Engine.Manager
 		public event SimpleEventHandler PostRender;
 		public event SimpleEventHandler EndUpdate;
 
-
+		private Basic.ThreadProcessor.FPSProcessor fps;
 		public Microsoft.Xna.Framework.Graphics.GraphicsDevice Device { get { return DGE.Game._GraphicsDevice; } }
 		public Microsoft.Xna.Framework.Graphics.SpriteBatch Canvas { get { return DGE.Game._SpriteBatch; } }
         public SceneManager Scenes { get { return _Scenes; } }
+		public int FPS { get { return fps.FPS; } }
         public GraphicsManager()
         {
             _Scenes=new SceneManager();
@@ -30,7 +31,8 @@ namespace Dawn.Engine.Manager
 
         public void Initialize()
         {
-            _Scenes.Initialize();
+			_Scenes.Initialize();
+			fps = new Basic.ThreadProcessor.FPSProcessor();
         }
 
 		protected void OnStartUpdate()
@@ -67,6 +69,8 @@ namespace Dawn.Engine.Manager
 		}
 		public void Update()
 		{
+			fps.AddFrame();
+
 			OnStartUpdate();
 			Device.Clear(Engine.Define.GameWindow.BackgroundColor());
 			Canvas.Begin();

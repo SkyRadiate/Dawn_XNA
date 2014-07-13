@@ -72,7 +72,7 @@ namespace Dawn.Engine.Manager
         {
             //FMODRun(system.playSound(CHANNELINDEX.REUSE, audio.GetSound(), false, ref ChannelID()[channelID]));
 			FMOD.Channel tmpChannel = _ChannelID(channelID);
-			FMODRun(system.playSound(CHANNELINDEX.REUSE, audio.GetSound(), false, ref tmpChannel));
+			FMODRun(system.playSound(CHANNELINDEX.FREE, audio.GetSound(), false, ref tmpChannel));
         }
 
         protected int FindChannel(Define.EngineConst.AudioManager_ChannelType type)

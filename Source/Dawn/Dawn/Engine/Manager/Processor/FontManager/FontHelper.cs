@@ -14,11 +14,9 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 		public override string ObjectClassName() { return Define.EngineClassName.FontHelper(); }
 
 		protected Texture2D[] tex;
-		protected string[,,] used;
-
+		Dictionary<string, FontManager.Helper.CharacterObject> characters;
+		Dictionary<FontManager.Helper.FontPosition, string> bcharacters;
 		protected Resource.Font _font;
-
-		protected bool[] texUsed;
 
 		protected int texRow;
 		protected int texCol;
@@ -30,6 +28,8 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 		protected System.Drawing.Bitmap bitmap;
 		protected System.Windows.Forms.TextRenderer renderer;
 		protected System.Drawing.IDeviceContext hdc;
+		private Random random;
+		//protected 
 		public FontHelper(Resource.Font font)
 		{
 			_font = font;
@@ -38,35 +38,23 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 			texColPixels = _font.MaxCharacterWidth();
 			texCol = (int)(EngineConst.FontHelper_TextureWidth() / _font.MaxCharacterWidth());
 			texRow = (int)(EngineConst.FontHelper_TextureHeight() / _font.MaxCharacterHeight());
-			texUsed = new bool[EngineConst.FontHelper_TextureNum()];
-			used = new string[EngineConst.FontHelper_TextureNum(), texRow, texCol];
 
 			tex = new Texture2D[EngineConst.FontHelper_TextureNum()];
 			for (int i = 0; i < EngineConst.FontHelper_TextureNum(); i++)
 			{
-				texUsed[i] = false;
-				
-				for (int x = 0; x < texRow; x++)
-				{
-					for (int y = 0; y < texCol; y++)
-					{
-						used[i, x, y] = "";
-					}
-				}
+				tex[i] = new Texture2D(DGE.Graphics.Device, EngineConst.FontHelper_TextureWidth(), EngineConst.FontHelper_TextureHeight());
 			}
-			bitmap = new System.Drawing.Bitmap(EngineConst.FontHelper_TextureWidth(), EngineConst.FontHelper_TextureHeight());
-			graphics = System.Drawing.Graphics.FromImage(bitmap);
-			//graphics.PageUnit = System.Drawing.GraphicsUnit.Pixel;
-			graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-			graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+			characters = new Dictionary<string, Helper.CharacterObject>(texCol * texRow * EngineConst.FontHelper_TextureNum());
+			bcharacters = new Dictionary<Helper.FontPosition, string>(texCol * texRow * EngineConst.FontHelper_TextureNum(), new Helper.FontPositionComparer());
+			//bitmap = new System.Drawing.Bitmap(EngineConst.FontHelper_TextureWidth(), EngineConst.FontHelper_TextureHeight());
 			brush = new System.Drawing.SolidBrush(_font.font.Color);
+			random = new Random();
 		}
 
 		protected Texture2D FillTexture(ref System.Drawing.Bitmap bitmap)
 		{
 			Texture2D tmpTex = new Texture2D(DGE.Graphics.Device, (int)bitmap.Width, (int)bitmap.Height);
 			Color[] colorMap = new Color[tmpTex.Width * tmpTex.Height];
-			tmpTex.GetData<Color>(colorMap);
 			for (int i = 0; i < bitmap.Height; i++)
 			{
 				for (int j = 0; j < bitmap.Width; j++)
@@ -86,9 +74,9 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 			graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
 			graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 		}
-		protected virtual Texture2D _DrawCharacter(string character)
+		protected virtual Texture2D _DrawCharacter(string character,Helper.CharacterObject obj)
 		{
-			System.Drawing.Bitmap tmpBitmap = new System.Drawing.Bitmap((int)_font.CharacterWidth(character), (int)_font.CharacterHeight(character));
+			System.Drawing.Bitmap tmpBitmap = new System.Drawing.Bitmap((int)texColPixels, (int)texRowPixels);
 			setGraphics(ref tmpBitmap);
 			graphics.Clear(System.Drawing.Color.Transparent);
 			//graphics.DrawString(character, _font.GetFont(), brush, (float)position.X, (float)position.Y);
@@ -96,7 +84,7 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 
 			return FillTexture(ref tmpBitmap);
 		}
-		protected void _NewCharacter(string character, Helper.FontPosition position)
+		protected void _NewCharacter(string character, Helper.CharacterObject obj)
 		{
 			GraphicsDevice graphicsDevice = DGE.Graphics.Device;
 			RenderTarget2D rt = new RenderTarget2D(graphicsDevice, EngineConst.FontHelper_TextureWidth(),EngineConst.FontHelper_TextureHeight());
@@ -110,8 +98,8 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 			SpriteBatch spriteBatch = new SpriteBatch(graphicsDevice);
 			spriteBatch.Begin();
 
-			spriteBatch.Draw(tex[position.TexID], new Vector2(0, 0), Color.White);
-			spriteBatch.Draw(_DrawCharacter(character), new Vector2(position.Col * texColPixels, position.Row * texRowPixels), Color.White);
+			spriteBatch.Draw(tex[obj.position.TexID], new Vector2(0, 0), Color.White);
+			spriteBatch.Draw(_DrawCharacter(character, obj), new Vector2(obj.position.Col * texColPixels, obj.position.Row * texRowPixels), Color.White);
 
 			spriteBatch.End();
 			spriteBatch.Dispose();
@@ -122,91 +110,87 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 			graphicsDevice.Clear(Define.GameWindow.BackgroundColor());
 
 			RenderTargetBinding binding=new RenderTargetBinding(rt);
-			tex[position.TexID] = binding.RenderTarget as Texture2D;
+			tex[obj.position.TexID] = binding.RenderTarget as Texture2D;
 		}
 
-		protected Helper.FontPosition NewCharacter(string character)
+		protected void NewCharacter(string character, Helper.CharacterObject obj)
 		{
-			Helper.FontPosition _pos;
-
-			for (int i = 0; i < EngineConst.FontHelper_TextureNum(); i++)
-			{
-				if (texUsed[i] == true)
-				{
-					for (int x = 0; x < texRow; x++)
-					{
-						for (int y = 0; y < texCol; y++)
-						{
-							if (used[i, x, y] == "")
-							{
-								_pos = new Helper.FontPosition { TexID = i, Row = x, Col = y };
-								used[i, x, y] = character;
-								_NewCharacter(character, _pos);
-								return _pos;
-							}
-						}
-					}
-				}
-			}
-
-			//Tex Full
-			for (int i = 0; i < EngineConst.FontHelper_TextureNum(); i++)
-			{
-				if (texUsed[i] == false)
-				{
-					texUsed[i] = true;
-					tex[i] = new Texture2D(DGE.Graphics.Device, EngineConst.FontHelper_TextureWidth(), EngineConst.FontHelper_TextureHeight());
-					for (int x = 0; x < texRow; x++)
-					{
-						for (int y = 0; y < texCol; y++)
-						{
-							if (used[i, x, y] == "")
-							{
-								_pos = new Helper.FontPosition { TexID = i, Row = x, Col = y };
-								used[i, x, y] = character;
-								_NewCharacter(character, _pos);
-								return _pos;
-							}
-						}
-					}
-				}
-			}
-
-			//All Full
-
-			DGE.Debug.Error(this, "", "");
-			return null;
+			_NewCharacter(character, obj);
 		}
 
-		protected Helper.FontPosition _GetCharacter(string character)
+		protected Helper.CharacterObject FindCharacter(string character)
 		{
-			Helper.FontPosition _pos;
-
-			for (int i = 0; i < EngineConst.FontHelper_TextureNum(); i++)
-			{
-				if (texUsed[i] == true)
-				{
-					for (int x = 0; x < texRow; x++)
-					{
-						for (int y = 0; y < texCol; y++)
-						{
-							if (used[i, x, y] == character)
-							{
-								_pos = new Helper.FontPosition { TexID = i, Row = x, Col = y };
-								return _pos;
-							}
-						}
-					}
-				}
-			}
-
-			//Not Found
-			return NewCharacter(character);
+			Helper.CharacterObject obj;
+			characters.TryGetValue(character, out obj);
+			return obj;
 		}
 
-		protected void DrawCharacterToTexture(int x, int y, string character, ref SpriteBatch canvas)
+		protected Helper.CharacterObject GenerateCharacter(string character)
 		{
-			Helper.FontPosition pos = _GetCharacter(character);
+			Helper.CharacterObject obj;
+			obj = FindCharacter(character);
+			if(obj==null)
+			{
+				obj = new Helper.CharacterObject { position = null, Width = -1, Height = -1, character = character };
+				characters.Add(character, obj);
+			}
+			return obj;
+		}
+		protected Helper.CharacterObject _GetCharacter(string character)
+		{
+			Helper.CharacterObject obj;
+			obj = GenerateCharacter(character);
+			if (obj.position == null)
+			{
+				Helper.FontPosition pos = new Helper.FontPosition();
+
+				pos.TexID = random.Next(0, EngineConst.FontHelper_TextureNum()-1);
+				pos.Row = random.Next(0, texRow - 1);
+				pos.Col = random.Next(0, texCol - 1);
+				Helper.FontPosition tmp = new Helper.FontPosition { TexID = pos.TexID, Row = pos.Row, Col = pos.Col };
+				bool useFlag = false;
+				Helper.FontPosition tmp2 = new Helper.FontPosition { TexID = pos.TexID, Row = pos.Row, Col = pos.Col };
+				while (bcharacters.ContainsKey(pos))
+				{
+					pos.Col++;
+					if(pos.Col>=texCol)
+					{
+						pos.Col = 0;
+						pos.Row++;
+					}
+					if(pos.Row>=texRow)
+					{
+						pos.Row = 0;
+						pos.TexID++;
+					}
+					if(pos.TexID>=EngineConst.FontHelper_TextureNum())
+					{
+						pos.TexID = 0;
+					}
+					if(tmp.Row==pos.Row && tmp.Col==pos.Col && tmp.TexID==pos.TexID)
+					{
+						string tmpChar;
+						bcharacters.TryGetValue(pos, out tmpChar);
+						bcharacters.Remove(pos);
+						bcharacters.Add(pos, character);
+						characters.Remove(tmpChar);
+						useFlag = true;
+						break;
+					}
+				}
+				if(!useFlag)
+				{
+					bcharacters.Add(pos, character);
+				}
+				obj.position = pos;
+				NewCharacter(character, obj);
+			}
+			return obj;
+		}
+
+		protected void DrawCharacterToTexture(int x, int y, string character, SpriteBatch canvas)
+		{
+			Helper.FontPosition pos = _GetCharacter(character).position;
 			canvas.Draw(tex[pos.TexID], new Vector2(x, y), new Rectangle((int)(pos.Col * texColPixels), (int)(pos.Row * texRowPixels), (int)texColPixels, (int)texRowPixels), Color.White);
 		}
 
@@ -216,13 +200,29 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 			widths = new float[str.Length];
 			for (int i = 0; i < str.Length; i++)
 			{
-				widths[i] = _font.CharacterWidth(str.Substring(i, 1));
+				Helper.CharacterObject obj = GenerateCharacter(str.Substring(i, 1));
+				float tmpWidth;
+				if (obj.Width == -1)
+				{
+					tmpWidth = _font.CharacterWidth(str.Substring(i, 1));
+					obj.Width = tmpWidth;
+				}
+				else
+				{
+					tmpWidth = obj.Width;
+				}
+				if(obj.Height==-1)
+				{
+					obj.Height = _font.CharacterWidth(str.Substring(i, 1));
+				}
+
+				widths[i] = tmpWidth;
 			}
 			return widths;
 		}
 		public Texture2D DrawStringToTexture(string str)
 		{
-			System.Diagnostics.Trace.WriteLine("Dawn> Render String...Setting Target");
+			//System.Diagnostics.Trace.WriteLine("Dawn> Render String...Setting Target");
 			float[] strWidth = MeasureString(str);
 			
 			GraphicsDevice graphicsDevice = DGE.Graphics.Device;
@@ -233,15 +233,15 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 			graphicsDevice.SetRenderTarget(rt);
 			
 			graphicsDevice.Clear(ClearOptions.Target, Color.Transparent, 0, 0);
-			System.Diagnostics.Trace.WriteLine("Dawn> Render String...Processing");
+			//System.Diagnostics.Trace.WriteLine("Dawn> Render String...Processing");
 			SpriteBatch spriteBatch = new SpriteBatch(graphicsDevice);
 			spriteBatch.Begin();
 
 			float x = 0;
 			for (int i = 0; i < str.Length; i++)
 			{
-				System.Diagnostics.Trace.WriteLine("Dawn> Render String...Character #" + i.ToString());
-				DrawCharacterToTexture((int)x, 0, str.Substring(i, 1), ref spriteBatch);
+				//System.Diagnostics.Trace.WriteLine("Dawn> Render String...Character #" + i.ToString());
+				DrawCharacterToTexture((int)x, 0, str.Substring(i, 1), spriteBatch);
 				x += strWidth[i];
 			}
 
@@ -256,6 +256,31 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 			RenderTargetBinding binding=new RenderTargetBinding(rt);
 			return binding.RenderTarget as Texture2D;
 			
+		}
+
+		public void DrawString(string str, int x, int y)
+		{
+			float x1 = x;
+			float[] strWidth = MeasureString(str);
+			for (int i = 0; i < str.Length; i++)
+			{
+				//System.Diagnostics.Trace.WriteLine("Dawn> Render String...Character #" + i.ToString());
+				DrawCharacterToTexture((int)x1, y, str.Substring(i, 1), DGE.Graphics.Canvas);
+				x1 += strWidth[i];
+			}
+		}
+
+		public void DrawStringCommand(string str, int x, int y)
+		{
+			float y1 = y;
+			float y1Add=_font.MaxCharacterHeight();
+			char[] ch=new char[]{'\n','\r'};
+			string[] s = str.Split(ch);
+			for (int i = 0; i < s.Length; i++)
+			{
+				DrawString(s[i], x, (int)y1);
+				y1 += y1Add;
+			}
 		}
 	}
 }

@@ -25,13 +25,13 @@ namespace Dawn
 
             graphics.PreferredBackBufferHeight = Engine.Define.GameWindow.Height();
             graphics.PreferredBackBufferWidth = Engine.Define.GameWindow.Width();
-
+			graphics.SynchronizeWithVerticalRetrace = Dawn.Engine.Define.GameConst.VSync();
 
 			Content.RootDirectory = Dawn.Engine.Manager.DataManager.ContentPath();
 
 			this.IsMouseVisible = Engine.Define.GameConst.ShowCursor();
-			this.IsFixedTimeStep = true;
-			this.TargetElapsedTime = new TimeSpan(10000000 / Dawn.Engine.Define.GameConst.FramePerSecond());
+			this.IsFixedTimeStep = Dawn.Engine.Define.GameConst.LimitFPS();
+			if(Dawn.Engine.Define.GameConst.LimitFPS())this.TargetElapsedTime = new TimeSpan(10000000 / Dawn.Engine.Define.GameConst.FramePerSecond());
         }
 
 		~GameDawn()

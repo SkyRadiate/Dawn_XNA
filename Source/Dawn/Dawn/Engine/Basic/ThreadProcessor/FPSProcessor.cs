@@ -5,14 +5,14 @@ using System.Text;
 
 namespace Dawn.Engine.Basic.ThreadProcessor
 {
-	class FPSProcessor : ThreadProcessor
+	public class FPSProcessor : ThreadProcessor
 	{
 		private int Frames;
 		private System.Timers.Timer timer;
 		public FPSProcessor()
 			: base()
 		{
-			timer = new System.Timers.Timer(1);
+			timer = new System.Timers.Timer(1000);
 			timer.AutoReset = true;
 			timer.Elapsed += new System.Timers.ElapsedEventHandler(Tick);
 			timer.Start();

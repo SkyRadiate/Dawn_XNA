@@ -12,5 +12,11 @@ namespace Dawn.Engine.Manager.Processor.FontManager.Helper
 		public int TexID { get; set; }
 		public int Row { get; set; }
 		public int Col { get; set; }
+
+		public FontPosition()
+		{
+			TexID = Row = Col = -1;
+		}
+
 	}
 }

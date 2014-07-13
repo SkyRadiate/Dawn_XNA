@@ -13,6 +13,7 @@ namespace Dawn.Engine.Resource
 		public static byte DefaultFontSize = 16;
 		private System.Drawing.Font _font;
 		private System.Drawing.Graphics graphics;
+		private System.Drawing.Size proposedSize = new System.Drawing.Size(int.MaxValue, int.MaxValue);
 
 		protected Data.FontFamilyData _fontData;
 		public Font()
@@ -84,12 +85,14 @@ namespace Dawn.Engine.Resource
 
 		public float CharacterWidth(string character)
 		{
-			return graphics.MeasureString(character, _font, (int)MaxCharacterWidth()).Width;
+			return System.Windows.Forms.TextRenderer.MeasureText(graphics, character, _font, proposedSize, System.Windows.Forms.TextFormatFlags.NoPadding).Width;
+			//return graphics.MeasureString(character, _font).Width;//, new System.Drawing.SizeF(MaxCharacterWidth(), MaxCharacterHeight())).Width;
 		}
 
 		public float CharacterHeight(string character)
 		{
-			return graphics.MeasureString(character, _font, (int)MaxCharacterHeight()).Height;
+			return System.Windows.Forms.TextRenderer.MeasureText(graphics, character, _font, proposedSize, System.Windows.Forms.TextFormatFlags.NoPadding).Height;
+			//return graphics.MeasureString(character, _font).Height;//, new System.Drawing.SizeF(MaxCharacterWidth(), MaxCharacterHeight())).Height;
 		}
 	}
 

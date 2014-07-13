@@ -12,6 +12,8 @@ namespace DawnGame.Game.Scene
 	class Scene_Test : Dawn.Engine.Basic.Scene
 	{
 		Dawn.Engine.Manager.Processor.FontManager.FontHelper helper;
+		Dawn.Engine.Resource.Audio audios;
+		Dawn.Engine.Resource.Audio audio;
 		public Scene_Test()
 		{
 		}
@@ -19,32 +21,40 @@ namespace DawnGame.Game.Scene
 		public override void Start()
 		{
 			base.Start();
-			Dawn.Engine.Resource.Audio audios = new Dawn.Engine.Resource.Audio(DGE.Data.Audio("tmp.mp3"));
-
-			Dawn.Engine.Resource.Audio audio = new Dawn.Engine.Resource.Audio(DGE.Data.Audio("3711.mp3"));
+			audios = new Dawn.Engine.Resource.Audio(DGE.Data.Audio("tmp.mp3"));
+			audio = new Dawn.Engine.Resource.Audio(DGE.Data.Audio("3711.mp3"));
+			Dawn.Engine.Resource.Font font = new Dawn.Engine.Resource.Font(new Dawn.Engine.Resource.Data.FontFamilyData(new System.Drawing.FontFamily("微软雅黑"), 22, System.Drawing.Color.White, false, false, false));
+			
+			
+			
             audio.Load();
-            DGE.Audio.PlayBGS(audio);
+			audios.Load();
+			font.Load();
+			helper = new Dawn.Engine.Manager.Processor.FontManager.FontHelper(font);
+			/*
 			Dawn.Engine.Basic.ThreadProcessor.ResourceLoadProcessor processor = new Dawn.Engine.Basic.ThreadProcessor.ResourceLoadProcessor(audios);
 			System.Threading.Thread threadRes = new System.Threading.Thread(new System.Threading.ThreadStart(processor.Process));
 			threadRes.IsBackground = true;
 			
 			threadRes.Start();
 			while (threadRes.ThreadState != System.Threading.ThreadState.Stopped) ;
+			*/
 			//DGE.Audio.PlayBGM((Engine.Resource.Audio)processor.Res);
-			DGE.Audio.FadeInPlay(Dawn.Engine.Define.EngineConst.AudioManager_ChannelType.BGM, audios);
+			//DGE.Audio.FadeInPlay(Dawn.Engine.Define.EngineConst.AudioManager_ChannelType.BGM, audios);
 			//DGE.Audio.FadeOutStop(Engine.Define.EngineConst.AudioManager_ChannelType.BGM)
+			//GC.Collect();
 
-			Dawn.Engine.Resource.Font font = new Dawn.Engine.Resource.Font(new Dawn.Engine.Resource.Data.FontFamilyData(new System.Drawing.FontFamily("微软雅黑"), 22, System.Drawing.Color.White, false, false, false));
-			font.Load();
-			helper = new Dawn.Engine.Manager.Processor.FontManager.FontHelper(font);
+			DGE.Audio.PlayBGS(audio);
+			DGE.Audio.PlayBGM(audios);
+			
 		}
 
 		public override void Update()
 		{
 			DGE.Input.SetBusy(true);
-			Trace.WriteLine("Dawn> Render String...");
-			Microsoft.Xna.Framework.Graphics.Texture2D tex = helper.DrawStringToTexture("哇咔咔Dawn Game Engine~!!!");
-			DGE.Game._SpriteBatch.Draw(tex, new Microsoft.Xna.Framework.Vector2(0, 0), Microsoft.Xna.Framework.Color.White);
+			
+			helper.DrawStringCommand("Dawn Game Engine支持显示中文字了!\n欢迎使用DGE!...\nあああああああ", 0, 0);
+			helper.DrawString("FPS: " + DGE.Graphics.FPS, 0, 100);
 			base.Update();
 		}
 
