@@ -186,7 +186,8 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 
 		protected void DrawCharacterToTexture(int x, int y, string character, SpriteBatch canvas)
 		{
-			Helper.FontPosition pos = _GetCharacter(character).position;
+			Helper.CharacterObject charobj = _GetCharacter(character);
+			Helper.FontPosition pos = charobj.position;
 			canvas.Draw(tex[pos.TexID], new Vector2(x, y), new Rectangle((int)(pos.Col * texColPixels), (int)(pos.Row * texRowPixels), (int)texColPixels, (int)texRowPixels), Color.White);
 		}
 

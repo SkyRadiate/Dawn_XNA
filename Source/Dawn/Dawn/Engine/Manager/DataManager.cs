@@ -55,6 +55,13 @@ namespace Dawn.Engine.Manager
         {
             return Data(@"Audio\" + filename);
         }
-
+		public string Script(string filename)
+		{
+			return Data(@"Script\" + filename);
+		}
+		public string LyricFile(string filename)
+		{
+			return Script(@"Lyric\" + filename);
+		}
     }
 }

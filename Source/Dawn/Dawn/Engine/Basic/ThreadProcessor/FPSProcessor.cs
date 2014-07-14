@@ -24,8 +24,9 @@ namespace Dawn.Engine.Basic.ThreadProcessor
 		private void Tick(object sender, System.Timers.ElapsedEventArgs e)
 		{
 			FPS = Frames / timeCalculator.Elapsed.TotalSeconds;
-			timeCalculator.Restart();
 			Frames = 0;
+			timeCalculator.Restart();
+			
 		}
 
 		public void AddFrame()

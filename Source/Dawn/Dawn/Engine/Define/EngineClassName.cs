@@ -32,8 +32,10 @@ namespace Dawn.Engine.Define
         public static string AudioStreamResource() { return "AudioStreamResource"; }
 		public static string TextureResource() { return "TextureResource"; }
 		public static string FontResource() { return "FontResource"; }
+		public static string LyricFileResource() { return "LyricFileResource"; }
 		public static string FontData() { return "FontData"; }
 		public static string FontFamilyData() { return "FontFamilyData"; }
+		public static string LyricSupporter() { return "LyricSupporter"; }
 		public static string AudioProcessor() { return "AudioProcessor"; }
 		public static string Scene() { return "Scene"; }
 		public static string FontManager() { return "FontManager"; }
