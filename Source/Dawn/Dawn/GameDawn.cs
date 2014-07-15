@@ -39,12 +39,24 @@ namespace Dawn
 
 		void graphics_DeviceResetting(object sender, EventArgs e)
 		{
-			DGE.Graphics.graphics_DeviceResetting(sender, e);
+			if (DGE.Engine != null)
+			{
+				if (DGE.Graphics != null)
+				{
+					DGE.Graphics.graphics_DeviceResetting(sender, e);
+				}
+			}
 		}
 
 		void graphics_DeviceReset(object sender, EventArgs e)
 		{
-			DGE.Graphics.graphics_DeviceReset(sender, e);
+			if (DGE.Engine != null)
+			{
+				if (DGE.Graphics != null)
+				{
+					DGE.Graphics.graphics_DeviceReset(sender, e);
+				}
+			}
 		}
 
 		~GameDawn()
