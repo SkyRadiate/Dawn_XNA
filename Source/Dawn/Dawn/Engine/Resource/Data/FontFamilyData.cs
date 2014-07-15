@@ -10,7 +10,7 @@ namespace Dawn.Engine.Resource.Data
 
 		public override string ObjectClassName() { return Define.EngineClassName.FontFamilyData(); }
 		public FontFamilyData(string filename)
-			: this(new System.Drawing.FontFamily(""), 0, System.Drawing.Color.White, false, false, false)
+			: this(new System.Drawing.FontFamily(filename), 0, System.Drawing.Color.White, false, false, false)
 		{
 		}
 

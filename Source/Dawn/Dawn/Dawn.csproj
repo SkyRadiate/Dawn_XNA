@@ -106,6 +106,7 @@
     <Compile Include="Engine\Manager\Processor\AudioManager\AudioProcessor.cs" />
     <Compile Include="Engine\Manager\Processor\AudioManager\AudioProcessor_FadeIn.cs" />
     <Compile Include="Engine\Manager\Processor\AudioManager\AudioProcessor_FadeOut.cs" />
+    <Compile Include="Engine\Manager\Processor\FontManager\FontDataComparer.cs" />
     <Compile Include="Engine\Manager\Processor\FontManager\FontHelper.cs" />
     <Compile Include="Engine\Manager\Processor\FontManager\Helper\CharacterObject.cs" />
     <Compile Include="Engine\Manager\Processor\FontManager\Helper\FontPosition.cs" />

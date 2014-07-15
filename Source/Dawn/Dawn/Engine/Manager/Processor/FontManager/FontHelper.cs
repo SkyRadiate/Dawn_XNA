@@ -70,7 +70,7 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 			graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
 			graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 		}
-		protected virtual Texture2D _DrawCharacter(string character,Helper.CharacterObject obj)
+		protected virtual Texture2D _DrawCharacter(string character, Helper.CharacterObject obj)
 		{
 			System.Drawing.Bitmap tmpBitmap = new System.Drawing.Bitmap((int)texColPixels, (int)texRowPixels);
 			setGraphics(ref tmpBitmap);
@@ -80,10 +80,43 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 
 			return FillTexture(ref tmpBitmap);
 		}
+
+		protected Texture2D NoneTexture()
+		{
+			Texture2D tmpTex = new Texture2D(DGE.Graphics.Device, (int)texColPixels, (int)texRowPixels);
+			return tmpTex;
+		}
+		protected void _ClearCharacter(Helper.CharacterObject obj)
+		{
+			GraphicsDevice graphicsDevice = DGE.Graphics.Device;
+			RenderTarget2D rt = new RenderTarget2D(graphicsDevice, EngineConst.FontHelper_TextureWidth(), EngineConst.FontHelper_TextureHeight());
+
+			RenderTargetBinding[] old = graphicsDevice.GetRenderTargets();
+
+			graphicsDevice.SetRenderTarget(rt);
+
+			graphicsDevice.Clear(ClearOptions.Target, Color.Transparent, 0, 0);
+
+			SpriteBatch spriteBatch = new SpriteBatch(graphicsDevice);
+			spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.Opaque);
+
+			spriteBatch.Draw(tex[obj.position.TexID], new Vector2(0, 0), Color.White);
+			spriteBatch.Draw(NoneTexture(), new Vector2(obj.position.Col * texColPixels, obj.position.Row * texRowPixels), Color.White);
+			spriteBatch.End();
+			spriteBatch.Dispose();
+
+			graphicsDevice.SetRenderTargets(old);
+
+
+			graphicsDevice.Clear(Define.GameWindow.BackgroundColor());
+
+			RenderTargetBinding binding = new RenderTargetBinding(rt);
+			tex[obj.position.TexID] = binding.RenderTarget as Texture2D;
+		}
 		protected void _NewCharacter(string character, Helper.CharacterObject obj)
 		{
 			GraphicsDevice graphicsDevice = DGE.Graphics.Device;
-			RenderTarget2D rt = new RenderTarget2D(graphicsDevice, EngineConst.FontHelper_TextureWidth(),EngineConst.FontHelper_TextureHeight());
+			RenderTarget2D rt = new RenderTarget2D(graphicsDevice, EngineConst.FontHelper_TextureWidth(), EngineConst.FontHelper_TextureHeight());
 
 			RenderTargetBinding[] old = graphicsDevice.GetRenderTargets();
 
@@ -105,7 +138,7 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 
 			graphicsDevice.Clear(Define.GameWindow.BackgroundColor());
 
-			RenderTargetBinding binding=new RenderTargetBinding(rt);
+			RenderTargetBinding binding = new RenderTargetBinding(rt);
 			tex[obj.position.TexID] = binding.RenderTarget as Texture2D;
 		}
 
@@ -125,7 +158,7 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 		{
 			Helper.CharacterObject obj;
 			obj = FindCharacter(character);
-			if(obj==null)
+			if (obj == null)
 			{
 				obj = new Helper.CharacterObject { position = null, Width = -1, Height = -1, character = character };
 				characters.Add(character, obj);
@@ -140,7 +173,7 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 			{
 				Helper.FontPosition pos = new Helper.FontPosition();
 
-				pos.TexID = random.Next(0, EngineConst.FontHelper_TextureNum()-1);
+				pos.TexID = random.Next(0, EngineConst.FontHelper_TextureNum() - 1);
 				pos.Row = random.Next(0, texRow - 1);
 				pos.Col = random.Next(0, texCol - 1);
 				Helper.FontPosition tmp = new Helper.FontPosition { TexID = pos.TexID, Row = pos.Row, Col = pos.Col };
@@ -149,24 +182,28 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 				while (bcharacters.ContainsKey(pos))
 				{
 					pos.Col++;
-					if(pos.Col>=texCol)
+					if (pos.Col >= texCol)
 					{
 						pos.Col = 0;
 						pos.Row++;
 					}
-					if(pos.Row>=texRow)
+					if (pos.Row >= texRow)
 					{
 						pos.Row = 0;
 						pos.TexID++;
 					}
-					if(pos.TexID>=EngineConst.FontHelper_TextureNum())
+					if (pos.TexID >= EngineConst.FontHelper_TextureNum())
 					{
 						pos.TexID = 0;
 					}
-					if(tmp.Row==pos.Row && tmp.Col==pos.Col && tmp.TexID==pos.TexID)
+					if (tmp.Row == pos.Row && tmp.Col == pos.Col && tmp.TexID == pos.TexID)
 					{
 						string tmpChar;
+						Helper.CharacterObject cobj;
+						
 						bcharacters.TryGetValue(pos, out tmpChar);
+						characters.TryGetValue(tmpChar, out cobj);
+						_ClearCharacter(cobj);
 						bcharacters.Remove(pos);
 						bcharacters.Add(pos, character);
 						characters.Remove(tmpChar);
@@ -174,7 +211,7 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 						break;
 					}
 				}
-				if(!useFlag)
+				if (!useFlag)
 				{
 					bcharacters.Add(pos, character);
 				}
@@ -208,7 +245,7 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 				{
 					tmpWidth = obj.Width;
 				}
-				if(obj.Height==-1)
+				if (obj.Height == -1)
 				{
 					obj.Height = _font.CharacterWidth(str.Substring(i, 1));
 				}
@@ -221,48 +258,47 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 		{
 			//System.Diagnostics.Trace.WriteLine("Dawn> Render String...Setting Target");
 			float[] strWidth = MeasureString(str);
-			
+
 			GraphicsDevice graphicsDevice = DGE.Graphics.Device;
 			RenderTarget2D rt = new RenderTarget2D(graphicsDevice, (int)strWidth.Sum(), (int)_font.MaxCharacterHeight());
 
 			RenderTargetBinding[] old = graphicsDevice.GetRenderTargets();
-			
+
 			graphicsDevice.SetRenderTarget(rt);
-			
+
 			graphicsDevice.Clear(ClearOptions.Target, Color.Transparent, 0, 0);
 			//System.Diagnostics.Trace.WriteLine("Dawn> Render String...Processing");
 			SpriteBatch spriteBatch = new SpriteBatch(graphicsDevice);
 			spriteBatch.Begin();
 
-			float x = 0;
-			for (int i = 0; i < str.Length; i++)
-			{
-				//System.Diagnostics.Trace.WriteLine("Dawn> Render String...Character #" + i.ToString());
-				DrawCharacterToTexture((int)x, 0, str.Substring(i, 1), spriteBatch);
-				x += strWidth[i];
-			}
+			DrawString(str, spriteBatch, 0, 0);
 
 			spriteBatch.End();
 			spriteBatch.Dispose();
-			
+
 			graphicsDevice.SetRenderTargets(old);
-			
+
 
 			graphicsDevice.Clear(Define.GameWindow.BackgroundColor());
 
-			RenderTargetBinding binding=new RenderTargetBinding(rt);
+			RenderTargetBinding binding = new RenderTargetBinding(rt);
 			return binding.RenderTarget as Texture2D;
-			
+
 		}
 
 		public void DrawString(string str, int x, int y)
+		{
+			DrawString(str, DGE.Graphics.Canvas, x, y);
+		}
+
+		public void DrawString(string str, SpriteBatch canvas, int x, int y)
 		{
 			float x1 = x;
 			float[] strWidth = MeasureString(str);
 			for (int i = 0; i < str.Length; i++)
 			{
 				//System.Diagnostics.Trace.WriteLine("Dawn> Render String...Character #" + i.ToString());
-				DrawCharacterToTexture((int)x1, y, str.Substring(i, 1), DGE.Graphics.Canvas);
+				DrawCharacterToTexture((int)x1, y, str.Substring(i, 1), canvas);
 				x1 += strWidth[i];
 			}
 		}
@@ -270,8 +306,8 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 		public void DrawStringCommand(string str, int x, int y)
 		{
 			float y1 = y;
-			float y1Add=_font.MaxCharacterHeight();
-			char[] ch=new char[]{'\n','\r'};
+			float y1Add = _font.MaxCharacterHeight();
+			char[] ch = new char[] { '\n', '\r' };
 			string[] s = str.Split(ch);
 			for (int i = 0; i < s.Length; i++)
 			{

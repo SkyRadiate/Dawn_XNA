@@ -54,6 +54,9 @@ namespace Dawn.Engine.Resource
 					nCount++;
 				}
 			}
+
+			reader.Close();
+			loadStream.Close();
 		}
 
 		public override void Unload()

@@ -31,8 +31,8 @@ namespace Dawn.Engine.Manager
 
 		private void OnInit(object s, EventArgs e)
 		{
-			mouseTexture = DGE.Cache.Graphics(@"Texture\System\Cursor");
-			mouseBusyTexture = DGE.Cache.Graphics(@"Texture\System\Cursor_Busy");
+			mouseTexture = DGE.Cache.Graphics(DGE.Data.SystemTexture("Cursor"));
+			mouseBusyTexture = DGE.Cache.Graphics(DGE.Data.SystemTexture("Cursor_Busy"));
 			DGE.Graphics.PostRender += new SimpleEventHandler(RenderMouse);
 		}
 

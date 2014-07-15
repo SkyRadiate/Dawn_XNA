@@ -19,7 +19,7 @@ namespace Dawn.Engine.Basic.ThreadProcessor
 
 		public override void Update()
 		{
-			lock (res)
+			if (!res.isLoad())
 			{
 				res.Load();
 			}

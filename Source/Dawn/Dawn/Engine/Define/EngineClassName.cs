@@ -43,5 +43,6 @@ namespace Dawn.Engine.Define
 		public static string FontPosition() { return "FontPosition"; }
 		public static string ThreadProcessor() { return "ThreadProcessor"; }
 		public static string CharacterObject() { return "CharacterObject"; }
+		public static string CacheResource() { return "CacheResource"; }
     }
 }

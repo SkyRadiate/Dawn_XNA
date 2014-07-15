@@ -9,6 +9,8 @@ namespace Dawn.Engine.Manager
 	{
 		public override string ObjectClassName() { return Define.EngineClassName.FontManager(); }
 
+		
+		
 		public FontManager()
 		{
 

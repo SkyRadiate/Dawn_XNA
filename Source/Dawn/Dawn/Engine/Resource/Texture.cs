@@ -29,7 +29,7 @@ namespace Dawn.Engine.Resource
         public override void Load()
         {
             base.Load();
-			tex = DGE.Data.Content.Load<Texture2D>(filename);
+			tex = DGE.Data.Content.Load<Texture2D>(_filename);
         }
         public override void Unload()
         {

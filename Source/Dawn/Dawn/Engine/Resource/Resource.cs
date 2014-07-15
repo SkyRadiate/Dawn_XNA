@@ -15,7 +15,6 @@ namespace Dawn.Engine.Resource
 			_isLoad = false;
 			_filename = "";
 		}
-
 		public Resource(string filename)
 			: this()
 		{
@@ -91,7 +90,7 @@ namespace Dawn.Engine.Resource
 			{
 				if (!isLoad())
 				{
-					_filename = filename;
+					_filename = value;
 				}
 				else
 				{
