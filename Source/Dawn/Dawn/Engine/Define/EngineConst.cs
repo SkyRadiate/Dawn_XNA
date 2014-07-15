@@ -19,9 +19,9 @@ namespace Dawn.Engine.Define
             ME, SE
         };
 
-		public static int FontHelper_TextureWidth() { return 50; }
-		public static int FontHelper_TextureHeight() { return 50; }
-		public static int FontHelper_TextureNum() { return 1; }
+		public static int FontHelper_TextureWidth() { return 1024; }
+		public static int FontHelper_TextureHeight() { return 1024; }
+		public static int FontHelper_TextureNum() { return 5; }
 		public static int ThreadManager_MaxThreadNumber() { return 100; }
 		public static int LyricFileResource_MaxLine() { return 100; }
     }
