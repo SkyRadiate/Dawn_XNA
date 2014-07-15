@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Dawn.Engine.Resource;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("Dawn.GameDawn")]
 namespace Dawn.Engine.Manager
 {
     public class GraphicsManager : EngineObject
@@ -18,6 +20,9 @@ namespace Dawn.Engine.Manager
 		public event SimpleEventHandler PreRender;
 		public event SimpleEventHandler PostRender;
 		public event SimpleEventHandler EndUpdate;
+
+		public event EventHandler<EventArgs> WhenDeviceChanged;
+		public event EventHandler<EventArgs> WhenDeviceChanging;
 
 		private Basic.ThreadProcessor.FPSProcessor fps;
 		public Microsoft.Xna.Framework.Graphics.GraphicsDevice Device { get { return DGE.Game._GraphicsDevice; } }
@@ -119,6 +124,15 @@ namespace Dawn.Engine.Manager
 		public int Height()
 		{
 			return Dawn.Engine.Define.GameWindow.Height();
+		}
+		
+		internal void graphics_DeviceReset(object sender, EventArgs e)
+		{
+			WhenDeviceChanged(sender, e);
+		}
+		internal void graphics_DeviceResetting(object sender, EventArgs e)
+		{
+			WhenDeviceChanging(sender, e);
 		}
     }
 }

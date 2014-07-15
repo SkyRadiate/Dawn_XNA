@@ -21,11 +21,14 @@ namespace Dawn
         public GameDawn()
         {
             graphics = new GraphicsDeviceManager(this);
-            
+			
 
             graphics.PreferredBackBufferHeight = Engine.Define.GameWindow.Height();
             graphics.PreferredBackBufferWidth = Engine.Define.GameWindow.Width();
 			graphics.SynchronizeWithVerticalRetrace = Dawn.Engine.Define.GameConst.VSync();
+
+			graphics.DeviceReset += new EventHandler<EventArgs>(graphics_DeviceReset);
+			graphics.DeviceResetting += new EventHandler<EventArgs>(graphics_DeviceResetting);
 
 			Content.RootDirectory = Dawn.Engine.Manager.DataManager.ContentPath();
 
@@ -33,6 +36,16 @@ namespace Dawn
 			this.IsFixedTimeStep = Dawn.Engine.Define.GameConst.LimitFPS();
 			if(Dawn.Engine.Define.GameConst.LimitFPS())this.TargetElapsedTime = new TimeSpan(10000000 / Dawn.Engine.Define.GameConst.FramePerSecond());
         }
+
+		void graphics_DeviceResetting(object sender, EventArgs e)
+		{
+			DGE.Graphics.graphics_DeviceResetting(sender, e);
+		}
+
+		void graphics_DeviceReset(object sender, EventArgs e)
+		{
+			DGE.Graphics.graphics_DeviceReset(sender, e);
+		}
 
 		~GameDawn()
 		{
@@ -67,7 +80,6 @@ namespace Dawn
             DGE.Update();
             base.Draw(gameTime);
         }
-
 		public ContentManager _ContentManager { get { return Content; } }
 		public SpriteBatch _SpriteBatch { get { return spriteBatch; } }
 		public MouseState _MouseInputState { get { return Mouse.GetState(); } }
@@ -77,6 +89,6 @@ namespace Dawn
 			Mouse.SetPosition(x, y);
 		}
 
-		public GraphicsDevice _GraphicsDevice { get { return graphics.GraphicsDevice; } }
+		public GraphicsDevice _GraphicsDevice { get { return GraphicsDevice; } }
     }
 }

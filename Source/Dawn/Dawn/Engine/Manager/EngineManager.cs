@@ -14,6 +14,7 @@ namespace Dawn.Engine.Manager
         private InputManager _Input;
         private DataManager _Data;
 		private ThreadManager _Threads;
+		private TextureManager _TextureCache;
 		public Dawn.Engine.Basic.Game GameObject { get { return Program.DawnGameObject; } }
         public AudioManager Audio { get { return _Audio;} }
         public DebugManager Debug { get { return _Debug; } }
@@ -24,6 +25,7 @@ namespace Dawn.Engine.Manager
 		public CacheManager Cache { get { return _Data.Cache; } }
 		public ThreadManager Threads { get { return _Threads; } }
 		public GameDawn Game { get { return Program.Game; } }
+		public TextureManager TextureCache { get { return _TextureCache; } }
 
 		public event SimpleEventHandler Start;
         public EngineManager()
@@ -34,6 +36,7 @@ namespace Dawn.Engine.Manager
             _Input = new InputManager();
             _Data = new DataManager();
 			_Threads = new ThreadManager();
+			_TextureCache = new TextureManager();
         }
 
 		protected void OnStart()
@@ -59,6 +62,7 @@ namespace Dawn.Engine.Manager
             _Input.Initialize();
             _Data.Initialize();
 			_Threads.Initialize();
+			_TextureCache.Initialize();
 			OnStart();
         }
         public void Update()

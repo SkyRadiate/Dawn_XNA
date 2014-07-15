@@ -44,5 +44,6 @@ namespace Dawn.Engine.Define
 		public static string ThreadProcessor() { return "ThreadProcessor"; }
 		public static string CharacterObject() { return "CharacterObject"; }
 		public static string CacheResource() { return "CacheResource"; }
+		public static string TextureManager() { return "TextureManager"; }
     }
 }

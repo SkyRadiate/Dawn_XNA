@@ -26,7 +26,7 @@ namespace Dawn
 		public static ThreadManager Threads { get { return engine.Threads; } }
 		public static GameDawn Game { get { return engine.Game; } }
         public static void Update() { engine.Update(); }
-		
+		public static TextureManager TextureCache { get { return engine.TextureCache; } }
 		public static void Run(Engine.Basic.Game GameObject)
 		{
 			Program.Run(GameObject);

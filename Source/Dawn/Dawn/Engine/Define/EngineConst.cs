@@ -23,6 +23,7 @@ namespace Dawn.Engine.Define
 		public static int FontHelper_TextureHeight() { return 1024; }
 		public static int FontHelper_TextureNum() { return 5; }
 		public static int ThreadManager_MaxThreadNumber() { return 100; }
+		public static int TextureManager_MaxTextureNumber() { return 1000; }
 		public static int LyricFileResource_MaxLine() { return 100; }
     }
 }

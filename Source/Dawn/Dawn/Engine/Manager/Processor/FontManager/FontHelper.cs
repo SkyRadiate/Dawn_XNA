@@ -29,6 +29,7 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 		protected System.Windows.Forms.TextRenderer renderer;
 		protected System.Drawing.IDeviceContext hdc;
 		private Random random;
+
 		//protected 
 		public FontHelper(Resource.Font font)
 		{
@@ -43,12 +44,32 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 			for (int i = 0; i < EngineConst.FontHelper_TextureNum(); i++)
 			{
 				tex[i] = new Texture2D(DGE.Graphics.Device, EngineConst.FontHelper_TextureWidth(), EngineConst.FontHelper_TextureHeight());
+
 			}
 			characters = new Dictionary<string, Helper.CharacterObject>(texCol * texRow * EngineConst.FontHelper_TextureNum());
 			bcharacters = new Dictionary<Helper.FontPosition, string>(texCol * texRow * EngineConst.FontHelper_TextureNum(), new Helper.FontPositionComparer());
 			//bitmap = new System.Drawing.Bitmap(EngineConst.FontHelper_TextureWidth(), EngineConst.FontHelper_TextureHeight());
 			brush = new System.Drawing.SolidBrush(_font.font.Color);
 			random = new Random();
+
+			DGE.Graphics.WhenDeviceChanging += Graphics_WhenDeviceChanging;
+			DGE.Graphics.WhenDeviceChanged += Graphics_WhenDeviceChanged;
+		}
+
+		void Graphics_WhenDeviceChanged(object sender, EventArgs e)
+		{
+			for (int i = 0; i < EngineConst.FontHelper_TextureNum(); i++)
+			{
+				DGE.TextureCache.GetTexture(tex[i]);
+			}
+		}
+
+		void Graphics_WhenDeviceChanging(object sender, EventArgs e)
+		{
+			for (int i = 0; i < EngineConst.FontHelper_TextureNum(); i++)
+			{
+				DGE.TextureCache.SaveTexture(tex[i]);
+			}
 		}
 
 		protected Texture2D FillTexture(ref System.Drawing.Bitmap bitmap)
@@ -97,8 +118,9 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 
 			graphicsDevice.Clear(ClearOptions.Target, Color.Transparent, 0, 0);
 
+
 			SpriteBatch spriteBatch = new SpriteBatch(graphicsDevice);
-			spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.Opaque);
+			spriteBatch.Begin();
 
 			spriteBatch.Draw(tex[obj.position.TexID], new Vector2(0, 0), Color.White);
 			spriteBatch.Draw(NoneTexture(), new Vector2(obj.position.Col * texColPixels, obj.position.Row * texRowPixels), Color.White);
@@ -116,7 +138,9 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 		protected void _NewCharacter(string character, Helper.CharacterObject obj)
 		{
 			GraphicsDevice graphicsDevice = DGE.Graphics.Device;
-			RenderTarget2D rt = new RenderTarget2D(graphicsDevice, EngineConst.FontHelper_TextureWidth(), EngineConst.FontHelper_TextureHeight());
+			RenderTarget2D rt;
+
+			rt = new RenderTarget2D(graphicsDevice, EngineConst.FontHelper_TextureWidth(), EngineConst.FontHelper_TextureHeight());
 
 			RenderTargetBinding[] old = graphicsDevice.GetRenderTargets();
 
@@ -134,7 +158,6 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 			spriteBatch.Dispose();
 
 			graphicsDevice.SetRenderTargets(old);
-
 
 			graphicsDevice.Clear(Define.GameWindow.BackgroundColor());
 
@@ -200,7 +223,7 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 					{
 						string tmpChar;
 						Helper.CharacterObject cobj;
-						
+
 						bcharacters.TryGetValue(pos, out tmpChar);
 						characters.TryGetValue(tmpChar, out cobj);
 						_ClearCharacter(cobj);
@@ -268,6 +291,7 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 
 			graphicsDevice.Clear(ClearOptions.Target, Color.Transparent, 0, 0);
 			//System.Diagnostics.Trace.WriteLine("Dawn> Render String...Processing");
+
 			SpriteBatch spriteBatch = new SpriteBatch(graphicsDevice);
 			spriteBatch.Begin();
 
