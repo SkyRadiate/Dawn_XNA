@@ -14,7 +14,7 @@ namespace Dawn.Engine.Define
 		{
 			string Temp = "";
 #if DEBUG
-   Temp += "[";
+   Temp += " [";
 
    Temp += "Debug";
 
@@ -26,7 +26,7 @@ namespace Dawn.Engine.Define
    Temp += "]";
 #endif
 
-			return GameName() + " " + Temp;
+			return GameName() + Temp;
 		}
 
 		public static bool ShowCursor() { return false; }
