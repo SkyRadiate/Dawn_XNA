@@ -20,6 +20,8 @@ namespace DawnGame.Game.Scene
 		Dawn.Engine.Resource.Supporter.LyricSupporter supporter;
 
 		System.Diagnostics.Stopwatch watch;
+
+		private const int MAX_POINT = 10000000;
 		public Scene_Test()
 		{
 		}
@@ -42,12 +44,12 @@ namespace DawnGame.Game.Scene
 			watch.Start();
 
 			lrcFile = DGE.Cache.LyricFile(DGE.Data.LyricFile("一番の宝物.Jap.lrc"));
-			supporter = new Dawn.Engine.Resource.Supporter.LyricSupporter(lrcFile, -20000);
+			supporter = new Dawn.Engine.Resource.Supporter.LyricSupporter(lrcFile, -1000);
 			tex = new Microsoft.Xna.Framework.Graphics.Texture2D(DGE.Graphics.Device, 1, 1);
 			tex1 = new Microsoft.Xna.Framework.Graphics.Texture2D(DGE.Graphics.Device, 1, 1);
-			lstXY = new Vector2[1000000];
-			lstAdd = new Vector2[1000000];
-			used = new bool[1000000];
+			lstXY = new Vector2[MAX_POINT];
+			lstAdd = new Vector2[MAX_POINT];
+			used = new bool[MAX_POINT];
 
 			randomer = new Random();
 			lstLrc = "";
@@ -62,7 +64,7 @@ namespace DawnGame.Game.Scene
 
 		private int FindFree()
 		{
-			for (int i = 0; i < 1000000; i++)
+			for (int i = 0; i < MAX_POINT; i++)
 			{
 				if (used[i] == false)
 				{
@@ -97,30 +99,30 @@ namespace DawnGame.Game.Scene
 			}
 		}
 		Random randomer;
-		int alpha;
+		float alpha;
 		private void DrawTex()
 		{
-			Microsoft.Xna.Framework.Graphics.Texture2D tex=new Microsoft.Xna.Framework.Graphics.Texture2D(DGE.Graphics.Device,1,1);
-			Color[] colorMap=new Color[1]{new Color(255,255,255)};
+			Microsoft.Xna.Framework.Graphics.Texture2D tex = new Microsoft.Xna.Framework.Graphics.Texture2D(DGE.Graphics.Device, 1, 1);
+			Color[] colorMap = new Color[1] { new Color(255, 255, 255) };
 			tex.SetData<Color>(colorMap);
-			for (int k = 0; k < 1000000; k++)
+			for (int k = 0; k < MAX_POINT; k++)
 			{
 				if (used[k])
 				{
 					DGE.Graphics.Canvas.Draw(tex, lstXY[k], Color.White);
-					double c = Math.Sqrt(Math.Pow(lstXY[k].X - 512, 2) + Math.Pow(lstXY[k].Y - 384, 2));
-					double a = 512 - lstXY[k].X;
-					double b = 384 - lstXY[k].Y;
+					double c = Math.Sqrt(Math.Pow(lstXY[k].X - DGE.Graphics.Width() / 2, 2) + Math.Pow(lstXY[k].Y - DGE.Graphics.Height() / 2, 2));
+					double a = DGE.Graphics.Width() / 2 - lstXY[k].X;
+					double b = DGE.Graphics.Height() / 2 - lstXY[k].Y;
 
-					double F,Fx,Fy;
-					F=Fx=Fy=0;
+					double F, Fx, Fy;
+					F = Fx = Fy = 0;
 					if (c != 0)
 					{
 						F = 1 / c;
 						Fx = F / c * a;
 						Fy = F / c * b;
 					}
-					//Fx /= 3; Fy /= 3;
+					Fx *= 3; Fy *= 3;
 					lstAdd[k].X += (float)Fx;
 					lstAdd[k].Y += (float)Fy;
 					lstXY[k].X += lstAdd[k].X;
@@ -141,14 +143,20 @@ namespace DawnGame.Game.Scene
 
 				lstLrc = lrc;
 
-				
+
 				alpha = 0;
 				tex1 = helper.DrawStringToTexture(lrc);
 			}
 			Color nowColor = new Color(255, 255, 255) * (float)(alpha / 255.0f);
 			DGE.Graphics.Canvas.Draw(tex1, new Vector2(((DGE.Graphics.Width() - helper.StringWidth(lrc)) / 2), ((DGE.Graphics.Height() - helper.StringHeight()) / 2)), nowColor);
 			DrawTex();
-			if (alpha < 255) alpha+=5;
+
+			alpha += (float)(255f / 60f);
+			if (alpha > 255)
+			{
+				alpha = 255;
+			}
+			
 
 			if (DGE.Input.MouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
 			{
