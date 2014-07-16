@@ -42,7 +42,7 @@ namespace DawnGame.Game.Scene
 			watch.Start();
 
 			lrcFile = DGE.Cache.LyricFile(DGE.Data.LyricFile("一番の宝物.Jap.lrc"));
-			supporter = new Dawn.Engine.Resource.Supporter.LyricSupporter(lrcFile, 0);
+			supporter = new Dawn.Engine.Resource.Supporter.LyricSupporter(lrcFile, -20000);
 			tex = new Microsoft.Xna.Framework.Graphics.Texture2D(DGE.Graphics.Device, 1, 1);
 			tex1 = new Microsoft.Xna.Framework.Graphics.Texture2D(DGE.Graphics.Device, 1, 1);
 			lstXY = new Vector2[1000000];
@@ -133,9 +133,6 @@ namespace DawnGame.Game.Scene
 		}
 		public override void Update()
 		{
-			helper.DrawString("あああああああ", 0, 0);
-			helper.DrawString("FPS: " + DGE.Graphics.FPS, 0, 100);
-
 			string lrc = supporter.GetLyric(watch.ElapsedMilliseconds);
 			if (lrc != lstLrc)
 			{
@@ -148,11 +145,10 @@ namespace DawnGame.Game.Scene
 				alpha = 0;
 				tex1 = helper.DrawStringToTexture(lrc);
 			}
-
-			DGE.Graphics.Canvas.Draw(tex1, new Vector2(((DGE.Graphics.Width() - helper.StringWidth(lrc)) / 2), ((DGE.Graphics.Height() - helper.StringHeight()) / 2)), new Color(alpha, alpha, alpha, 0));
+			Color nowColor = new Color(255, 255, 255) * (float)(alpha / 255.0f);
+			DGE.Graphics.Canvas.Draw(tex1, new Vector2(((DGE.Graphics.Width() - helper.StringWidth(lrc)) / 2), ((DGE.Graphics.Height() - helper.StringHeight()) / 2)), nowColor);
 			DrawTex();
-			helper.DrawString(alpha.ToString(), 0, 150);
-			if (alpha < 255) alpha++;
+			if (alpha < 255) alpha+=5;
 
 			if (DGE.Input.MouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
 			{

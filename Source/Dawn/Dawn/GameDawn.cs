@@ -30,12 +30,22 @@ namespace Dawn
 			graphics.DeviceReset += new EventHandler<EventArgs>(graphics_DeviceReset);
 			graphics.DeviceResetting += new EventHandler<EventArgs>(graphics_DeviceResetting);
 
+			graphics.DeviceCreated += new EventHandler<EventArgs>(graphics_DeviceCreated);
+
 			Content.RootDirectory = Dawn.Engine.Manager.DataManager.ContentPath();
 
 			this.IsMouseVisible = Engine.Define.GameConst.ShowCursor();
 			this.IsFixedTimeStep = Dawn.Engine.Define.GameConst.LimitFPS();
 			if(Dawn.Engine.Define.GameConst.LimitFPS())this.TargetElapsedTime = new TimeSpan(10000000 / Dawn.Engine.Define.GameConst.FramePerSecond());
-        }
+
+			//GraphicsDevice;
+			//GraphicsDevice.BlendState.AlphaDestinationBlend = Blend.DestinationAlpha;
+		}
+
+		void graphics_DeviceCreated(object sender, EventArgs e)
+		{
+			graphics.GraphicsDevice.BlendState = BlendState.NonPremultiplied;
+		}
 
 		void graphics_DeviceResetting(object sender, EventArgs e)
 		{
@@ -57,6 +67,7 @@ namespace Dawn
 					DGE.Graphics.graphics_DeviceReset(sender, e);
 				}
 			}
+			graphics.GraphicsDevice.BlendState = BlendState.NonPremultiplied;
 		}
 
 		~GameDawn()
@@ -68,6 +79,7 @@ namespace Dawn
 			Window.Title = Engine.Define.GameConst.GameTitleName();
 			
             Engine.Others.GameTool.SetWindowPosition(Window, Engine.Define.GameWindow.StartPositionX(Window), Engine.Define.GameWindow.StartPositionY(Window));
+			
 
             base.Initialize();
 
