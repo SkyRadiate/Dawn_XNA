@@ -277,12 +277,23 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 			}
 			return widths;
 		}
+
+		public float StringWidth(string str)
+		{
+			return MeasureString(str).Sum();
+		}
+		public float StringHeight()
+		{
+			return _font.MaxCharacterHeight();
+		}
+
 		public Texture2D DrawStringToTexture(string str)
 		{
 			//System.Diagnostics.Trace.WriteLine("Dawn> Render String...Setting Target");
 			float[] strWidth = MeasureString(str);
 
 			GraphicsDevice graphicsDevice = DGE.Graphics.Device;
+			if (str == "") return new Texture2D(DGE.Graphics.Device, 1, 1);
 			RenderTarget2D rt = new RenderTarget2D(graphicsDevice, (int)strWidth.Sum(), (int)_font.MaxCharacterHeight());
 
 			RenderTargetBinding[] old = graphicsDevice.GetRenderTargets();

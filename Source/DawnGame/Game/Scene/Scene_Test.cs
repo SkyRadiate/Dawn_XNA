@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using Dawn.Engine.Manager;
 using Dawn;
 using Dawn.Engine;
 using System.Diagnostics;
+using Microsoft.Xna.Framework;
 
 namespace DawnGame.Game.Scene
 {
@@ -41,15 +43,116 @@ namespace DawnGame.Game.Scene
 
 			lrcFile = DGE.Cache.LyricFile(DGE.Data.LyricFile("一番の宝物.Jap.lrc"));
 			supporter = new Dawn.Engine.Resource.Supporter.LyricSupporter(lrcFile, 0);
+			tex = new Microsoft.Xna.Framework.Graphics.Texture2D(DGE.Graphics.Device, 1, 1);
+			tex1 = new Microsoft.Xna.Framework.Graphics.Texture2D(DGE.Graphics.Device, 1, 1);
+			lstXY = new Vector2[1000000];
+			lstAdd = new Vector2[1000000];
+			used = new bool[1000000];
 
+			randomer = new Random();
+			lstLrc = "";
+
+			alpha = 0;
 		}
 
+		string lstLrc;
+		Microsoft.Xna.Framework.Graphics.Texture2D tex, tex1;
+		bool[] used;
+		Vector2[] lstAdd, lstXY;
+
+		private int FindFree()
+		{
+			for (int i = 0; i < 1000000; i++)
+			{
+				if (used[i] == false)
+				{
+					return i;
+				}
+			}
+			return -1;
+		}
+
+		private void Add(Vector2 vec)
+		{
+			int pos = FindFree();
+			lstXY[pos] = vec;
+			lstAdd[pos] = new Vector2(0, 0);
+			used[pos] = true;
+		}
+		private void ProcessTex(Microsoft.Xna.Framework.Graphics.Texture2D tex, string str)
+		{
+			int offsetX = (int)((DGE.Graphics.Width() - helper.StringWidth(str)) / 2);
+			int offsetY = (int)((DGE.Graphics.Height() - helper.StringHeight()) / 2);
+			Microsoft.Xna.Framework.Color[] colorMap = new Microsoft.Xna.Framework.Color[tex.Width * tex.Height];
+			tex.GetData<Microsoft.Xna.Framework.Color>(colorMap);
+			for (int i = 0, k = 0; i < tex.Height; i++)
+			{
+				for (int j = 0; j < tex.Width; j++, k++)
+				{
+					if (colorMap[k].R != 0)
+					{
+						Add(new Microsoft.Xna.Framework.Vector2(j + offsetX, i + offsetY));
+					}
+				}
+			}
+		}
+		Random randomer;
+		int alpha;
+		private void DrawTex()
+		{
+			Microsoft.Xna.Framework.Graphics.Texture2D tex=new Microsoft.Xna.Framework.Graphics.Texture2D(DGE.Graphics.Device,1,1);
+			Color[] colorMap=new Color[1]{new Color(255,255,255)};
+			tex.SetData<Color>(colorMap);
+			for (int k = 0; k < 1000000; k++)
+			{
+				if (used[k])
+				{
+					DGE.Graphics.Canvas.Draw(tex, lstXY[k], Color.White);
+					double c = Math.Sqrt(Math.Pow(lstXY[k].X - 512, 2) + Math.Pow(lstXY[k].Y - 384, 2));
+					double a = 512 - lstXY[k].X;
+					double b = 384 - lstXY[k].Y;
+
+					double F,Fx,Fy;
+					F=Fx=Fy=0;
+					if (c != 0)
+					{
+						F = 1 / c;
+						Fx = F / c * a;
+						Fy = F / c * b;
+					}
+					//Fx /= 3; Fy /= 3;
+					lstAdd[k].X += (float)Fx;
+					lstAdd[k].Y += (float)Fy;
+					lstXY[k].X += lstAdd[k].X;
+					lstXY[k].Y += lstAdd[k].Y;
+
+
+					if (lstXY[k].Y >= DGE.Graphics.Height()) used[k] = false;
+				}
+			}
+		}
 		public override void Update()
 		{
 			helper.DrawString("あああああああ", 0, 0);
 			helper.DrawString("FPS: " + DGE.Graphics.FPS, 0, 100);
 
-			helper.DrawString(supporter.GetLyric(watch.ElapsedMilliseconds), 0, 150);
+			string lrc = supporter.GetLyric(watch.ElapsedMilliseconds);
+			if (lrc != lstLrc)
+			{
+				tex = helper.DrawStringToTexture(lstLrc);
+				ProcessTex(tex, lstLrc);
+
+				lstLrc = lrc;
+
+				
+				alpha = 0;
+				tex1 = helper.DrawStringToTexture(lrc);
+			}
+
+			DGE.Graphics.Canvas.Draw(tex1, new Vector2(((DGE.Graphics.Width() - helper.StringWidth(lrc)) / 2), ((DGE.Graphics.Height() - helper.StringHeight()) / 2)), new Color(alpha, alpha, alpha, 0));
+			DrawTex();
+			helper.DrawString(alpha.ToString(), 0, 150);
+			if (alpha < 255) alpha++;
 
 			if (DGE.Input.MouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
 			{

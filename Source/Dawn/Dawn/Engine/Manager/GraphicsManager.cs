@@ -78,7 +78,7 @@ namespace Dawn.Engine.Manager
 
 			OnStartUpdate();
 			Device.Clear(Engine.Define.GameWindow.BackgroundColor());
-			Canvas.Begin();
+			Canvas.Begin(Microsoft.Xna.Framework.Graphics.SpriteSortMode.BackToFront, Microsoft.Xna.Framework.Graphics.BlendState.AlphaBlend);
 			OnPreRender();
 
 			Scenes.Update();
