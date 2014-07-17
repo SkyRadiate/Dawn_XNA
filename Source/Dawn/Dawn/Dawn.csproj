@@ -112,6 +112,7 @@
     <Compile Include="Engine\Manager\Processor\FontManager\Helper\FontPosition.cs" />
     <Compile Include="Engine\Manager\Processor\FontManager\Helper\FontPositionComparer.cs" />
     <Compile Include="Engine\Manager\SceneManager.cs" />
+    <Compile Include="Engine\Manager\SpriteManager.cs" />
     <Compile Include="Engine\Manager\TextureManager.cs" />
     <Compile Include="Engine\Manager\ThreadManager.cs" />
     <Compile Include="Engine\Others\GameTool.cs" />

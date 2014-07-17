@@ -8,35 +8,30 @@ namespace Dawn.Engine.Manager
     public class EngineManager : EngineObject
     {
         public override string ObjectClassName() { return Define.EngineClassName.EngineManager(); }
-        private AudioManager _Audio;
-        private DebugManager _Debug;
-        private GraphicsManager _Graphics;
-        private InputManager _Input;
-        private DataManager _Data;
-		private ThreadManager _Threads;
-		private TextureManager _TextureCache;
+
 		public Dawn.Engine.Basic.Game GameObject { get { return Program.DawnGameObject; } }
-        public AudioManager Audio { get { return _Audio;} }
-        public DebugManager Debug { get { return _Debug; } }
-        public GraphicsManager Graphics { get { return _Graphics; } }
-        public InputManager Input { get { return _Input; } }
-        public SceneManager Scenes { get { return _Graphics.Scenes; } }
-        public DataManager Data { get { return _Data; } }
-		public CacheManager Cache { get { return _Data.Cache; } }
-		public ThreadManager Threads { get { return _Threads; } }
+		public AudioManager Audio { get; private set; }
+		public DebugManager Debug { get; private set; }
+		public GraphicsManager Graphics { get; private set; }
+		public InputManager Input { get; private set; }
+		public SceneManager Scenes { get { return Graphics.Scenes; } }
+		public DataManager Data { get; private set; }
+		public CacheManager Cache { get { return Data.Cache; } }
+		public ThreadManager Threads { get; private set; }
+		public TextureManager TextureCache { get; private set; }
 		public GameDawn Game { get { return Program.Game; } }
-		public TextureManager TextureCache { get { return _TextureCache; } }
+		
 
 		public event SimpleEventHandler Start;
         public EngineManager()
         {
-            _Audio = new AudioManager();
-            _Debug = new DebugManager();
-            _Graphics = new GraphicsManager();
-            _Input = new InputManager();
-            _Data = new DataManager();
-			_Threads = new ThreadManager();
-			_TextureCache = new TextureManager();
+            Audio = new AudioManager();
+            Debug = new DebugManager();
+            Graphics = new GraphicsManager();
+            Input = new InputManager();
+            Data = new DataManager();
+			Threads = new ThreadManager();
+			TextureCache = new TextureManager();
         }
 
 		protected void OnStart()
@@ -56,13 +51,13 @@ namespace Dawn.Engine.Manager
 
         public void Initialize()
         {
-            _Audio.Initialize();
-            _Debug.Initialize();
-            _Graphics.Initialize();
-            _Input.Initialize();
-            _Data.Initialize();
-			_Threads.Initialize();
-			_TextureCache.Initialize();
+            Audio.Initialize();
+            Debug.Initialize();
+            Graphics.Initialize();
+            Input.Initialize();
+            Data.Initialize();
+			Threads.Initialize();
+			TextureCache.Initialize();
 			OnStart();
         }
         public void Update()

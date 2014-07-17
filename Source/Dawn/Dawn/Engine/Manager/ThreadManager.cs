@@ -43,7 +43,7 @@ namespace Dawn.Engine.Manager
 			int id = FindFreeNum();
 			if (id == -1)
 			{
-				DGE.Debug.Error(this, "", "");
+				DGE.Debug.Error(this, Define.EngineErrorName.ThreadManager_TooManyThread(), Define.EngineErrorDetail.Empty());
 			}
 
 			processors[id] = processor;

@@ -13,9 +13,6 @@ namespace Dawn.Engine.Manager
     {
         public override string ObjectClassName() { return Define.EngineClassName.GraphicsManager(); }
 
-        private SceneManager _Scenes;
-
-
 		public event SimpleEventHandler StartUpdate;
 		public event SimpleEventHandler PreRender;
 		public event SimpleEventHandler PostRender;
@@ -27,16 +24,19 @@ namespace Dawn.Engine.Manager
 		private Basic.ThreadProcessor.FPSProcessor fps;
 		public Microsoft.Xna.Framework.Graphics.GraphicsDevice Device { get { return DGE.Game._GraphicsDevice; } }
 		public Microsoft.Xna.Framework.Graphics.SpriteBatch Canvas { get { return DGE.Game._SpriteBatch; } }
-        public SceneManager Scenes { get { return _Scenes; } }
+		public SceneManager Scenes { get; private set; }
+		public SpriteManager Sprites { get; private set; }
 		public double FPS { get { return fps.FPS; } }
         public GraphicsManager()
         {
-            _Scenes=new SceneManager();
+			Scenes = new SceneManager();
+			Sprites = new SpriteManager();
         }
 
         public void Initialize()
         {
-			_Scenes.Initialize();
+			Scenes.Initialize();
+			Sprites.Initialize();
 			fps = new Basic.ThreadProcessor.FPSProcessor();
         }
 
@@ -82,6 +82,7 @@ namespace Dawn.Engine.Manager
 			OnPreRender();
 
 			Scenes.Update();
+			Sprites.Update();
 
 			OnPostRender();
 			Canvas.End();

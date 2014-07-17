@@ -45,5 +45,6 @@ namespace Dawn.Engine.Define
 		public static string CharacterObject() { return "CharacterObject"; }
 		public static string CacheResource() { return "CacheResource"; }
 		public static string TextureManager() { return "TextureManager"; }
+		public static string SpriteManager() { return "SpriteManager"; }
     }
 }
