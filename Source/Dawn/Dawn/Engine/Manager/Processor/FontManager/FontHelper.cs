@@ -88,8 +88,8 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 		{
 			graphics = System.Drawing.Graphics.FromImage(bitmap);
 			//graphics.PageUnit = System.Drawing.GraphicsUnit.Pixel;
-			graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-			graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+			graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
+			graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
 		}
 		protected virtual Texture2D _DrawCharacter(string character, Helper.CharacterObject obj)
 		{

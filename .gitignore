@@ -21,6 +21,7 @@ build/
 # ---Edit Start
 [Bb]in_x64/
 [Bb]in_x86/
+[Bb]in_DGC
 [Rr]es/
 库文件/
 $tf/

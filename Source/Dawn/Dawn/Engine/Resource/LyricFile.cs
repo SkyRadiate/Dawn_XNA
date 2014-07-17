@@ -53,6 +53,12 @@ namespace Dawn.Engine.Resource
 					lyricString[nCount] = lst[3];
 					nCount++;
 				}
+				if (lst.Count == 3)
+				{
+					lyricTime[nCount] = new TimeSpan(0, 0, Convert.ToInt32(lst[0]), Convert.ToInt32(lst[1]), Convert.ToInt32(lst[2]) * 10);
+					lyricString[nCount] = "";
+					nCount++;
+				}
 			}
 
 			reader.Close();

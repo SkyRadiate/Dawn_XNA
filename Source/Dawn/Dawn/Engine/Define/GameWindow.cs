@@ -12,7 +12,7 @@ namespace Dawn.Engine.Define
 		public static int Width() { return 1024; }
 		public static int Height() { return 768; }
 
-		public static Color BackgroundColor() { return Color.Black; }
+		public static Color BackgroundColor() { return Color.White; }
 
 		public static int ScreenX()
 		{

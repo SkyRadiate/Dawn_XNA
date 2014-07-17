@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework;
 
 namespace DawnGame.Game.Scene
 {
-	class Scene_Test : Dawn.Engine.Basic.Scene
+	class Scene_LyricShower : Dawn.Engine.Basic.Scene
 	{
 		Dawn.Engine.Manager.Processor.FontManager.FontHelper helper;
 		Dawn.Engine.Resource.Audio audios;
@@ -22,22 +22,20 @@ namespace DawnGame.Game.Scene
 		System.Diagnostics.Stopwatch watch;
 
 		private const int MAX_POINT = 10000000;
-		public Scene_Test()
+		public Scene_LyricShower()
 		{
 		}
-
+		
 		public override void Start()
 		{
 			base.Start();
-			audios = DGE.Cache.Audio(DGE.Data.Audio("tmp.mp3"));
-			audio = DGE.Cache.Audio(DGE.Data.Audio("3711.mp3"));
-			Dawn.Engine.Resource.Font font = DGE.Cache.Font(new Dawn.Engine.Resource.Data.FontFamilyData(new System.Drawing.FontFamily("Segoe UI"), 32, System.Drawing.Color.White, false, false, false));
+			audios = DGE.Cache.AudioStream(DGE.Data.Audio("tmp.mp3"));
+			Dawn.Engine.Resource.Font font = DGE.Cache.Font(new Dawn.Engine.Resource.Data.FontFamilyData(new System.Drawing.FontFamily("Segoe UI"), 32, System.Drawing.Color.Black, false, false, false));
 
 			Dawn.Engine.Basic.ThreadProcessor.ResourceLoadProcessor processor = new Dawn.Engine.Basic.ThreadProcessor.ResourceLoadProcessor(audios);
 			DGE.Threads.NewThread(processor);
 			helper = new Dawn.Engine.Manager.Processor.FontManager.FontHelper(font);
 
-			DGE.Audio.PlayBGS(audio);
 			DGE.Audio.FadeInPlay(Dawn.Engine.Define.EngineConst.AudioManager_ChannelType.BGM, audios);
 
 			watch = new Stopwatch();
@@ -74,11 +72,18 @@ namespace DawnGame.Game.Scene
 			return -1;
 		}
 
+		private double RandomDouble()
+		{
+			const int MAX_NUMBER=1000000;
+			const int MAX_CUT=80000;
+			return (randomer.Next(0, MAX_NUMBER) - MAX_NUMBER / 2) / MAX_CUT;
+		}
+
 		private void Add(Vector2 vec)
 		{
 			int pos = FindFree();
-			lstXY[pos] = vec;
-			lstAdd[pos] = new Vector2(0, 0);
+			lstXY[pos] = new Vector2(vec.X, vec.Y + 50);
+			lstAdd[pos] = new Vector2((float)RandomDouble(), (float)RandomDouble());
 			used[pos] = true;
 		}
 		private void ProcessTex(Microsoft.Xna.Framework.Graphics.Texture2D tex, string str)
@@ -102,27 +107,29 @@ namespace DawnGame.Game.Scene
 		float alpha;
 		private void DrawTex()
 		{
-			Microsoft.Xna.Framework.Graphics.Texture2D tex = new Microsoft.Xna.Framework.Graphics.Texture2D(DGE.Graphics.Device, 1, 1);
-			Color[] colorMap = new Color[1] { new Color(255, 255, 255) };
+			Microsoft.Xna.Framework.Graphics.Texture2D tex = new Microsoft.Xna.Framework.Graphics.Texture2D(DGE.Graphics.Device, 2, 2);
+			Color[] colorMap = new Color[4] { new Color(255, 255, 255), new Color(255, 255, 255), new Color(255, 255, 255), new Color(255, 255, 255) };
 			tex.SetData<Color>(colorMap);
+			//Color tmpColor = new Color(51, 204, 255);
+			Color tmpColor = new Color(50, 50, 50);
 			for (int k = 0; k < MAX_POINT; k++)
 			{
 				if (used[k])
 				{
-					DGE.Graphics.Canvas.Draw(tex, lstXY[k], Color.White);
+					DGE.Graphics.Canvas.Draw(tex, lstXY[k], tmpColor);
 					double c = Math.Sqrt(Math.Pow(lstXY[k].X - DGE.Graphics.Width() / 2, 2) + Math.Pow(lstXY[k].Y - DGE.Graphics.Height() / 2, 2));
-					double a = DGE.Graphics.Width() / 2 - lstXY[k].X;
-					double b = DGE.Graphics.Height() / 2 - lstXY[k].Y;
+					double a = DGE.Graphics.Width() / 2 - lstXY[k].X - lstAdd[k].X;
+					double b = DGE.Graphics.Height() / 2 - lstXY[k].Y - lstAdd[k].Y;
 
 					double F, Fx, Fy;
 					F = Fx = Fy = 0;
 					if (c != 0)
 					{
-						F = 1 / c;
+						F = (1280 - c) / 1280;
 						Fx = F / c * a;
 						Fy = F / c * b;
 					}
-					Fx *= 3; Fy *= 3;
+					Fx /= 3; Fy /= 3;
 					lstAdd[k].X += (float)Fx;
 					lstAdd[k].Y += (float)Fy;
 					lstXY[k].X += lstAdd[k].X;
@@ -130,6 +137,10 @@ namespace DawnGame.Game.Scene
 
 
 					if (lstXY[k].Y >= DGE.Graphics.Height()) used[k] = false;
+					if (c <= 1)
+					{
+						used[k] = false;
+					}
 				}
 			}
 		}
@@ -148,23 +159,14 @@ namespace DawnGame.Game.Scene
 				tex1 = helper.DrawStringToTexture(lrc);
 			}
 			Color nowColor = new Color(255, 255, 255) * (float)(alpha / 255.0f);
-			DGE.Graphics.Canvas.Draw(tex1, new Vector2(((DGE.Graphics.Width() - helper.StringWidth(lrc)) / 2), ((DGE.Graphics.Height() - helper.StringHeight()) / 2)), nowColor);
 			DrawTex();
+			DGE.Graphics.Canvas.Draw(tex1, new Vector2(((DGE.Graphics.Width() - helper.StringWidth(lrc)) / 2), ((DGE.Graphics.Height() - helper.StringHeight()) / 2) + (255 - alpha) / 3 + 50), nowColor);
+			
 
 			alpha += (float)(255f / 60f);
 			if (alpha > 255)
 			{
 				alpha = 255;
-			}
-			
-
-			if (DGE.Input.MouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
-			{
-				DGE.Input.SetBusy(true);
-			}
-			else
-			{
-				DGE.Input.SetBusy(false);
 			}
 
 

@@ -53,7 +53,7 @@
   <ItemGroup>
     <Compile Include="DawnConsole.cs" />
     <Compile Include="DawnGame.cs" />
-    <Compile Include="Game\Scene\Scene_Test.cs" />
+    <Compile Include="Game\Scene\Scene_LyricShower.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

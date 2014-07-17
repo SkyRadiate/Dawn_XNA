@@ -1,5 +1,4 @@
-﻿using FirstFloor.ModernUI.Windows.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DGC
+namespace DGC.Pages
 {
 	/// <summary>
-	/// MainWindow.xaml 的交互逻辑
+	/// Main.xaml 的交互逻辑
 	/// </summary>
-	public partial class MainWindow : ModernWindow
+	public partial class Main : UserControl
 	{
-		public MainWindow()
+		public Main()
 		{
 			//InitializeComponent();
 		}

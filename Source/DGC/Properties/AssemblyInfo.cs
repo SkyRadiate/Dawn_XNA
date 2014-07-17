@@ -7,12 +7,12 @@ using System.Windows;
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("DGC")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Dawn Game Center")]
+[assembly: AssemblyDescription("Dawn Game Center")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DGC")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCompany("SkyRadiate")]
+[assembly: AssemblyProduct("Dawn Game Center")]
+[assembly: AssemblyCopyright("Copyright SkyRadiate©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
