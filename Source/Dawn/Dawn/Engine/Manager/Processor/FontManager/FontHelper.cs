@@ -317,7 +317,7 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 			graphicsDevice.SetRenderTargets(old);
 
 
-			graphicsDevice.Clear(Define.GameWindow.BackgroundColor());
+			graphicsDevice.Clear(Color.Transparent);
 
 			RenderTargetBinding binding = new RenderTargetBinding(rt);
 			return binding.RenderTarget as Texture2D;

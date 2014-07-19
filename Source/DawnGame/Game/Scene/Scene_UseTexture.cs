@@ -17,7 +17,7 @@ namespace DawnGame.Game.Scene
 
 		float[] rotate, rotateDest;
 		float[] scale, scaleDest;
-		const int MAX_SPRITE_NUM = 4000;
+		const int MAX_SPRITE_NUM = 2000;
 		Random randomer;
 		public Scene_UseTexture()
 		{

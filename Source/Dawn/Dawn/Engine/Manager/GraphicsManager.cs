@@ -77,7 +77,6 @@ namespace Dawn.Engine.Manager
 			fps.AddFrame();
 
 			OnStartUpdate();
-			Device.Clear(Engine.Define.GameWindow.BackgroundColor());
 			Canvas.Begin(Microsoft.Xna.Framework.Graphics.SpriteSortMode.Deferred, Microsoft.Xna.Framework.Graphics.BlendState.AlphaBlend);
 			OnPreRender();
 
@@ -85,7 +84,10 @@ namespace Dawn.Engine.Manager
 			Sprites.Update();
 
 			OnPostRender();
+
+			Device.Clear(Define.GameWindow.BackgroundColor());
 			Canvas.End();
+			
 			OnEndUpdate();
 		}
 		public void Draw(Texture texture, Rectangle destinationRectangle, Color color)
