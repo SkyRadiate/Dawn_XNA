@@ -88,8 +88,8 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 		{
 			graphics = System.Drawing.Graphics.FromImage(bitmap);
 			//graphics.PageUnit = System.Drawing.GraphicsUnit.Pixel;
-			graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
-			graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+			graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+			graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 		}
 		protected virtual Texture2D _DrawCharacter(string character, Helper.CharacterObject obj)
 		{
@@ -120,7 +120,7 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 
 
 			SpriteBatch spriteBatch = new SpriteBatch(graphicsDevice);
-			spriteBatch.Begin();
+			BeginCanvas(spriteBatch);
 
 			spriteBatch.Draw(tex[obj.position.TexID], new Vector2(0, 0), Color.White);
 			spriteBatch.Draw(NoneTexture(), new Vector2(obj.position.Col * texColPixels, obj.position.Row * texRowPixels), Color.White);
@@ -130,7 +130,7 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 			graphicsDevice.SetRenderTargets(old);
 
 
-			graphicsDevice.Clear(Define.GameWindow.BackgroundColor());
+			graphicsDevice.Clear(Color.Transparent);
 
 			RenderTargetBinding binding = new RenderTargetBinding(rt);
 			tex[obj.position.TexID] = binding.RenderTarget as Texture2D;
@@ -149,7 +149,7 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 			graphicsDevice.Clear(ClearOptions.Target, Color.Transparent, 0, 0);
 
 			SpriteBatch spriteBatch = new SpriteBatch(graphicsDevice);
-			spriteBatch.Begin();
+			BeginCanvas(spriteBatch);
 
 			spriteBatch.Draw(tex[obj.position.TexID], new Vector2(0, 0), Color.White);
 			spriteBatch.Draw(_DrawCharacter(character, obj), new Vector2(obj.position.Col * texColPixels, obj.position.Row * texRowPixels), Color.White);
@@ -159,7 +159,7 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 
 			graphicsDevice.SetRenderTargets(old);
 
-			graphicsDevice.Clear(Define.GameWindow.BackgroundColor());
+			graphicsDevice.Clear(Color.Transparent);
 
 			RenderTargetBinding binding = new RenderTargetBinding(rt);
 			tex[obj.position.TexID] = binding.RenderTarget as Texture2D;
@@ -286,7 +286,10 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 		{
 			return _font.MaxCharacterHeight();
 		}
-
+		private void BeginCanvas(SpriteBatch canvas)
+		{
+			canvas.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+		}
 		public Texture2D DrawStringToTexture(string str)
 		{
 			//System.Diagnostics.Trace.WriteLine("Dawn> Render String...Setting Target");
@@ -304,7 +307,7 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 			//System.Diagnostics.Trace.WriteLine("Dawn> Render String...Processing");
 
 			SpriteBatch spriteBatch = new SpriteBatch(graphicsDevice);
-			spriteBatch.Begin();
+			BeginCanvas(spriteBatch);
 
 			DrawString(str, spriteBatch, 0, 0);
 

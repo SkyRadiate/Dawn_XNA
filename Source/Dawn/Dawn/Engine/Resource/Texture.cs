@@ -48,5 +48,39 @@ namespace Dawn.Engine.Resource
                 return null;
             }
         }
+
+		public int Width()
+		{
+			if (isLoad())
+			{
+				return tex.Width;
+			}
+			else
+			{
+				DGE.Debug.Error(this, Define.EngineErrorName.Resource_CannotGetResource(), GetErrorDetail());
+				return -1;
+			}
+		}
+		public int Height()
+		{
+			if (isLoad())
+			{
+				return tex.Height;
+			}
+			else
+			{
+				DGE.Debug.Error(this, Define.EngineErrorName.Resource_CannotGetResource(), GetErrorDetail());
+				return -1;
+			}
+		}
+		public static Texture CreateTexture(int width, int height)
+		{
+			Texture tex = new Texture();
+			tex.canChange = false;
+			tex._isLoad = true;
+			tex.tex = new Texture2D(DGE.Graphics.Device, width, height);
+			DGE.TextureCache.ManageTexture(tex.tex);
+			return tex;
+		}
 	}
 }

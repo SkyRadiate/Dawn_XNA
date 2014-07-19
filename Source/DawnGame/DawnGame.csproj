@@ -54,6 +54,7 @@
     <Compile Include="DawnConsole.cs" />
     <Compile Include="DawnGame.cs" />
     <Compile Include="Game\Scene\Scene_LyricShower.cs" />
+    <Compile Include="Game\Scene\Scene_UseTexture.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

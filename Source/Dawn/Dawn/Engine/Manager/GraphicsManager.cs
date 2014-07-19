@@ -78,7 +78,7 @@ namespace Dawn.Engine.Manager
 
 			OnStartUpdate();
 			Device.Clear(Engine.Define.GameWindow.BackgroundColor());
-			Canvas.Begin(Microsoft.Xna.Framework.Graphics.SpriteSortMode.BackToFront, Microsoft.Xna.Framework.Graphics.BlendState.AlphaBlend);
+			Canvas.Begin(Microsoft.Xna.Framework.Graphics.SpriteSortMode.Deferred, Microsoft.Xna.Framework.Graphics.BlendState.AlphaBlend);
 			OnPreRender();
 
 			Scenes.Update();
@@ -115,6 +115,16 @@ namespace Dawn.Engine.Manager
 		public void Draw(Texture texture, Vector2 position, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, Vector2 scale, Microsoft.Xna.Framework.Graphics.SpriteEffects effects, float layerDepth)
 		{
 			Canvas.Draw(texture.GetTexture(), position, sourceRectangle, color, rotation, origin, scale, effects, layerDepth);
+		}
+
+		public void Draw(Texture texture,Vector2 position,Color color,float rotation)
+		{
+			Draw(texture, new Rectangle((int)position.X, (int)position.Y, texture.Width(), texture.Height()), new Rectangle(0, 0, texture.Width(), texture.Height()), color, rotation, new Vector2(texture.Width() / 2, texture.Height() / 2), Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
+		}
+
+		public void Draw(Texture texture,Vector2 position,Color color,float rotation,float scale)
+		{
+			Draw(texture,position, new Rectangle(0, 0, texture.Width(), texture.Height()), color, rotation, new Vector2(texture.Width() / 2, texture.Height() / 2), scale, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
 		}
 
 		public int Width()

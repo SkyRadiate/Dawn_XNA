@@ -40,7 +40,13 @@
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="Graphics\Texture\System\tex_zazaka.png">
+      <Name>tex_zazaka</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="Graphics\Texture\System\Cursor.png">
       <Name>Cursor</Name>

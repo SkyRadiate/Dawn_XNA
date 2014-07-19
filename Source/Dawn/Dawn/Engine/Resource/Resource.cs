@@ -14,6 +14,8 @@ namespace Dawn.Engine.Resource
 		{
 			_isLoad = false;
 			_filename = "";
+
+			canChange = true;
 		}
 		public Resource(string filename)
 			: this()
@@ -33,9 +35,16 @@ namespace Dawn.Engine.Resource
 		{
 			Dispose();
 		}
-
+		protected void CheckChange()
+		{
+			if (!canChange)
+			{
+				DGE.Debug.Error(this, Define.EngineErrorName.Resource_CannotChangeData(), GetErrorDetail());
+			}
+		}
 		public virtual void Load()
 		{
+			CheckChange();
 			if (isLoad())
 			{
 				DGE.Debug.Error(this, Define.EngineErrorName.Resource_CannotLoad(), GetErrorDetail());
@@ -103,5 +112,7 @@ namespace Dawn.Engine.Resource
 		{
 			return Define.EngineErrorDetail.Filename() + Define.EngineErrorDetail.Separator() + _filename;
 		}
+
+		public bool canChange { get; protected set; }
 	}
 }

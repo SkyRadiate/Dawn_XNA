@@ -19,10 +19,11 @@ namespace Dawn.Engine.Define
 		public static string Resource_LoadError() { return "Load error"; }
 		public static string AudioManager_ChannelNotEnough() { return "Too Much Audio File"; }
 		public static string Resource_CannotSet() { return "Cannot Edit"; }
-		public static string ThreadManager_TooManyThread() { return "Too Many Threads";}
+		public static string ThreadManager_TooManyThread() { return "Too Many Threads"; }
 		public static string TextureManager_TooManyTexture() { return "Too Many Textures"; }
 		public static string TextureManager_NullManagedTexture() { return "Managed Texture NULL"; }
 		public static string TextureManager_RepeatTexture() { return "Already Have the same Texture"; }
 		public static string TextureManager_RemoveWithoutAdd() { return "Remove an Texture which hasn't been added to Managed Texture List"; }
+		public static string Resource_CannotChangeData() { return "Cannot Change"; }
 	}
 }

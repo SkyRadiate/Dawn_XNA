@@ -15,12 +15,11 @@ namespace DawnGame.Game.Scene
 	{
 		Dawn.Engine.Manager.Processor.FontManager.FontHelper helper;
 		Dawn.Engine.Resource.Audio audios;
-		Dawn.Engine.Resource.Audio audio;
 		Dawn.Engine.Resource.LyricFile lrcFile;
 		Dawn.Engine.Resource.Supporter.LyricSupporter supporter;
 
 		System.Diagnostics.Stopwatch watch;
-
+		Microsoft.Xna.Framework.Graphics.Texture2D texTMP;
 		private const int MAX_POINT = 10000000;
 		public Scene_LyricShower()
 		{
@@ -30,11 +29,10 @@ namespace DawnGame.Game.Scene
 		{
 			base.Start();
 			audios = DGE.Cache.AudioStream(DGE.Data.Audio("tmp.mp3"));
-			Dawn.Engine.Resource.Font font = DGE.Cache.Font(new Dawn.Engine.Resource.Data.FontFamilyData(new System.Drawing.FontFamily("Segoe UI"), 32, System.Drawing.Color.Black, false, false, false));
 
 			Dawn.Engine.Basic.ThreadProcessor.ResourceLoadProcessor processor = new Dawn.Engine.Basic.ThreadProcessor.ResourceLoadProcessor(audios);
 			DGE.Threads.NewThread(processor);
-			helper = new Dawn.Engine.Manager.Processor.FontManager.FontHelper(font);
+			helper = new Dawn.Engine.Manager.Processor.FontManager.FontHelper(DGE.Data.Cache.Font(new Dawn.Engine.Resource.Data.FontFamilyData(new System.Drawing.FontFamily("微软雅黑"), 32, System.Drawing.Color.White, false, false, false)));
 
 			DGE.Audio.FadeInPlay(Dawn.Engine.Define.EngineConst.AudioManager_ChannelType.BGM, audios);
 
@@ -53,6 +51,9 @@ namespace DawnGame.Game.Scene
 			lstLrc = "";
 
 			alpha = 0;
+			texTMP = new Microsoft.Xna.Framework.Graphics.Texture2D(DGE.Graphics.Device, 2, 2);
+			Color[] colorMap = new Color[4] { new Color(255, 255, 255), new Color(255, 255, 255), new Color(255, 255, 255), new Color(255, 255, 255) };
+			texTMP.SetData<Color>(colorMap);
 		}
 
 		string lstLrc;
@@ -107,16 +108,14 @@ namespace DawnGame.Game.Scene
 		float alpha;
 		private void DrawTex()
 		{
-			Microsoft.Xna.Framework.Graphics.Texture2D tex = new Microsoft.Xna.Framework.Graphics.Texture2D(DGE.Graphics.Device, 2, 2);
-			Color[] colorMap = new Color[4] { new Color(255, 255, 255), new Color(255, 255, 255), new Color(255, 255, 255), new Color(255, 255, 255) };
-			tex.SetData<Color>(colorMap);
+
 			//Color tmpColor = new Color(51, 204, 255);
-			Color tmpColor = new Color(50, 50, 50);
+			Color tmpColor = new Color(200, 200, 200);
 			for (int k = 0; k < MAX_POINT; k++)
 			{
 				if (used[k])
 				{
-					DGE.Graphics.Canvas.Draw(tex, lstXY[k], tmpColor);
+					DGE.Graphics.Canvas.Draw(texTMP, lstXY[k], tmpColor);
 					double c = Math.Sqrt(Math.Pow(lstXY[k].X - DGE.Graphics.Width() / 2, 2) + Math.Pow(lstXY[k].Y - DGE.Graphics.Height() / 2, 2));
 					double a = DGE.Graphics.Width() / 2 - lstXY[k].X - lstAdd[k].X;
 					double b = DGE.Graphics.Height() / 2 - lstXY[k].Y - lstAdd[k].Y;
@@ -154,14 +153,12 @@ namespace DawnGame.Game.Scene
 
 				lstLrc = lrc;
 
-
-				alpha = 0;
 				tex1 = helper.DrawStringToTexture(lrc);
-			}
-			Color nowColor = new Color(255, 255, 255) * (float)(alpha / 255.0f);
+				alpha = 0;
+			} 
+			Color nowColor = new Color(255, 255, 255) *(float)(alpha / 255.0f);
 			DrawTex();
 			DGE.Graphics.Canvas.Draw(tex1, new Vector2(((DGE.Graphics.Width() - helper.StringWidth(lrc)) / 2), ((DGE.Graphics.Height() - helper.StringHeight()) / 2) + (255 - alpha) / 3 + 50), nowColor);
-			
 
 			alpha += (float)(255f / 60f);
 			if (alpha > 255)
