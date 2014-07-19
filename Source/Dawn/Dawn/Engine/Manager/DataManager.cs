@@ -63,5 +63,9 @@ namespace Dawn.Engine.Manager
 		{
 			return Script(@"Lyric\" + filename);
 		}
+		public string Effect(string filename)
+		{
+			return Graphics(@"Effect\" + filename);
+		}
     }
 }

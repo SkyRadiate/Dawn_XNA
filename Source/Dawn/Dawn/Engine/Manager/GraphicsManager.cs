@@ -147,5 +147,6 @@ namespace Dawn.Engine.Manager
 		{
 			WhenDeviceChanging(sender, e);
 		}
+
     }
 }

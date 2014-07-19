@@ -244,7 +244,7 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 			return obj;
 		}
 
-		protected void DrawCharacterToTexture(int x, int y, string character, SpriteBatch canvas)
+		protected void DrawCharacterToTexture(float x, float y, string character, SpriteBatch canvas)
 		{
 			Helper.CharacterObject charobj = _GetCharacter(character);
 			Helper.FontPosition pos = charobj.position;
@@ -324,24 +324,24 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 
 		}
 
-		public void DrawString(string str, int x, int y)
+		public void DrawString(string str, float x, float y)
 		{
 			DrawString(str, DGE.Graphics.Canvas, x, y);
 		}
 
-		public void DrawString(string str, SpriteBatch canvas, int x, int y)
+		public void DrawString(string str, SpriteBatch canvas, float x, float y)
 		{
 			float x1 = x;
 			float[] strWidth = MeasureString(str);
 			for (int i = 0; i < str.Length; i++)
 			{
 				//System.Diagnostics.Trace.WriteLine("Dawn> Render String...Character #" + i.ToString());
-				DrawCharacterToTexture((int)x1, y, str.Substring(i, 1), canvas);
+				DrawCharacterToTexture(x1, y, str.Substring(i, 1), canvas);
 				x1 += strWidth[i];
 			}
 		}
 
-		public void DrawStringCommand(string str, int x, int y)
+		public void DrawStringCommand(string str, float x, float y)
 		{
 			float y1 = y;
 			float y1Add = _font.MaxCharacterHeight();
@@ -349,7 +349,7 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 			string[] s = str.Split(ch);
 			for (int i = 0; i < s.Length; i++)
 			{
-				DrawString(s[i], x, (int)y1);
+				DrawString(s[i], x, y1);
 				y1 += y1Add;
 			}
 		}

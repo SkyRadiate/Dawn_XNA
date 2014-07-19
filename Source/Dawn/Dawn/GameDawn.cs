@@ -32,6 +32,8 @@ namespace Dawn
 
 			graphics.DeviceCreated += new EventHandler<EventArgs>(graphics_DeviceCreated);
 
+			graphics.PreparingDeviceSettings += graphics_PreparingDeviceSettings;
+
 			Content.RootDirectory = Dawn.Engine.Manager.DataManager.ContentPath();
 
 			this.IsMouseVisible = Engine.Define.GameConst.ShowCursor();
@@ -40,6 +42,11 @@ namespace Dawn
 
 			//GraphicsDevice;
 			//GraphicsDevice.BlendState.AlphaDestinationBlend = Blend.DestinationAlpha;
+		}
+
+		void graphics_PreparingDeviceSettings(object sender, PreparingDeviceSettingsEventArgs e)
+		{
+			e.GraphicsDeviceInformation.PresentationParameters.RenderTargetUsage = RenderTargetUsage.PreserveContents;
 		}
 
 		void graphics_DeviceCreated(object sender, EventArgs e)
@@ -57,7 +64,6 @@ namespace Dawn
 				}
 			}
 		}
-
 		void graphics_DeviceReset(object sender, EventArgs e)
 		{
 			if (DGE.Engine != null)
@@ -100,7 +106,6 @@ namespace Dawn
         }
         protected override void Draw(GameTime gameTime)
         {
-
             DGE.Update();
             base.Draw(gameTime);
         }
