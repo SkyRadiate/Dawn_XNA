@@ -82,7 +82,6 @@ namespace Dawn.Engine.Manager
 
 			Scenes.Update();
 			Sprites.Update();
-
 			OnPostRender();
 
 			Device.Clear(Define.GameWindow.BackgroundColor());
@@ -121,12 +120,12 @@ namespace Dawn.Engine.Manager
 
 		public void Draw(Texture texture,Vector2 position,Color color,float rotation)
 		{
-			Draw(texture, new Rectangle((int)position.X, (int)position.Y, texture.Width(), texture.Height()), new Rectangle(0, 0, texture.Width(), texture.Height()), color, rotation, new Vector2(texture.Width() / 2, texture.Height() / 2), Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
+			Draw(texture, position, new Rectangle(0, 0, texture.Width(), texture.Height()), color, rotation, new Vector2(texture.Width() / 2, texture.Height() / 2), 1, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
 		}
 
-		public void Draw(Texture texture,Vector2 position,Color color,float rotation,float scale)
+		public void Draw(Texture texture, Vector2 position, Color color, float rotation, float scale)
 		{
-			Draw(texture,position, new Rectangle(0, 0, texture.Width(), texture.Height()), color, rotation, new Vector2(texture.Width() / 2, texture.Height() / 2), scale, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
+			Draw(texture, position, new Rectangle(0, 0, texture.Width(), texture.Height()), color, rotation, new Vector2(texture.Width() / 2, texture.Height() / 2), scale, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
 		}
 
 		public int Width()

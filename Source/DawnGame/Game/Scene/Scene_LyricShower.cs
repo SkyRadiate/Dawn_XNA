@@ -41,8 +41,8 @@ namespace DawnGame.Game.Scene
 
 			lrcFile = DGE.Cache.LyricFile(DGE.Data.LyricFile("一番の宝物.Jap.lrc"));
 			supporter = new Dawn.Engine.Resource.Supporter.LyricSupporter(lrcFile, -1000);
-			tex = new Microsoft.Xna.Framework.Graphics.Texture2D(DGE.Graphics.Device, 1, 1);
-			tex1 = new Microsoft.Xna.Framework.Graphics.Texture2D(DGE.Graphics.Device, 1, 1);
+			tex = Dawn.Engine.Resource.Texture.CreateWithoutCache(1, 1);
+			tex1 = Dawn.Engine.Resource.Texture.CreateWithoutCache(1, 1);
 			lstXY = new Vector2[MAX_POINT];
 			lstAdd = new Vector2[MAX_POINT];
 			used = new bool[MAX_POINT];
@@ -57,7 +57,7 @@ namespace DawnGame.Game.Scene
 		}
 
 		string lstLrc;
-		Microsoft.Xna.Framework.Graphics.Texture2D tex, tex1;
+		Dawn.Engine.Resource.Texture tex, tex1;
 		bool[] used;
 		Vector2[] lstAdd, lstXY;
 
@@ -87,10 +87,11 @@ namespace DawnGame.Game.Scene
 			lstAdd[pos] = new Vector2((float)RandomDouble(), (float)RandomDouble());
 			used[pos] = true;
 		}
-		private void ProcessTex(Microsoft.Xna.Framework.Graphics.Texture2D tex, string str)
+		private void ProcessTex(Dawn.Engine.Resource.Texture texR, string str)
 		{
 			int offsetX = (int)((DGE.Graphics.Width() - helper.StringWidth(str)) / 2);
 			int offsetY = (int)((DGE.Graphics.Height() - helper.StringHeight()) / 2);
+			Microsoft.Xna.Framework.Graphics.Texture2D tex = texR.GetTexture();
 			Microsoft.Xna.Framework.Color[] colorMap = new Microsoft.Xna.Framework.Color[tex.Width * tex.Height];
 			tex.GetData<Microsoft.Xna.Framework.Color>(colorMap);
 			for (int i = 0, k = 0; i < tex.Height; i++)
@@ -158,7 +159,7 @@ namespace DawnGame.Game.Scene
 			} 
 			Color nowColor = new Color(255, 255, 255) *(float)(alpha / 255.0f);
 			DrawTex();
-			DGE.Graphics.Canvas.Draw(tex1, new Vector2(((DGE.Graphics.Width() - helper.StringWidth(lrc)) / 2), ((DGE.Graphics.Height() - helper.StringHeight()) / 2) + (255 - alpha) / 3 + 50), nowColor);
+			DGE.Graphics.Draw(tex1, new Vector2(((DGE.Graphics.Width() - helper.StringWidth(lrc)) / 2), ((DGE.Graphics.Height() - helper.StringHeight()) / 2) + (255 - alpha) / 3 + 50), nowColor);
 
 			alpha += (float)(255f / 60f);
 			if (alpha > 255)

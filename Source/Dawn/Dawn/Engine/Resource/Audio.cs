@@ -24,11 +24,6 @@ namespace Dawn.Engine.Resource
             Stream = false;
         }
 
-        ~Audio()
-        {
-            Dispose();
-        }
-
         public override void Load()
         {
             base.Load();

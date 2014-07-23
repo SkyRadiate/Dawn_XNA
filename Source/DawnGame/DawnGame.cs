@@ -13,7 +13,7 @@ namespace DawnGame
 		public override void Main()
 		{
 			base.Main();
-			DGE.Scenes.Push<Game.Scene.Scene_UseTexture>();
+			DGE.Scenes.Push<Game.Scene.Scene_UseSprite>();
 		}
 	}
 }

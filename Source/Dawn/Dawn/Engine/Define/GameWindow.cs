@@ -9,8 +9,9 @@ namespace Dawn.Engine.Define
 {
 	static public class GameWindow
 	{
-		public static int Width() { return 1024; }
-		public static int Height() { return 768; }
+		public static int Width() { return 1280; }
+		public static int Height() { return 720; }
+		public static bool isFullScreen() { return false; }
 
 		public static Color BackgroundColor() { return Color.Black; }
 

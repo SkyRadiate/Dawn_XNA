@@ -20,12 +20,6 @@ namespace Dawn.Engine.Resource
             : base(filename)
         {
         }
-
-        ~Texture()
-        {
-            Dispose();
-        }
-
         public override void Load()
         {
             base.Load();
@@ -75,12 +69,41 @@ namespace Dawn.Engine.Resource
 		}
 		public static Texture CreateTexture(int width, int height)
 		{
-			Texture tex = new Texture();
-			tex.canChange = false;
-			tex._isLoad = true;
-			tex.tex = new Texture2D(DGE.Graphics.Device, width, height);
+			Texture tex = CreateWithoutCache(width, height);
 			DGE.TextureCache.ManageTexture(tex.tex);
 			return tex;
+		}
+		public static Texture CreateTexture(Texture2D tex)
+		{
+			Texture texR = CreateWithoutCache(tex);
+			DGE.TextureCache.ManageTexture(texR.tex);
+			return texR;
+		}
+		public static Texture CreateWithoutCache(Texture2D tex)
+		{
+			Texture texR = new Texture();
+			texR._isLoad = true;
+			texR.tex = tex;
+			return texR;
+		}
+		public static Texture CreateWithoutCache(int width, int height)
+		{
+			Texture tex = new Texture();
+			tex._isLoad = true;
+			tex.tex = new Texture2D(DGE.Graphics.Device, width, height);
+			return tex;
+		}
+
+		public override object Clone()
+		{
+			Texture res = new Texture();
+			res._isLoad = true;
+			byte[] colorMap = new byte[tex.Width * tex.Height * 4];
+			tex.GetData<byte>(colorMap);
+			res.tex = new Texture2D(DGE.Graphics.Device, tex.Width, tex.Height);
+			res.tex.SetData<byte>(colorMap);
+			DGE.TextureCache.ManageTexture(res.tex);
+			return res;
 		}
 	}
 }

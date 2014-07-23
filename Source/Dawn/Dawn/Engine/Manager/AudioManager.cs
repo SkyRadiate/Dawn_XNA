@@ -245,6 +245,7 @@ namespace Dawn.Engine.Manager
 					}
 				}
 			}
+			GC.Collect();
 		}
 
 		public void FadeInPlay(Engine.Define.EngineConst.AudioManager_ChannelType type, Resource.Audio audio)

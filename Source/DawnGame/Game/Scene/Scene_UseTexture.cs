@@ -17,7 +17,7 @@ namespace DawnGame.Game.Scene
 
 		float[] rotate, rotateDest;
 		float[] scale, scaleDest;
-		const int MAX_SPRITE_NUM = 2000;
+		int MAX_SPRITE_NUM = 5000;
 		Random randomer;
 		public Scene_UseTexture()
 		{
@@ -50,8 +50,8 @@ namespace DawnGame.Game.Scene
 				colors[i] = new Microsoft.Xna.Framework.Color(randomer.Next(0, 255), randomer.Next(0, 255), randomer.Next(0, 255));
 				rotate[i] = randomer.Next(0, 359);
 				rotateDest[i] = randomer.Next(0, 369);
-				scale[i] = (float)randomer.Next(100, 200) / 100;
-				scaleDest[i] = (float)randomer.Next(100, 200) / 100;
+				scale[i] = (float)randomer.Next(50, 180) / 100;
+				scaleDest[i] = (float)randomer.Next(50, 180) / 100;
 			}
 		}
 		private void ProcessPos()
@@ -71,7 +71,7 @@ namespace DawnGame.Game.Scene
 
 				if (scale[i] < scaleDest[i]) scale[i] += 0.03f;
 				if (scale[i] > scaleDest[i]) scale[i] -= 0.03f;
-				if (Math.Abs(scale[i] - scaleDest[i]) <= 0.03) scaleDest[i] = (float)randomer.Next(100, 200) / 100;
+				if (Math.Abs(scale[i] - scaleDest[i]) <= 0.03) scaleDest[i] = (float)randomer.Next(50, 180) / 100;
 
 			}
 		}
@@ -81,8 +81,8 @@ namespace DawnGame.Game.Scene
 			for (int i = 0; i < MAX_SPRITE_NUM; i++)
 			{
 				Microsoft.Xna.Framework.Vector2 position = pos[i];
-				position.X -= tex.Width() / 2;
-				position.Y -= tex.Height() / 2;
+				//position.X -= tex.Width() / 2;
+				//position.Y -= tex.Height() / 2;
 				DGE.Graphics.Draw(tex, position, colors[i], rotate[i], (float)scale[i]);
 			}
 			ProcessPos();

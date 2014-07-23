@@ -9,31 +9,40 @@ namespace Dawn.Engine.Manager
 	{
 		public override string ObjectClassName() { return Define.EngineClassName.SpriteManager(); }
 
-		private SortedSet<Dawn.Engine.Basic.Sprite> spriteSet;
+		private List<Dawn.Engine.Basic.Sprite> SpriteSet;
 
 		public SpriteManager()
 		{
-			spriteSet = new SortedSet<Basic.Sprite>();
+			SpriteSet = new List<Basic.Sprite>();
 		}
 
 		public void Initialize()
 		{
-			DGE.Graphics.PostRender += Graphics_PostRender;
 		}
-
-		void Graphics_PostRender(object Object, EventArgs e)
-		{
-
-		}
-
 		public void Register(Dawn.Engine.Basic.Sprite spr)
 		{
-			spriteSet.Add(spr);
+			int index = SpriteSet.IndexOf(spr);
+			if (index == -1)
+			{
+				SpriteSet.Add(spr);
+				SpriteSet.Sort(new Processor.SpriteManager.SpriteZComparer());
+			}
 		}
-
+		public void UnRegister(Dawn.Engine.Basic.Sprite spr)
+		{
+			SpriteSet.Remove(spr);
+		}
+		public void ReRegister(Dawn.Engine.Basic.Sprite spr)
+		{
+			UnRegister(spr);
+			Register(spr);
+		}
 		public void Update()
 		{
-
+			for (int i = SpriteSet.Count - 1; i >= 0; i--)
+			{
+				SpriteSet[i].Update();
+			}
 		}
 	}
 }

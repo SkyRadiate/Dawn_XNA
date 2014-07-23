@@ -20,10 +20,5 @@ namespace Dawn.Engine.Resource
         {
             Stream = true;
         }
-
-        ~AudioStream()
-        {
-            Dispose();
-        }
     }
 }

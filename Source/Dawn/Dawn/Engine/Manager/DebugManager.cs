@@ -17,12 +17,16 @@ namespace Dawn.Engine.Manager
         {
 
         }
-
-        public void Error(EngineObject obj, string ErrorName, string ErrorDetail)
-        {
-            string err = obj.ObjectClassName() + Environment.NewLine + ErrorName + Environment.NewLine + ErrorDetail;
-            throw (new SystemException(err));
-        }
+		protected string GetTypeInformation(EngineObject obj)
+		{
+			if (obj == null) return "Null";
+			return obj.GetType().FullName;
+		}
+		public void Error(EngineObject obj, string ErrorName, string ErrorDetail)
+		{
+			string err = GetTypeInformation(obj) + "[" + obj.ObjectClassName() + "]" + "\n" + ErrorName + "\n" + ErrorDetail;
+			throw (new SystemException(err));
+		}
 
         public void Warning(EngineObject obj, string ErrorName, string ErrorDetail)
         {

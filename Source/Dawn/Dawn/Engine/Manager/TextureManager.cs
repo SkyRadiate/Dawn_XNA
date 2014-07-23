@@ -34,11 +34,14 @@ namespace Dawn.Engine.Manager
 		{
 			managedTexs.ForEach(delegate(Microsoft.Xna.Framework.Graphics.Texture2D tex)
 			{
-				if(tex==null)
+				if (tex == null)
 				{
 					DGE.Debug.Warning(this, Define.EngineErrorName.TextureManager_NullManagedTexture(), Define.EngineErrorDetail.Empty());
 				}
-				SaveTexture(tex);
+				else
+				{
+					GetTexture(tex);
+				}
 			});
 		}
 
@@ -49,8 +52,11 @@ namespace Dawn.Engine.Manager
 				if (tex == null)
 				{
 					DGE.Debug.Warning(this, Define.EngineErrorName.TextureManager_NullManagedTexture(), Define.EngineErrorDetail.Empty());
-				} 
-				GetTexture(tex);
+				}
+				else
+				{
+					SaveTexture(tex);
+				}
 			});
 		}
 		private int FindFree()
@@ -87,6 +93,7 @@ namespace Dawn.Engine.Manager
 			tex.SetData<byte>(lst[pos]);
 			usedLst[pos] = false;
 			lst[pos] = null;
+			GC.Collect();
 		}
 
 

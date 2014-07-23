@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dawn.Engine.Resource
 {
-	public class Resource : EngineObject, IDisposable
+	public class Resource : EngineObject, IDisposable,ICloneable
 	{
 		public override string ObjectClassName() { return Define.EngineClassName.Resource(); }
 		protected string _filename;
@@ -14,15 +14,16 @@ namespace Dawn.Engine.Resource
 		{
 			_isLoad = false;
 			_filename = "";
-
-			canChange = true;
 		}
 		public Resource(string filename)
 			: this()
 		{
 			_filename = filename;
 		}
-
+		~Resource()
+		{
+			Dispose();
+		}
 		public void Dispose()
 		{
 			if (isLoad())
@@ -30,21 +31,8 @@ namespace Dawn.Engine.Resource
 				Unload();
 			}
 		}
-
-		~Resource()
-		{
-			Dispose();
-		}
-		protected void CheckChange()
-		{
-			if (!canChange)
-			{
-				DGE.Debug.Error(this, Define.EngineErrorName.Resource_CannotChangeData(), GetErrorDetail());
-			}
-		}
 		public virtual void Load()
 		{
-			CheckChange();
 			if (isLoad())
 			{
 				DGE.Debug.Error(this, Define.EngineErrorName.Resource_CannotLoad(), GetErrorDetail());
@@ -59,6 +47,7 @@ namespace Dawn.Engine.Resource
 				DGE.Debug.Error(this, Define.EngineErrorName.Resource_CannotUnload(), GetErrorDetail());
 			}
 			_isLoad = false;
+			GC.Collect();
 		}
 
 		public bool isLoad()
@@ -113,6 +102,11 @@ namespace Dawn.Engine.Resource
 			return Define.EngineErrorDetail.Filename() + Define.EngineErrorDetail.Separator() + _filename;
 		}
 
-		public bool canChange { get; protected set; }
+		public virtual object Clone()
+		{
+			Resource res = new Resource();
+			res._isLoad = true;
+			return res;
+		}
 	}
 }

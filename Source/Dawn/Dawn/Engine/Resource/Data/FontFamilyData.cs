@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dawn.Engine.Resource.Data
 {
-	public class FontFamilyData : EngineObject
+	public class FontFamilyData : EngineObject, ICloneable
 	{
 
 		public override string ObjectClassName() { return Define.EngineClassName.FontFamilyData(); }
@@ -14,7 +14,7 @@ namespace Dawn.Engine.Resource.Data
 		{
 		}
 
-		public FontFamilyData(System.Drawing.FontFamily families, int size, System.Drawing.Color color, bool blod, bool italic, bool underline)
+		public FontFamilyData(System.Drawing.FontFamily families, float size, System.Drawing.Color color, bool blod, bool italic, bool underline)
 		{
 			Family = families;
 			Size = size;
@@ -30,5 +30,11 @@ namespace Dawn.Engine.Resource.Data
 		public bool isItalic { get; set; }
 		public bool isUnderline { get; set; }
 		public System.Drawing.Color Color { get; set; }
+
+		public object Clone()
+		{
+			System.Drawing.FontFamily family = new System.Drawing.FontFamily(Family.Name);
+			return new FontFamilyData(family, Size, Color, isBlod, isItalic, isUnderline);
+		}
 	}
 }

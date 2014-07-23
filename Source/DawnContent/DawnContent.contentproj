@@ -9,8 +9,8 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
-    <OutputPath>..\..\..\Res\</OutputPath>
-    <ContentRootDirectory>..\..\Res\</ContentRootDirectory>
+    <OutputPath>..\Res\</OutputPath>
+    <ContentRootDirectory>..\Res\</ContentRootDirectory>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <PlatformTarget>x86</PlatformTarget>
@@ -89,6 +89,13 @@
     </Compile>
     <Compile Include="Graphics\Texture\System\Joint.png">
       <Name>Joint</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Graphics\Texture\System\Dawn Logo Blue.png">
+      <Name>Dawn Logo Blue</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

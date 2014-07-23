@@ -39,6 +39,7 @@ namespace Dawn.Engine.Define
 		public static string AudioProcessor() { return "AudioProcessor"; }
 		public static string Scene() { return "Scene"; }
 		public static string Sprite() { return "Sprite"; }
+		public static string ExtendSprite() { return "ExtendSprite"; }
 		public static string FontManager() { return "FontManager"; }
 		public static string FontHelper() { return "FontHelper"; }
 		public static string FontPosition() { return "FontPosition"; }
@@ -47,5 +48,7 @@ namespace Dawn.Engine.Define
 		public static string CacheResource() { return "CacheResource"; }
 		public static string TextureManager() { return "TextureManager"; }
 		public static string SpriteManager() { return "SpriteManager"; }
+		public static string MotionGenerator() { return "MotionGenerator"; }
+		public static string Bitmap() { return "Bitmap"; }
     }
 }

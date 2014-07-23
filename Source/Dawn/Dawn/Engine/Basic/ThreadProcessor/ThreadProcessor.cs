@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Runtime.CompilerServices;
 using Dawn.Engine.Manager;
 
+[assembly: InternalsVisibleTo("Dawn.Engine.Manager.ThreadManager")]
 namespace Dawn.Engine.Basic.ThreadProcessor
 {
 	public class ThreadProcessor : EngineObject
@@ -13,6 +14,8 @@ namespace Dawn.Engine.Basic.ThreadProcessor
 
 		public event SimpleEventHandler OnEnd;
 		protected bool _isEnd;
+
+		internal ThreadManager Manager;
 
 		public ThreadProcessor()
 		{

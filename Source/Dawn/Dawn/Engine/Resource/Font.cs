@@ -9,8 +9,6 @@ namespace Dawn.Engine.Resource
 	{
 		public override string ObjectClassName() { return Define.EngineClassName.FontResource(); }
 
-		public static byte MaxFontSize = 72;
-		public static byte DefaultFontSize = 16;
 		private System.Drawing.Font _font;
 		private System.Drawing.Graphics graphics;
 		private System.Drawing.Size proposedSize = new System.Drawing.Size(int.MaxValue, int.MaxValue);
@@ -32,11 +30,6 @@ namespace Dawn.Engine.Resource
 		{
 			_fontData = fontData;
 		}
-		~Font()
-        {
-            Dispose();
-        }
-
 		public Data.FontFamilyData font { get { return _fontData; } }
 		public override void Load()
 		{
@@ -93,6 +86,17 @@ namespace Dawn.Engine.Resource
 		{
 			return System.Windows.Forms.TextRenderer.MeasureText(graphics, character, _font, proposedSize, System.Windows.Forms.TextFormatFlags.NoPadding).Height;
 			//return graphics.MeasureString(character, _font).Height;//, new System.Drawing.SizeF(MaxCharacterWidth(), MaxCharacterHeight())).Height;
+		}
+
+		public override object Clone()
+		{
+			Font res = new Font();
+			res._isLoad = true;
+			res.graphics = System.Drawing.Graphics.FromImage(new System.Drawing.Bitmap(1, 1));
+			res.graphics.PageUnit = System.Drawing.GraphicsUnit.Pixel;
+			res._font = (System.Drawing.Font)_font.Clone();
+			res._fontData = (Data.FontFamilyData)_fontData.Clone();
+			return res;
 		}
 	}
 

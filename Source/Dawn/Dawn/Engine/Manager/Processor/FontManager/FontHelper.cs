@@ -290,13 +290,13 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 		{
 			canvas.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 		}
-		public Texture2D DrawStringToTexture(string str)
+		public Dawn.Engine.Resource.Texture DrawStringToTexture(string str)
 		{
 			//System.Diagnostics.Trace.WriteLine("Dawn> Render String...Setting Target");
 			float[] strWidth = MeasureString(str);
 
 			GraphicsDevice graphicsDevice = DGE.Graphics.Device;
-			if (str == "") return new Texture2D(DGE.Graphics.Device, 1, 1);
+			if (str == "") return Dawn.Engine.Resource.Texture.CreateTexture(1, 1);
 			RenderTarget2D rt = new RenderTarget2D(graphicsDevice, (int)strWidth.Sum(), (int)_font.MaxCharacterHeight());
 
 			RenderTargetBinding[] old = graphicsDevice.GetRenderTargets();
@@ -320,7 +320,7 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 			graphicsDevice.Clear(Color.Transparent);
 
 			RenderTargetBinding binding = new RenderTargetBinding(rt);
-			return binding.RenderTarget as Texture2D;
+			return Dawn.Engine.Resource.Texture.CreateTexture(binding.RenderTarget as Texture2D);
 
 		}
 

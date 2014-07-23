@@ -26,6 +26,7 @@ namespace Dawn
             graphics.PreferredBackBufferHeight = Engine.Define.GameWindow.Height();
             graphics.PreferredBackBufferWidth = Engine.Define.GameWindow.Width();
 			graphics.SynchronizeWithVerticalRetrace = Dawn.Engine.Define.GameConst.VSync();
+			graphics.IsFullScreen = Engine.Define.GameWindow.isFullScreen();
 
 			graphics.DeviceReset += new EventHandler<EventArgs>(graphics_DeviceReset);
 			graphics.DeviceResetting += new EventHandler<EventArgs>(graphics_DeviceResetting);
@@ -33,6 +34,8 @@ namespace Dawn
 			graphics.DeviceCreated += new EventHandler<EventArgs>(graphics_DeviceCreated);
 
 			graphics.PreparingDeviceSettings += graphics_PreparingDeviceSettings;
+
+			
 
 			Content.RootDirectory = Dawn.Engine.Manager.DataManager.ContentPath();
 
@@ -44,14 +47,21 @@ namespace Dawn
 			//GraphicsDevice.BlendState.AlphaDestinationBlend = Blend.DestinationAlpha;
 		}
 
+		void GraphicsDevice_DeviceLost(object sender, EventArgs e)
+		{
+			System.Diagnostics.Trace.WriteLine("Lost!");
+		}
+
 		void graphics_PreparingDeviceSettings(object sender, PreparingDeviceSettingsEventArgs e)
 		{
 			e.GraphicsDeviceInformation.PresentationParameters.RenderTargetUsage = RenderTargetUsage.PreserveContents;
+			
 		}
 
 		void graphics_DeviceCreated(object sender, EventArgs e)
 		{
 			graphics.GraphicsDevice.BlendState = BlendState.NonPremultiplied;
+			graphics.GraphicsDevice.DeviceLost += GraphicsDevice_DeviceLost;
 		}
 
 		void graphics_DeviceResetting(object sender, EventArgs e)
@@ -73,7 +83,6 @@ namespace Dawn
 					DGE.Graphics.graphics_DeviceReset(sender, e);
 				}
 			}
-			graphics.GraphicsDevice.BlendState = BlendState.NonPremultiplied;
 		}
 
 		~GameDawn()

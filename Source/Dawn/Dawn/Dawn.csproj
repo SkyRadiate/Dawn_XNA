@@ -83,7 +83,13 @@
   <ItemGroup>
     <Compile Include="DGE.cs" />
     <Compile Include="DGEProcess.cs" />
+    <Compile Include="Engine\Basic\Bitmap.cs" />
+    <Compile Include="Engine\Basic\ExtendSprite.cs" />
     <Compile Include="Engine\Basic\Game.cs" />
+    <Compile Include="Engine\Basic\MathLib\MotionGenerator.cs" />
+    <Compile Include="Engine\Basic\MathLib\SinEaseinMotionGenerator.cs" />
+    <Compile Include="Engine\Basic\MathLib\SinEaseMotionGenerator.cs" />
+    <Compile Include="Engine\Basic\MathLib\SinEaseoutMotionGenerator.cs" />
     <Compile Include="Engine\Basic\Scene.cs" />
     <Compile Include="Engine\Basic\Sprite.cs" />
     <Compile Include="Engine\Basic\ThreadProcessor\ResourceLoadProcessor.cs" />
@@ -113,6 +119,7 @@
     <Compile Include="Engine\Manager\Processor\FontManager\Helper\CharacterObject.cs" />
     <Compile Include="Engine\Manager\Processor\FontManager\Helper\FontPosition.cs" />
     <Compile Include="Engine\Manager\Processor\FontManager\Helper\FontPositionComparer.cs" />
+    <Compile Include="Engine\Manager\Processor\SpriteManager\SpriteZComparer.cs" />
     <Compile Include="Engine\Manager\SceneManager.cs" />
     <Compile Include="Engine\Manager\SpriteManager.cs" />
     <Compile Include="Engine\Manager\TextureManager.cs" />
@@ -141,12 +148,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DawnContent\DawnContent.contentproj">
-      <Name>DawnContent</Name>
-      <XnaReferenceType>Content</XnaReferenceType>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 和 x64%29</ProductName>
@@ -167,6 +168,14 @@
       <ProductName>Windows Installer 4.5</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DawnContent\DawnContent.contentproj">
+      <Project>{E03C04C3-C7FE-4388-86B9-33A1B3B0DCD1}</Project>
+      <Name>DawnContent</Name>
+      <XnaReferenceType>Content</XnaReferenceType>
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
