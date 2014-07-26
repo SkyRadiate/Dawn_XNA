@@ -50,5 +50,8 @@ namespace Dawn.Engine.Define
 		public static string SpriteManager() { return "SpriteManager"; }
 		public static string MotionGenerator() { return "MotionGenerator"; }
 		public static string Bitmap() { return "Bitmap"; }
+		public static string GraphicsArea() { return "GraphicsArea"; }
+		public static string UIObject() { return "UIObject"; }
+		public static string MouseEventArgs() { return "MouseEventArgs"; }
     }
 }

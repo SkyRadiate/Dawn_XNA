@@ -13,7 +13,7 @@
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
-    <XnaProfile>Reach</XnaProfile>
+    <XnaProfile>HiDef</XnaProfile>
     <XnaCrossPlatformGroupID>e43f2906-4fe3-40ac-8b5c-4cfaaaeb1cfc</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
     <ApplicationIcon>Game.ico</ApplicationIcon>
@@ -58,6 +58,8 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <PlatformTarget>x86</PlatformTarget>
     <XnaCompressContent>true</XnaCompressContent>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -86,15 +88,20 @@
     <Compile Include="Engine\Basic\Bitmap.cs" />
     <Compile Include="Engine\Basic\ExtendSprite.cs" />
     <Compile Include="Engine\Basic\Game.cs" />
+    <Compile Include="Engine\Basic\GraphicsLib\GraphicsArea.cs" />
+    <Compile Include="Engine\Basic\GraphicsLib\GraphicsAreaRectangle.cs" />
+    <Compile Include="Engine\Basic\MathLib\CosShiftGenerator.cs" />
     <Compile Include="Engine\Basic\MathLib\MotionGenerator.cs" />
     <Compile Include="Engine\Basic\MathLib\SinEaseinMotionGenerator.cs" />
     <Compile Include="Engine\Basic\MathLib\SinEaseMotionGenerator.cs" />
     <Compile Include="Engine\Basic\MathLib\SinEaseoutMotionGenerator.cs" />
+    <Compile Include="Engine\Basic\MathLib\SinShiftGenerator.cs" />
     <Compile Include="Engine\Basic\Scene.cs" />
     <Compile Include="Engine\Basic\Sprite.cs" />
     <Compile Include="Engine\Basic\ThreadProcessor\ResourceLoadProcessor.cs" />
     <Compile Include="Engine\Basic\ThreadProcessor\ThreadProcessor.cs" />
     <Compile Include="Engine\Basic\ThreadProcessor\FPSProcessor.cs" />
+    <Compile Include="Engine\Basic\UIObject.cs" />
     <Compile Include="Engine\Define\EngineClassName.cs" />
     <Compile Include="Engine\Define\EngineConst.cs" />
     <Compile Include="Engine\Define\EngineErrorDetail.cs" />
@@ -119,11 +126,13 @@
     <Compile Include="Engine\Manager\Processor\FontManager\Helper\CharacterObject.cs" />
     <Compile Include="Engine\Manager\Processor\FontManager\Helper\FontPosition.cs" />
     <Compile Include="Engine\Manager\Processor\FontManager\Helper\FontPositionComparer.cs" />
+    <Compile Include="Engine\Manager\Processor\InputManager\MouseEventArgs.cs" />
     <Compile Include="Engine\Manager\Processor\SpriteManager\SpriteZComparer.cs" />
     <Compile Include="Engine\Manager\SceneManager.cs" />
     <Compile Include="Engine\Manager\SpriteManager.cs" />
     <Compile Include="Engine\Manager\TextureManager.cs" />
     <Compile Include="Engine\Manager\ThreadManager.cs" />
+    <Compile Include="Engine\Manager\UIManager.cs" />
     <Compile Include="Engine\Others\GameTool.cs" />
     <Compile Include="Engine\Resource\Audio.cs" />
     <Compile Include="Engine\Resource\AudioStream.cs" />
@@ -176,6 +185,9 @@
       <XnaReferenceType>Content</XnaReferenceType>
       <Private>True</Private>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Engine\Basic\GraphicsLib\Helper\GraphicsArea\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />

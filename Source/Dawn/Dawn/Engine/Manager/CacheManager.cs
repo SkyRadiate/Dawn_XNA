@@ -10,18 +10,18 @@ namespace Dawn.Engine.Manager
 	public class CacheManager : EngineObject
 	{
 		public override string ObjectClassName() { return Define.EngineClassName.CacheManager(); }
-
-		private FontManager _fontManager;
 		public CacheManager()
 		{
-			_fontManager = new FontManager();
+			Fonts = new FontManager();
+			TextureCache = new TextureManager();
 		}
 		public void Initialize()
 		{
-			_fontManager.Initialize();
+			Fonts.Initialize();
+			TextureCache.Initialize();
 		}
-		public FontManager Fonts { get { return _fontManager; } }
-
+		public FontManager Fonts { get; private set; }
+		public TextureManager TextureCache { get; private set; }
 
 		public ResourceClass GetResource<ResourceClass>(string _filename)
 			where ResourceClass : Resource.Resource, new()

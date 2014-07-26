@@ -60,7 +60,7 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 		{
 			for (int i = 0; i < EngineConst.FontHelper_TextureNum(); i++)
 			{
-				DGE.TextureCache.GetTexture(tex[i]);
+				DGE.Cache.TextureCache.GetTexture(tex[i]);
 			}
 		}
 
@@ -68,7 +68,7 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 		{
 			for (int i = 0; i < EngineConst.FontHelper_TextureNum(); i++)
 			{
-				DGE.TextureCache.SaveTexture(tex[i]);
+				DGE.Cache.TextureCache.SaveTexture(tex[i]);
 			}
 		}
 

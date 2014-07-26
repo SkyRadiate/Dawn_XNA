@@ -11,6 +11,8 @@ namespace Dawn.Engine.Basic
 
 		public float X { get; set; }
 		public float Y { get; set; }
+		public float Width { get { return tex.Width(); } }
+		public float Height { get { return tex.Height(); } }
 		private int _Z;
 		public int Z
 		{

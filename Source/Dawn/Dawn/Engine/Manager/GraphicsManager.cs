@@ -26,17 +26,20 @@ namespace Dawn.Engine.Manager
 		public Microsoft.Xna.Framework.Graphics.SpriteBatch Canvas { get { return DGE.Game._SpriteBatch; } }
 		public SceneManager Scenes { get; private set; }
 		public SpriteManager Sprites { get; private set; }
+		public UIManager UI { get; private set; }
 		public double FPS { get { return fps.FPS; } }
         public GraphicsManager()
         {
 			Scenes = new SceneManager();
 			Sprites = new SpriteManager();
+			UI = new UIManager();
         }
 
         public void Initialize()
         {
 			Scenes.Initialize();
 			Sprites.Initialize();
+			UI.Initialize();
 			fps = new Basic.ThreadProcessor.FPSProcessor();
         }
 
@@ -80,8 +83,10 @@ namespace Dawn.Engine.Manager
 			Canvas.Begin(Microsoft.Xna.Framework.Graphics.SpriteSortMode.Deferred, Microsoft.Xna.Framework.Graphics.BlendState.AlphaBlend);
 			OnPreRender();
 
+			UI.Update();
 			Scenes.Update();
 			Sprites.Update();
+			
 			OnPostRender();
 
 			Device.Clear(Define.GameWindow.BackgroundColor());

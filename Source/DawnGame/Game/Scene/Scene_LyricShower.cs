@@ -32,7 +32,7 @@ namespace DawnGame.Game.Scene
 
 			Dawn.Engine.Basic.ThreadProcessor.ResourceLoadProcessor processor = new Dawn.Engine.Basic.ThreadProcessor.ResourceLoadProcessor(audios);
 			DGE.Threads.NewThread(processor);
-			helper = new Dawn.Engine.Manager.Processor.FontManager.FontHelper(DGE.Data.Cache.Font(new Dawn.Engine.Resource.Data.FontFamilyData(new System.Drawing.FontFamily("微软雅黑"), 32, System.Drawing.Color.White, false, false, false)));
+			helper = new Dawn.Engine.Manager.Processor.FontManager.FontHelper(DGE.Data.Cache.Font(new Dawn.Engine.Resource.Data.FontFamilyData(new System.Drawing.FontFamily("微软雅黑"), 32, System.Drawing.Color.White, false)));
 
 			DGE.Audio.FadeInPlay(Dawn.Engine.Define.EngineConst.AudioManager_ChannelType.BGM, audios);
 
@@ -146,6 +146,8 @@ namespace DawnGame.Game.Scene
 		}
 		public override void Update()
 		{
+			base.Update();
+
 			string lrc = supporter.GetLyric(watch.ElapsedMilliseconds);
 			if (lrc != lstLrc)
 			{
@@ -166,10 +168,6 @@ namespace DawnGame.Game.Scene
 			{
 				alpha = 255;
 			}
-
-
-
-			base.Update();
 		}
 
 		public override void End()

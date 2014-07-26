@@ -10,7 +10,7 @@ namespace Dawn.Engine.Manager.Processor.FontManager
 
 		public bool Equals(Engine.Resource.Data.FontFamilyData dat1,Engine.Resource.Data.FontFamilyData dat2)
 		{
-			return dat1.Family.Name == dat2.Family.Name && dat1.Color == dat2.Color && dat1.isBlod == dat2.isBlod && dat1.isItalic == dat2.isItalic && dat1.isUnderline == dat2.isUnderline && dat1.Size == dat2.Size;
+			return dat1.Family.Name == dat2.Family.Name && dat1.Color == dat2.Color && dat1.isBlod == dat2.isBlod && dat1.Size == dat2.Size;
 		}
 
 		public int GetHashCode(Engine.Resource.Data.FontFamilyData dat)

@@ -37,7 +37,7 @@ namespace DawnGame.Game.Scene
 			scaleDest = new float[MAX_SPRITE_NUM]; 
 			randomer = new Random();
 
-			helper = new Dawn.Engine.Manager.Processor.FontManager.FontHelper(DGE.Data.Cache.Font(new Dawn.Engine.Resource.Data.FontFamilyData(new System.Drawing.FontFamily("微软雅黑"), 32, System.Drawing.Color.White, false, false, false)));
+			helper = new Dawn.Engine.Manager.Processor.FontManager.FontHelper(DGE.Data.Cache.Font(new Dawn.Engine.Resource.Data.FontFamilyData(new System.Drawing.FontFamily("微软雅黑"), 24, System.Drawing.Color.White, false)));
 			InitPos();
 		}
 
@@ -87,6 +87,8 @@ namespace DawnGame.Game.Scene
 			}
 			ProcessPos();
 			helper.DrawString(DGE.Graphics.FPS.ToString(), 10, 10);
+
+
 		}
 
 		public override void End()

@@ -18,7 +18,6 @@ namespace Dawn.Engine.Manager
 		public DataManager Data { get; private set; }
 		public CacheManager Cache { get { return Data.Cache; } }
 		public ThreadManager Threads { get; private set; }
-		public TextureManager TextureCache { get; private set; }
 		public GameDawn Game { get { return Program.Game; } }
 		
 
@@ -31,7 +30,6 @@ namespace Dawn.Engine.Manager
             Input = new InputManager();
             Data = new DataManager();
 			Threads = new ThreadManager();
-			TextureCache = new TextureManager();
         }
 
 		protected void OnStart()
@@ -57,12 +55,12 @@ namespace Dawn.Engine.Manager
             Input.Initialize();
             Data.Initialize();
 			Threads.Initialize();
-			TextureCache.Initialize();
 			OnStart();
         }
         public void Update()
         {
             Audio.Update();
+			Input.Update();
 			Graphics.Update();
         }
     }

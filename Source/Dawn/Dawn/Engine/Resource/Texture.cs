@@ -70,13 +70,13 @@ namespace Dawn.Engine.Resource
 		public static Texture CreateTexture(int width, int height)
 		{
 			Texture tex = CreateWithoutCache(width, height);
-			DGE.TextureCache.ManageTexture(tex.tex);
+			DGE.Cache.TextureCache.ManageTexture(tex.tex);
 			return tex;
 		}
 		public static Texture CreateTexture(Texture2D tex)
 		{
 			Texture texR = CreateWithoutCache(tex);
-			DGE.TextureCache.ManageTexture(texR.tex);
+			DGE.Cache.TextureCache.ManageTexture(texR.tex);
 			return texR;
 		}
 		public static Texture CreateWithoutCache(Texture2D tex)
@@ -102,7 +102,7 @@ namespace Dawn.Engine.Resource
 			tex.GetData<byte>(colorMap);
 			res.tex = new Texture2D(DGE.Graphics.Device, tex.Width, tex.Height);
 			res.tex.SetData<byte>(colorMap);
-			DGE.TextureCache.ManageTexture(res.tex);
+			DGE.Cache.TextureCache.ManageTexture(res.tex);
 			return res;
 		}
 	}

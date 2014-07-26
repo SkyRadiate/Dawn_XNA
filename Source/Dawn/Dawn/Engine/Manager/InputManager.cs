@@ -13,7 +13,9 @@ namespace Dawn.Engine.Manager
 		private Texture mouseTexture;
 		private Texture mouseBusyTexture;
 		private bool _Busy;
-		
+
+		public Processor.InputManager.MouseEventArgs MouseArgs { get; private set; }
+
         public override string ObjectClassName() { return Define.EngineClassName.InputManager(); }
 
 		public void SetBusy(bool busy)
@@ -22,13 +24,30 @@ namespace Dawn.Engine.Manager
 		}
         public InputManager()
         {
-			
+			MouseArgs = new Processor.InputManager.MouseEventArgs
+			{
+				ButtonLeft = Processor.InputManager.MouseButtonStatus.Released,
+				ButtonRight = Processor.InputManager.MouseButtonStatus.Released,
+				ButtonMiddle = Processor.InputManager.MouseButtonStatus.Released,
+				X = 0,
+				Y = 0
+			};
         }
         public void Initialize()
         {
 			DGE.Engine.Start += new SimpleEventHandler(OnInit);
         }
-
+		public void Update()
+		{
+			MouseArgs = new Processor.InputManager.MouseEventArgs
+			{
+				ButtonLeft = this.MouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed ? Processor.InputManager.MouseButtonStatus.Pressed: Processor.InputManager.MouseButtonStatus.Released,
+				ButtonRight = this.MouseState.RightButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed ? Processor.InputManager.MouseButtonStatus.Pressed : Processor.InputManager.MouseButtonStatus.Released,
+				ButtonMiddle = this.MouseState.MiddleButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed ? Processor.InputManager.MouseButtonStatus.Pressed : Processor.InputManager.MouseButtonStatus.Released,
+				X = this.MouseState.X,
+				Y = this.MouseState.Y
+			};
+		}
 		private void OnInit(object s, EventArgs e)
 		{
 			mouseTexture = DGE.Cache.Graphics(DGE.Data.SystemTexture("Cursor"));

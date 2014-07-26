@@ -42,14 +42,6 @@ namespace Dawn.Engine.Resource
 			{
 				style |= System.Drawing.FontStyle.Bold;
 			}
-			if(_fontData.isItalic)
-			{
-				style |= System.Drawing.FontStyle.Italic;
-			}
-			if(_fontData.isUnderline)
-			{
-				style |= System.Drawing.FontStyle.Underline;
-			}
 			_font = new System.Drawing.Font(_fontData.Family, _fontData.Size, style, System.Drawing.GraphicsUnit.Pixel);
 		}
 		public float GetPixelConvert()
