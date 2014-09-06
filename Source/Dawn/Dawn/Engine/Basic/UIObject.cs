@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dawn.Engine.Basic
 {
-	class UIObject : EngineObject
+	public class UIObject : EngineObject
 	{
 		public override string ObjectClassName() { return Define.EngineClassName.UIObject(); }
 		public Dawn.Engine.Basic.GraphicsLib.GraphicsArea AreaChecker { get; set; }

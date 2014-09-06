@@ -16,22 +16,22 @@ namespace Dawn.Engine.Manager
 		public event MouseEventHandler OnClick;
 		public event MouseEventHandler OnMouseMove;
 
-		private List<Dawn.Engine.Basic.Sprite> SpriteSet;
-
+		private List<Dawn.Engine.Basic.UIObject> SpriteSet;
+		
 		public void Register(Dawn.Engine.Basic.UIObject spr)
 		{
 			int index = SpriteSet.IndexOf(spr);
 			if (index == -1)
 			{
 				SpriteSet.Add(spr);
-				SpriteSet.Sort(new Processor.SpriteManager.SpriteZComparer());
+				//SpriteSet.Sort(new Processor.SpriteManager.SpriteZComparer());
 			}
 		}
-		public void UnRegister(Dawn.Engine.Basic.Sprite spr)
+		public void UnRegister(Dawn.Engine.Basic.UIObject spr)
 		{
 			SpriteSet.Remove(spr);
 		}
-		public void ReRegister(Dawn.Engine.Basic.Sprite spr)
+		public void ReRegister(Dawn.Engine.Basic.UIObject spr)
 		{
 			UnRegister(spr);
 			Register(spr);
@@ -39,14 +39,14 @@ namespace Dawn.Engine.Manager
 		public UIManager()
 		{
 			lstArgs = Args = null;
-			SpriteSet = new List<Basic.Sprite>();
+			SpriteSet = new List<Basic.UIObject>();
 		}
 
 		public void Initialize()
 		{
 			lstArgs = DGE.Input.MouseArgs;
 		}
-
+		
 		public void Update()
 		{
 			Args = DGE.Input.MouseArgs;
