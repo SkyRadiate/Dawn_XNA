@@ -8,7 +8,7 @@ namespace Dawn
 {
 	static public class DGE
 	{
-
+		
 		public static void Initialize()
 		{
 			Engine = new Engine.Manager.EngineManager();

@@ -9,13 +9,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-
-
 namespace Dawn
 {
     public class GameDawn : Microsoft.Xna.Framework.Game
     {
-        
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         public GameDawn()

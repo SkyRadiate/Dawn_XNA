@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E668C9BB-2C1E-4787-8579-5D2270FBB9EB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Dawn.Engine</RootNamespace>
+    <AssemblyName>DGE</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+    <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
+    <XnaPlatform>Windows</XnaPlatform>
+    <XnaProfile>HiDef</XnaProfile>
+    <XnaCrossPlatformGroupID>d053a2ff-4fba-4ec0-9a87-b7fc346ce29c</XnaCrossPlatformGroupID>
+    <XnaOutputType>Game</XnaOutputType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Build\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Build\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DGE.cs" />
+    <Compile Include="DGEProcess.cs" />
+    <Compile Include="Basic\Bitmap.cs" />
+    <Compile Include="Basic\ExtendSprite.cs" />
+    <Compile Include="Basic\Game.cs" />
+    <Compile Include="Basic\GraphicsLib\GraphicsArea.cs" />
+    <Compile Include="Basic\GraphicsLib\GraphicsAreaRectangle.cs" />
+    <Compile Include="Basic\MathLib\CosShiftGenerator.cs" />
+    <Compile Include="Basic\MathLib\MotionGenerator.cs" />
+    <Compile Include="Basic\MathLib\SinEaseinMotionGenerator.cs" />
+    <Compile Include="Basic\MathLib\SinEaseMotionGenerator.cs" />
+    <Compile Include="Basic\MathLib\SinEaseoutMotionGenerator.cs" />
+    <Compile Include="Basic\MathLib\SinShiftGenerator.cs" />
+    <Compile Include="Basic\Scene.cs" />
+    <Compile Include="Basic\Sprite.cs" />
+    <Compile Include="Basic\ThreadProcessor\ResourceLoadProcessor.cs" />
+    <Compile Include="Basic\ThreadProcessor\ThreadProcessor.cs" />
+    <Compile Include="Basic\ThreadProcessor\FPSProcessor.cs" />
+    <Compile Include="Basic\UIObject.cs" />
+    <Compile Include="Define\EngineClassName.cs" />
+    <Compile Include="Define\EngineConst.cs" />
+    <Compile Include="Define\EngineErrorDetail.cs" />
+    <Compile Include="Define\EngineErrorName.cs" />
+    <Compile Include="Define\GameConst.cs" />
+    <Compile Include="Define\GameWindow.cs" />
+    <Compile Include="EngineObject.cs" />
+    <Compile Include="Manager\AudioManager.cs" />
+    <Compile Include="Manager\CacheManager.cs" />
+    <Compile Include="Manager\DataManager.cs" />
+    <Compile Include="Manager\DebugManager.cs" />
+    <Compile Include="Manager\EngineManager.cs" />
+    <Compile Include="Manager\EventManager.cs" />
+    <Compile Include="Manager\FontManager.cs" />
+    <Compile Include="Manager\GraphicsManager.cs" />
+    <Compile Include="Manager\InputManager.cs" />
+    <Compile Include="Manager\Processor\AudioManager\AudioProcessor.cs" />
+    <Compile Include="Manager\Processor\AudioManager\AudioProcessor_FadeIn.cs" />
+    <Compile Include="Manager\Processor\AudioManager\AudioProcessor_FadeOut.cs" />
+    <Compile Include="Manager\Processor\FontManager\FontDataComparer.cs" />
+    <Compile Include="Manager\Processor\FontManager\FontHelper.cs" />
+    <Compile Include="Manager\Processor\FontManager\Helper\CharacterObject.cs" />
+    <Compile Include="Manager\Processor\FontManager\Helper\FontPosition.cs" />
+    <Compile Include="Manager\Processor\FontManager\Helper\FontPositionComparer.cs" />
+    <Compile Include="Manager\Processor\InputManager\MouseEventArgs.cs" />
+    <Compile Include="Manager\Processor\SpriteManager\SpriteZComparer.cs" />
+    <Compile Include="Manager\SceneManager.cs" />
+    <Compile Include="Manager\SpriteManager.cs" />
+    <Compile Include="Manager\TextureManager.cs" />
+    <Compile Include="Manager\ThreadManager.cs" />
+    <Compile Include="Manager\UIManager.cs" />
+    <Compile Include="Others\GameTool.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resource\Audio.cs" />
+    <Compile Include="Resource\AudioStream.cs" />
+    <Compile Include="Resource\Data\FontFamilyData.cs" />
+    <Compile Include="Resource\Font.cs" />
+    <Compile Include="Resource\LyricFile.cs" />
+    <Compile Include="Resource\Resource.cs" />
+    <Compile Include="Resource\Supporter\LyricSupporter.cs" />
+    <Compile Include="Resource\Texture.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="GameDawn.cs" />
+    <Compile Include="库文件\FMOD\fmod.cs" />
+    <Compile Include="库文件\FMOD\fmod_dsp.cs" />
+    <Compile Include="库文件\FMOD\fmod_errors.cs" />
+    <Compile Include="库文件\FMOD\fmod_memoryinfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.GamerServices, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

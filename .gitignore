@@ -13,17 +13,12 @@
 [Dd]ebug/
 [Rr]elease/
 x64/
-build/
+[Bb]uild/
 [Bb]in/
 [Oo]bj/
 
 
 # ---Edit Start
-[Bb]in_x64/
-[Bb]in_x86/
-[Bb]in_DGC
-[Rr]es/
-库文件/
 $tf/
 # ---Edit End
 # Enable "build/" folder in the NuGet Packages folder since NuGet packages use it for MSBuild targets
