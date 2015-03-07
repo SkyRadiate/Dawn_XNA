@@ -19,10 +19,3 @@
 * 更加强大的DGE!
 
 ***
-
-* 作者 SkyZH
-* 作者博客 [http://skyzh.diandian.com/][blog]
-* 作者微博 [http://weibo.com/iSkyZH][weibo]
-
-[blog]:http://skyzh.diandian.com/
-[weibo]:http://weibo.com/iSkyZH/
